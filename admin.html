@@ -205,13 +205,20 @@
 
       <div class="box" style="margin-top:25px">
         <h3>Gerenciamento</h3>
-      <h4>Cadastro de Clientes </h4>
-      ID form-cliente
-        label maior que Nome, um input tipo texto com nome nome
-        label maior que e-mail. Depois vem input tipo email com nome email
-        label maior que telefone. Depois vem o input do tipo texto com o nome telefone
-        vem button do tipo submit, maior que salvar cliente
-        </form>
+     <h4>Cadastro de Clientes</h4>
+
+<form id="form-cliente">
+  <label>Nome:</label>
+  <input type="text" name="nome" placeholder="Nome do cliente" required>
+
+  <label>E-mail:</label>
+  <input type="email" name="email" placeholder="E-mail do cliente">
+
+  <label>Telefone:</label>
+  <input type="text" name="telefone" placeholder="Telefone do cliente">
+
+  <button type="submit">Salvar Cliente</button>
+</form>
         <p>
           Sua conexão com o Supabase está ativa.
           Os módulos de cadastro e edição serão
