@@ -98,14 +98,19 @@ function iniciarAssinatura(planoId, botao) {
     return;
   }
 
-  solicitarCheckout({
-    tipo: "plano",
-    planoId: planoId,
-    email: email
-  }, botao);
+ 
+    solicitarCheckout({
+      tipo: "plano",
+      planoId: planoId,
+      email: email
+    }, botao);
+}
+solicitarCheckout({
+      tipo: "plano",
+      planoId: planoId,
+      email: email
+    }, botao);
 }
 </script>
 </body>
 </html>
-
-</body></html>
