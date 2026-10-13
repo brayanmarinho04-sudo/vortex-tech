@@ -205,13 +205,19 @@
 
       <div class="box" style="margin-top:25px">
         <h3>Gerenciamento</h3>
+      <h4>Cadastro de Clientes </h4>
+      ID form-cliente
+        label maior que Nome, um input tipo texto com nome nome
+        label maior que e-mail. Depois vem input tipo email com nome email
+        label maior que telefone. Depois vem o input do tipo texto com o nome telefone
+        vem button do tipo submit, maior que salvar cliente
+        </form>
         <p>
           Sua conexão com o Supabase está ativa.
           Os módulos de cadastro e edição serão
           adicionados nas próximas etapas.
         </p>
       </div>
-
       <p class="erro" id="erroPainel"></p>
     </main>
   </section>
@@ -369,6 +375,32 @@
     }
 
     iniciar();
+ document.getElementById("form-cliente").addEventListener("submit", async function(evento) {
+  evento.preventDefault();
+
+  const formulario = evento.target;
+  const nome = formulario.elements["nome"].value.trim();
+  const email = formulario.elements["email"].value.trim();
+  const telefone = formulario.elements["telefone"].value.trim();
+
+  if (!nome) {
+    alert("Digite o nome do cliente.");
+    return;
+  }
+
+  const { error } = await banco
+    .from("clientes")
+    .insert([{ nome, email, telefone }]);
+
+  if (error) {
+    alert("Erro ao salvar cliente: " + error.message);
+    return;
+  }
+
+  alert("Cliente cadastrado com sucesso!");
+  formulario.reset();
+  await carregarDados();
+});
   </script>
 
 </body>
