@@ -1,414 +1,54 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vortex Tech | Administração</title>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #080b12;
-      color: white;
-    }
-
-    .login {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .card {
-      width: 100%;
-      max-width: 420px;
-      background: #121827;
-      padding: 35px;
-      border-radius: 18px;
-      border: 1px solid #263148;
-    }
-
-    h1 {
-      color: #e8b84a;
-      margin-bottom: 8px;
-    }
-
-    p {
-      color: #aeb9ca;
-    }
-
-    input, button {
-      width: 100%;
-      padding: 14px;
-      margin-top: 12px;
-      border-radius: 9px;
-      font-size: 15px;
-    }
-
-    input {
-      background: #080b12;
-      border: 1px solid #34415a;
-      color: white;
-    }
-
-    button {
-      border: none;
-      background: #e8b84a;
-      color: #111;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #ffd16a;
-    }
-
-    .painel {
-      display: none;
-      min-height: 100vh;
-    }
-
-    header {
-      background: #121827;
-      padding: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-    }
-
-    header button {
-      width: auto;
-      padding: 10px 20px;
-    }
-
-    main {
-      padding: 30px;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      margin-top: 25px;
-    }
-
-    .box {
-      background: #121827;
-      border: 1px solid #263148;
-      border-radius: 15px;
-      padding: 25px;
-    }
-
-    .numero {
-      font-size: 32px;
-      color: #e8b84a;
-      font-weight: bold;
-    }
-
-    .erro {
-      color: #ff8181;
-      margin-top: 12px;
-    }
-
-    .oculto {
-      display: none;
-    }
-
-    @media (max-width: 600px) {
-      header {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      main {
-        padding: 18px;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <section class="login" id="telaLogin">
-    <div class="card">
-      <h1>VORTEX TECH</h1>
-      <p>Área administrativa</p>
-
-      <form id="formLogin">
-        <input
-          type="email"
-          id="email"
-          placeholder="Seu e-mail"
-          autocomplete="email"
-          required
-        >
-
-        <input
-          type="password"
-          id="senha"
-          placeholder="Sua senha"
-          autocomplete="current-password"
-          required
-        >
-
-        <button type="submit" id="botaoEntrar">
-          Entrar no painel
-        </button>
-      </form>
-
-      <p class="erro" id="mensagem"></p>
-    </div>
-  </section>
-
-  <section class="painel" id="telaPainel">
-    <header>
-      <h1>VORTEX TECH</h1>
-      <button id="botaoSair">Sair</button>
-    </header>
-
-    <main>
-      <h2>Painel administrativo</h2>
-      <p id="boasVindas">Bem-vindo!</p>
-
-      <div class="grid">
-        <div class="box">
-          <h3>Clientes</h3>
-          <div class="numero" id="totalClientes">—</div>
-        </div>
-
-        <div class="box">
-          <h3>Projetos</h3>
-          <div class="numero" id="totalProjetos">—</div>
-        </div>
-
-        <div class="box">
-          <h3>Serviços</h3>
-          <div class="numero" id="totalServicos">—</div>
-        </div>
-
-        <div class="box">
-          <h3>Pagamentos</h3>
-          <div class="numero" id="totalPagamentos">—</div>
-        </div>
-      </div>
-
-      <div class="box" style="margin-top:25px">
-        <h3>Gerenciamento</h3>
-     <h4>Cadastro de Clientes</h4>
-
-<form id="form-cliente">
-  <label>Nome:</label>
-  <input type="text" name="nome" placeholder="Nome do cliente" required>
-
-  <label>E-mail:</label>
-  <input type="email" name="email" placeholder="E-mail do cliente">
-
-  <label>Telefone:</label>
-  <input type="text" name="telefone" placeholder="Telefone do cliente">
-
-  <button type="submit">Salvar Cliente</button>
-</form>
-        <p>
-          Sua conexão com o Supabase está ativa.
-          Os módulos de cadastro e edição serão
-          adicionados nas próximas etapas.
-        </p>
-      </div>
-      <p class="erro" id="erroPainel"></p>
-    </main>
-  </section>
-
-  <script>
-    // COLOQUE AQUI OS DADOS DO SEU SUPABASE
-
-    const SUPABASE_URL = "https://bngxigbyxrksctylyanw.supabase.co";
-
-    const SUPABASE_KEY = "sb_publishable_WYRvOzBLQuUDMPf_ZK9qmg_lvIXaHyo";
-    const configurado =
-      SUPABASE_URL.startsWith("https://") &&
-      SUPABASE_KEY !== "";
-
-    let banco = null;
-
-    const telaLogin = document.getElementById("telaLogin");
-    const telaPainel = document.getElementById("telaPainel");
-    const mensagem = document.getElementById("mensagem");
-
-    if (configurado) {
-      banco = window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-      );
-    } else {
-      mensagem.textContent =
-        "Configure a URL e a chave pública do Supabase.";
-    }
-
-    async function verificarAdministrador(usuario) {
-      const { data, error } = await banco
-        .from("profiles")
-        .select("nome, cargo")
-        .eq("id", usuario.id)
-        .single();
-
-      if (error || !data || data.cargo !== "admin") {
-        return null;
-      }
-
-      return data;
-    }
-
-    async function mostrarPainel(usuario) {
-      const perfil = await verificarAdministrador(usuario);
-
-      if (!perfil) {
-        await banco.auth.signOut();
-        mensagem.textContent =
-          "Este usuário não possui acesso de administrador.";
-        return;
-      }
-
-      telaLogin.style.display = "none";
-      telaPainel.style.display = "block";
-
-      document.getElementById("boasVindas").textContent =
-        "Bem-vindo, " + (perfil.nome || usuario.email);
-
-      await carregarDados();
-    }
-
-    async function carregarDados() {
-      const tabelas = [
-        ["clientes", "totalClientes"],
-        ["projetos", "totalProjetos"],
-        ["servicos", "totalServicos"],
-        ["pagamentos", "totalPagamentos"]
-      ];
-
-      for (const [tabela, elemento] of tabelas) {
-        const { count, error } = await banco
-          .from(tabela)
-          .select("*", {
-            count: "exact",
-            head: true
-          });
-
-        document.getElementById(elemento).textContent =
-          error ? "—" : (count ?? 0);
-
-        if (error) {
-          document.getElementById("erroPainel").textContent =
-            "Alguns dados não puderam ser carregados. " +
-            "Verifique as permissões do banco.";
-        }
-      }
-    }
-
-    document.getElementById("formLogin")
-      .addEventListener("submit", async function(evento) {
-        evento.preventDefault();
-
-        if (!banco) {
-          mensagem.textContent =
-            "Configure primeiro a conexão com o Supabase.";
-          return;
-        }
-
-        const email =
-          document.getElementById("email").value.trim();
-
-        const senha =
-          document.getElementById("senha").value;
-
-        const botao =
-          document.getElementById("botaoEntrar");
-
-        botao.disabled = true;
-        botao.textContent = "Entrando...";
-        mensagem.textContent = "";
-
-        try {
-          const { data, error } =
-            await banco.auth.signInWithPassword({
-              email: email,
-              password: senha
-            });
-
-          if (error) {
-            throw error;
-          }
-
-          await mostrarPainel(data.user);
-
-        } catch (erro) {
-          mensagem.textContent =
-            "Não foi possível entrar. Confira seu e-mail, " +
-            "sua senha e a configuração do Supabase.";
-        } finally {
-          botao.disabled = false;
-          botao.textContent = "Entrar no painel";
-        }
-      });
-
-    document.getElementById("botaoSair")
-      .addEventListener("click", async function() {
-        if (banco) {
-          await banco.auth.signOut();
-        }
-
-        telaPainel.style.display = "none";
-        telaLogin.style.display = "flex";
-      });
-
-    async function iniciar() {
-      if (!banco) return;
-
-      const { data } = await banco.auth.getUser();
-
-      if (data && data.user) {
-        await mostrarPainel(data.user);
-      }
-    }
-
-    iniciar();
- document.getElementById("form-cliente").addEventListener("submit", async function(evento) {
-  evento.preventDefault();
-
-  const formulario = evento.target;
-  const nome = formulario.elements["nome"].value.trim();
-  const email = formulario.elements["email"].value.trim();
-  const telefone = formulario.elements["telefone"].value.trim();
-
-  if (!nome) {
-    alert("Digite o nome do cliente.");
-    return;
-  }
-
-  const { error } = await banco
-    .from("clientes")
-    .insert([{ nome, email, telefone }]);
-
-  if (error) {
-    alert("Erro ao salvar cliente: " + error.message);
-    return;
-  }
-
-  alert("Cliente cadastrado com sucesso!");
-  formulario.reset();
-  await carregarDados();
-});
-  </script>
-
-</body>
-</html>
+-- Data prevista de entrega
+ALTER TABLE public.vortex_briefings
+ADD COLUMN IF NOT EXISTS data_prevista date;
+
+-- RLS continua ativada
+ALTER TABLE public.vortex_briefings
+ENABLE ROW LEVEL SECURITY;
+
+-- Acesso autenticado para consultar briefings:
+-- somente usuários cujo perfil tenha cargo = admin.
+GRANT SELECT, UPDATE
+ON public.vortex_briefings
+TO authenticated;
+
+DROP POLICY IF EXISTS "Admins podem consultar briefings"
+ON public.vortex_briefings;
+
+CREATE POLICY "Admins podem consultar briefings"
+ON public.vortex_briefings
+FOR SELECT
+TO authenticated
+USING (
+  EXISTS (
+    SELECT 1
+    FROM public.profiles p
+    WHERE p.id = (SELECT auth.uid())
+      AND p.cargo = 'admin'
+  )
+);
+
+DROP POLICY IF EXISTS "Admins podem atualizar briefings"
+ON public.vortex_briefings;
+
+CREATE POLICY "Admins podem atualizar briefings"
+ON public.vortex_briefings
+FOR UPDATE
+TO authenticated
+USING (
+  EXISTS (
+    SELECT 1
+    FROM public.profiles p
+    WHERE p.id = (SELECT auth.uid())
+      AND p.cargo = 'admin'
+  )
+)
+WITH CHECK (
+  EXISTS (
+    SELECT 1
+    FROM public.profiles p
+    WHERE p.id = (SELECT auth.uid())
+      AND p.cargo = 'admin'
+  )
+);
