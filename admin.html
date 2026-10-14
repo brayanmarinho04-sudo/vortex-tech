@@ -4,65 +4,112 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Vortex Tech | Gestão de Projetos</title>
+<meta name="theme-color" content="#080d18">
+<title>Vortex Tech | Painel Executivo</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
+:root{--bg:#080d18;--panel:#111a2a;--panel2:#162238;--line:#283750;--gold:#e6bd65;--text:#f5f7fc;--muted:#9eacc1;--green:#4ade80;--blue:#60a5fa;--red:#f87171;--radius:16px}
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#090e19;color:#f7f9ff;line-height:1.5}
-.hidden{display:none!important}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;line-height:1.5}
 button,input,select{font:inherit}
-a{color:#e6bd65}
-h1{margin:0;color:#e6bd65}
-h2,h3{margin-top:0}
-.muted{color:#aebed0;font-size:13px}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+.hidden{display:none!important}
+.muted{color:var(--muted);font-size:13px}
+h1,h2,h3,p{margin-top:0}
+h1{font-size:23px;letter-spacing:.3px;margin-bottom:3px}
+h2{font-size:19px;margin-bottom:7px}
+h3{font-size:15px;margin-bottom:5px}
 .login{min-height:100vh;display:grid;place-items:center;padding:20px}
-.card{background:#131c2c;border:1px solid #293950;border-radius:15px;padding:22px}
-.login .card{width:min(100%,430px)}
-.field{display:grid;gap:6px;margin:12px 0}
-.field input,.field select{width:100%;min-width:130px;padding:10px;border:1px solid #40516a;border-radius:8px;background:#090e19;color:#fff}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid #e6bd65;border-radius:8px;padding:10px 13px;background:#e6bd65;color:#11151d;font-weight:bold;cursor:pointer;text-decoration:none;white-space:nowrap}
-.btn.alt{background:transparent;color:#fff;border-color:#40516a}
-.btn.green{background:#16834a;border-color:#16834a;color:#fff}
-.btn.blue{background:#244b78;border-color:#3d9fff;color:#fff}
+.login-card{width:min(100%,420px);padding:30px;background:var(--panel);border:1px solid var(--line);border-radius:20px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-icon{display:grid;place-items:center;width:43px;height:43px;border-radius:13px;background:linear-gradient(135deg,#f5d98f,#bc8b30);color:#111;font-weight:900;font-size:20px}
+.brand-name{font-weight:900;letter-spacing:1px}
+.brand-name span{color:var(--gold)}
+.field{display:grid;gap:6px;margin:12px 0;color:#d4deeb;font-size:13px}
+.field input,.field select{width:100%;min-width:0;background:#0a1220;color:white;border:1px solid #354761;border-radius:9px;padding:11px}
+.btn{border:1px solid var(--gold);background:var(--gold);color:#12151c;border-radius:9px;padding:10px 14px;font-weight:750;font-size:13px;display:inline-flex;align-items:center;justify-content:center;gap:7px}
+.btn:hover{filter:brightness(1.08)}
 .btn:disabled{opacity:.55;cursor:wait}
-.top{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;padding:18px clamp(16px,4vw,38px);background:#131c2c;border-bottom:1px solid #293950}
-.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.wrap{max-width:1500px;margin:auto;padding:25px 16px 55px}
-.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin:20px 0}
-.metric span{display:block;color:#aebed0;font-size:13px}
-.metric strong{display:block;margin-top:5px;font-size:30px;color:#e6bd65}
-.toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:end}
-.toolbar .field{flex:1;min-width:190px}
-.tablewrap{overflow:auto;margin-top:15px}
-table{width:100%;border-collapse:collapse;min-width:1150px}
-th,td{text-align:left;vertical-align:top;padding:12px;border-bottom:1px solid #293950;font-size:13px}
-th{color:#aebed0;text-transform:uppercase;font-size:11px;letter-spacing:.4px}
-td strong{display:block;font-size:14px;overflow-wrap:anywhere}
-.pill{display:inline-block;padding:4px 8px;border-radius:30px;background:#263b54;font-size:12px}
-.pill.ok{background:#174b32;color:#b8f4ca}
-.pill.warn{background:#493719;color:#ffe0a0}
-.pill.bad{background:#4a2027;color:#ffc6cd}
-.client-detail{max-width:270px;white-space:pre-wrap;overflow-wrap:anywhere;color:#c5d0de}
-.row-actions{display:flex;flex-direction:column;gap:7px;align-items:flex-start}
-.row-actions .btn{font-size:12px}
-.row-actions select,.row-actions input{width:155px;max-width:100%;padding:8px;background:#090e19;color:white;border:1px solid #40516a;border-radius:7px}
-.notice{padding:12px;border-radius:8px;background:#142d48;color:#dbeafe;margin:12px 0;font-size:13px;overflow-wrap:anywhere}
-.notice.error{background:#4a1e25;color:#fecaca}
-.empty{text-align:center;padding:30px;color:#aebed0}
-.section-title{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.payments{margin-top:28px}
-.payments table{min-width:850px}
-@media(max-width:760px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.top{align-items:flex-start}.wrap{padding-top:16px}}
-@media(max-width:420px){.metrics{grid-template-columns:1fr 1fr}.metric strong{font-size:25px}}
+.btn.secondary{background:#17243a;border-color:#344863;color:#eaf0fa}
+.btn.green{background:#155b3c;border-color:#237b53;color:#d6ffe5}
+.btn.blue{background:#173c69;border-color:#2863a0;color:#e4f1ff}
+.btn.danger{background:#411f2a;border-color:#753443;color:#ffdbe0}
+.topbar{position:sticky;top:0;z-index:5;background:#0b1220ed;backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:14px clamp(15px,4vw,40px);display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+.top-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.wrap{max-width:1500px;margin:auto;padding:28px clamp(14px,3vw,32px) 60px}
+.eyebrow{font-size:10px;color:var(--gold);font-weight:800;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:6px}
+.hero{padding:25px;border:1px solid #33415b;border-radius:20px;background:radial-gradient(ellipse at 90% 10%,#263958 0%,transparent 45%),linear-gradient(125deg,#17243a,#101827 70%);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.hero h2{font-size:clamp(24px,3vw,34px);margin:0 0 8px}
+.hero p{margin:0;color:#bdc9d9}
+.live{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border-radius:99px;background:#152c28;border:1px solid #285246;color:#a8f1c5;font-size:11px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:30px 0 14px}
+.section-head h2{margin:0}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.metric{padding:19px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);min-width:0}
+.metric-top{display:flex;align-items:center;justify-content:space-between;gap:8px;color:var(--muted);font-size:12px}
+.metric-icon{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:#26334a;font-size:17px}
+.metric-value{font-size:clamp(22px,2.5vw,30px);font-weight:800;letter-spacing:-.8px;margin:13px 0 4px;overflow-wrap:anywhere}
+.metric-foot{font-size:11px;color:var(--muted)}
+.green-text{color:var(--green)}
+.gold-text{color:var(--gold)}
+.blue-text{color:var(--blue)}
+.grid-main{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,1fr);gap:15px;margin-top:15px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px;min-width:0}
+.panel-head{display:flex;justify-content:space-between;align-items:start;gap:12px;flex-wrap:wrap;margin-bottom:17px}
+.panel-head p{margin:4px 0 0}
+.chart{height:205px;display:flex;align-items:stretch;gap:10px;border-bottom:1px solid var(--line);padding:12px 0 0}
+.bar-column{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:7px}
+.bar-value{font-size:10px;color:#cbd5e1;white-space:nowrap;overflow:hidden;max-width:100%;text-overflow:ellipsis}
+.bar{width:min(100%,32px);min-height:3px;border-radius:7px 7px 2px 2px;background:linear-gradient(180deg,#f2d58c,#b68a39);transition:height .25s}
+.bar-label{font-size:10px;color:var(--muted);padding:8px 0}
+.donut-list{display:grid;gap:14px}
+.progress-item{display:grid;gap:7px}
+.progress-label{display:flex;justify-content:space-between;gap:10px;font-size:12px}
+.track{height:7px;border-radius:20px;background:#253149;overflow:hidden}
+.track span{display:block;height:100%;border-radius:20px;background:var(--gold)}
+.finance-note{font-size:11px;color:var(--muted);margin-top:14px}
+.filters{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px;margin-bottom:15px}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;min-width:1050px}
+th,td{padding:13px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line);font-size:12px}
+th{background:#152136;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.7px;white-space:nowrap}
+tbody tr:hover{background:#172338}
+tbody tr:last-child td{border-bottom:0}
+td strong{display:block;font-size:13px;overflow-wrap:anywhere}
+.client-sub{color:var(--muted);font-size:11px;overflow-wrap:anywhere;margin-top:3px}
+.badge{display:inline-flex;align-items:center;gap:5px;border-radius:30px;padding:5px 9px;background:#253149;color:#dce5f4;font-size:11px;white-space:nowrap}
+.badge.ok{background:#153e2d;color:#b5f5cf}
+.badge.warn{background:#473719;color:#ffe4a7}
+.badge.bad{background:#49222b;color:#ffc9d0}
+.row-buttons{display:flex;flex-direction:column;align-items:stretch;gap:6px;min-width:145px}
+.row-buttons .btn{font-size:11px;padding:8px}
+.row-buttons select,.row-buttons input{width:100%;min-width:130px;background:#09111f;color:white;border:1px solid #344761;border-radius:8px;padding:8px;font-size:12px}
+.workflow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.stage{padding:16px;border-radius:13px;background:#111b2b;border:1px solid var(--line)}
+.stage-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.stage-count{font-size:28px;font-weight:800;margin:12px 0 4px}
+.stage p{font-size:12px;color:var(--muted);margin:0}
+.notice{padding:12px 14px;border-radius:10px;background:#182a43;color:#dceaff;font-size:13px;overflow-wrap:anywhere;margin:12px 0}
+.notice.error{background:#49222b;color:#ffd1d6}
+.notice.success{background:#153e2d;color:#b5f5cf}
+.empty{padding:30px;text-align:center;color:var(--muted);font-size:13px}
+.footer{padding-top:25px;text-align:center;color:#75859b;font-size:11px}
+@media(max-width:1050px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-main{grid-template-columns:1fr}}
+@media(max-width:600px){.wrap{padding:18px 12px 40px}.hero{padding:19px}.panel{padding:14px}.filters{grid-template-columns:1fr}.workflow{grid-template-columns:1fr}.metric{padding:14px}.topbar{position:static}.metric-value{font-size:23px}}
 </style>
 </head>
 <body>
 
 <section id="login" class="login">
-  <div class="card">
-    <h1>VORTEX TECH</h1>
-    <h2 style="margin-top:10px">Painel do administrador</h2>
-    <p class="muted">Entre com sua conta administrativa.</p>
+  <div class="login-card">
+    <div class="brand">
+      <div class="brand-icon">V</div>
+      <div class="brand-name">VORTEX <span>TECH</span></div>
+    </div>
+    <h2 style="margin-top:27px">Painel executivo</h2>
+    <p class="muted">Entre com sua conta de administrador para gerenciar clientes, projetos e pagamentos.</p>
     <form id="loginForm">
       <label class="field">E-mail
         <input id="email" type="email" required autocomplete="username">
@@ -70,48 +117,125 @@ td strong{display:block;font-size:14px;overflow-wrap:anywhere}
       <label class="field">Senha
         <input id="senha" type="password" required autocomplete="current-password">
       </label>
-      <button id="loginBtn" class="btn" style="width:100%" type="submit">Entrar no painel</button>
+      <button id="loginBtn" class="btn" type="submit" style="width:100%;margin-top:8px">Entrar no painel →</button>
       <div id="loginMsg" class="notice hidden" role="status"></div>
     </form>
-    <p><a href="index.html">Voltar ao site</a></p>
+    <p class="muted" style="margin-top:20px"><a href="index.html">← Voltar ao site</a></p>
   </div>
 </section>
 
 <section id="app" class="hidden">
-<header class="top">
-  <div>
-    <h1>VORTEX TECH</h1>
-    <div class="muted">Clientes · Lista de espera · Pagamentos · Projetos</div>
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-icon">V</div>
+    <div>
+      <div class="brand-name">VORTEX <span>TECH</span></div>
+      <div class="muted">Gestão inteligente de negócios</div>
+    </div>
   </div>
-  <div class="actions">
-    <a href="index.html" class="btn alt">Ver site</a>
-    <button id="refresh" class="btn blue" type="button">↻ Atualizar lista</button>
+  <div class="top-actions">
+    <a href="index.html" class="btn secondary">↗ Ver site</a>
+    <button id="refresh" class="btn secondary" type="button">↻ Atualizar dados</button>
     <button id="logout" class="btn" type="button">Sair</button>
   </div>
 </header>
 
 <main class="wrap">
-  <h2>Visão geral</h2>
-  <p id="welcome" class="muted"></p>
+  <section class="hero">
+    <div>
+      <div class="eyebrow">CENTRAL DE COMANDO</div>
+      <h2>Visão geral do negócio</h2>
+      <p id="welcome">Seus clientes, projetos e resultados em um só lugar.</p>
+    </div>
+    <div class="live"><span class="dot"></span><span id="syncLabel">Aguardando conexão</span></div>
+  </section>
+
   <div id="globalMsg" class="notice hidden" role="status"></div>
 
-  <div class="metrics">
-    <div class="card metric"><span>Total de clientes / briefings</span><strong id="mTotal">—</strong></div>
-    <div class="card metric"><span>Na lista de espera</span><strong id="mNovo">—</strong></div>
-    <div class="card metric"><span>Em desenvolvimento</span><strong id="mDev">—</strong></div>
-    <div class="card metric"><span>Projetos concluídos</span><strong id="mDone">—</strong></div>
+  <div class="section-head">
+    <div><div class="eyebrow">FINANCEIRO</div><h2>Resumo do faturamento</h2></div>
+    <span class="muted">Valores calculados a partir dos pedidos disponíveis</span>
   </div>
 
-  <section class="card">
-    <div class="section-title">
-      <div>
-        <h2 style="margin-bottom:4px">Clientes e projetos</h2>
-        <p class="muted">Atualize o status diretamente na lista, sem precisar abrir outra tela.</p>
-      </div>
-    </div>
+  <section class="metrics">
+    <article class="metric">
+      <div class="metric-top"><span>Total recebido</span><span class="metric-icon">R$</span></div>
+      <div id="revTotal" class="metric-value green-text">—</div>
+      <div class="metric-foot">Pagamentos identificados como confirmados</div>
+    </article>
+    <article class="metric">
+      <div class="metric-top"><span>Esta semana</span><span class="metric-icon">▦</span></div>
+      <div id="revWeek" class="metric-value">—</div>
+      <div class="metric-foot">Desde segunda-feira desta semana</div>
+    </article>
+    <article class="metric">
+      <div class="metric-top"><span>Este mês</span><span class="metric-icon">◷</span></div>
+      <div id="revMonth" class="metric-value gold-text">—</div>
+      <div class="metric-foot">Do primeiro dia até hoje</div>
+    </article>
+    <article class="metric">
+      <div class="metric-top"><span>Este ano</span><span class="metric-icon">↗</span></div>
+      <div id="revYear" class="metric-value blue-text">—</div>
+      <div class="metric-foot">Desde janeiro deste ano</div>
+    </article>
+  </section>
 
-    <div class="toolbar">
-      <label class="field">Filtrar por status
+  <section class="metrics" style="margin-top:13px">
+    <article class="metric">
+      <div class="metric-top"><span>Pagamentos pendentes</span><span class="metric-icon">◷</span></div>
+      <div id="pendingValue" class="metric-value">—</div>
+      <div id="pendingCount" class="metric-foot">Pedidos aguardando confirmação</div>
+    </article>
+    <article class="metric">
+      <div class="metric-top"><span>Clientes / briefings</span><span class="metric-icon">♙</span></div>
+      <div id="clientCount" class="metric-value">—</div>
+      <div class="metric-foot">Registros de personalização recebidos</div>
+    </article>
+    <article class="metric">
+      <div class="metric-top"><span>Projetos em andamento</span><span class="metric-icon">⚙</span></div>
+      <div id="workingCount" class="metric-value blue-text">—</div>
+      <div class="metric-foot">Em desenvolvimento</div>
+    </article>
+    <article class="metric">
+      <div class="metric-top"><span>Concluídos</span><span class="metric-icon">✓</span></div>
+      <div id="doneCount" class="metric-value green-text">—</div>
+      <div class="metric-foot">Projetos marcados como finalizados</div>
+    </article>
+  </section>
+
+  <div class="grid-main">
+    <section class="panel">
+      <div class="panel-head">
+        <div><div class="eyebrow">DESEMPENHO</div><h2>Faturamento por mês</h2><p class="muted">Valores confirmados no ano atual</p></div>
+        <span id="chartYear" class="badge">—</span>
+      </div>
+      <div id="monthlyChart" class="chart"></div>
+      <div class="finance-note">O gráfico usa a data disponível do pedido ou da atualização. Para precisão contábil, é necessário registrar a data real de aprovação do pagamento no webhook.</div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <div><div class="eyebrow">OPERAÇÃO</div><h2>Etapas dos projetos</h2><p class="muted">Distribuição atual da carteira</p></div>
+      </div>
+      <div id="stageProgress" class="donut-list"></div>
+    </section>
+  </div>
+
+  <div class="section-head">
+    <div><div class="eyebrow">ACOMPANHAMENTO</div><h2>Fluxo de trabalho</h2></div>
+  </div>
+  <section id="workflow" class="workflow"></section>
+
+  <div class="section-head">
+    <div><div class="eyebrow">CARTEIRA DE CLIENTES</div><h2>Clientes e projetos</h2><p class="muted" style="margin:5px 0 0">Altere o prazo e o status diretamente na linha do cliente.</p></div>
+  </div>
+
+  <section class="panel">
+    <div class="filters">
+      <label class="field">Buscar cliente ou empresa
+        <input id="search" placeholder="Nome, empresa, e-mail ou WhatsApp">
+      </label>
+      <label class="field">Status
         <select id="filter">
           <option value="">Todos os status</option>
           <option value="novo">Lista de espera</option>
@@ -122,46 +246,42 @@ td strong{display:block;font-size:14px;overflow-wrap:anywhere}
           <option value="cancelado">Cancelado</option>
         </select>
       </label>
-      <label class="field">Ordenação
+      <label class="field">Ordenar por
         <select id="sort">
-          <option value="recentes">Mais recentes primeiro</option>
-          <option value="antigos">Mais antigos primeiro</option>
-          <option value="prazo">Data prevista mais próxima</option>
+          <option value="recentes">Mais recentes</option>
+          <option value="antigos">Mais antigos</option>
+          <option value="prazo">Prazo mais próximo</option>
         </select>
       </label>
     </div>
 
-    <div id="briefingMsg" class="notice hidden"></div>
-    <div class="tablewrap">
+    <div class="table-wrap">
       <table>
-        <thead>
-          <tr>
-            <th>Cliente / contato</th>
-            <th>Recebido em</th>
-            <th>Projeto solicitado</th>
-            <th>Pagamento</th>
-            <th>Prazo de entrega</th>
-            <th>Status / ações</th>
-          </tr>
-        </thead>
+        <thead><tr>
+          <th>Cliente</th><th>Recebido em</th><th>Projeto</th><th>Pagamento</th><th>Prazo de entrega</th><th>Etapa e ações</th>
+        </tr></thead>
         <tbody id="clientRows"></tbody>
       </table>
     </div>
     <div id="clientEmpty" class="empty hidden">Nenhum cliente encontrado.</div>
   </section>
 
-  <section class="card payments">
-    <h2>Pedidos e pagamentos</h2>
-    <p class="muted">Dados consultados diretamente em vortex_pedidos. Um pedido só é associado a um briefing quando há correspondência exata de e-mail.</p>
+  <div class="section-head">
+    <div><div class="eyebrow">FINANCEIRO</div><h2>Pedidos e pagamentos</h2><p class="muted" style="margin:5px 0 0">Pedidos sem confirmação não entram no total recebido.</p></div>
+  </div>
+
+  <section class="panel">
     <div id="paymentMsg" class="notice hidden"></div>
-    <div class="tablewrap">
-      <table>
-        <thead><tr><th>Pedido</th><th>Cliente / e-mail</th><th>Valor</th><th>Status do pagamento</th><th>Data do pedido</th></tr></thead>
+    <div class="table-wrap">
+      <table style="min-width:900px">
+        <thead><tr><th>Pedido / serviço</th><th>Cliente / e-mail</th><th>Valor</th><th>Status</th><th>Data disponível</th></tr></thead>
         <tbody id="paymentRows"></tbody>
       </table>
     </div>
-    <div id="paymentEmpty" class="empty hidden">Nenhum pedido encontrado ou os pedidos não estão disponíveis para esta conta.</div>
+    <div id="paymentEmpty" class="empty hidden">Nenhum pedido disponível para exibição.</div>
   </section>
+
+  <footer class="footer">VORTEX TECH · PAINEL EXECUTIVO<br><span id="lastUpdate">Dados ainda não atualizados</span></footer>
 </main>
 </section>
 
@@ -172,11 +292,9 @@ td strong{display:block;font-size:14px;overflow-wrap:anywhere}
   const SUPABASE_KEY="sb_publishable_WYRvOzBLQuUDMPf_ZK9qmg_lvIXaHyo";
   const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
   const $=id=>document.getElementById(id);
-  let briefs=[];
-  let orders=[];
-  let busy=false;
+  let briefs=[],orders=[],busy=false;
 
-  const statuses={
+  const statusNames={
     novo:"Lista de espera",
     em_analise:"Em análise",
     aguardando_cliente:"Aguardando cliente",
@@ -185,60 +303,68 @@ td strong{display:block;font-size:14px;overflow-wrap:anywhere}
     cancelado:"Cancelado"
   };
 
+  const paymentNames={
+    pago:"Pago",approved:"Aprovado",ativo:"Ativo",active:"Ativa",
+    pendente:"Pendente",pending:"Pendente",in_process:"Em processamento",
+    authorized:"Autorizado",rejeitado:"Rejeitado",rejected:"Rejeitado",
+    cancelado:"Cancelado",cancelled:"Cancelado",reembolsado:"Reembolsado",
+    refunded:"Reembolsado",contestado:"Contestado",charged_back:"Contestado",
+    erro_criacao:"Erro na criação",pausado:"Pausado",paused:"Pausada"
+  };
+
   const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
   })[c]);
 
-  function notify(id,text,isError=false){
+  function show(id,text,type=""){
     $(id).textContent=text;
-    $(id).classList.remove("hidden");
-    $(id).classList.toggle("error",isError);
+    $(id).className="notice"+(type?" "+type:"");
   }
-
   function hide(id){$(id).classList.add("hidden")}
 
-  function dateTime(value){
-    if(!value)return "—";
+  function dateValue(value){
+    if(!value)return null;
     const d=new Date(value);
-    if(Number.isNaN(d.getTime()))return "—";
-    return new Intl.DateTimeFormat("pt-BR",{
-      dateStyle:"short",timeStyle:"short"
-    }).format(d);
+    return Number.isNaN(d.getTime())?null:d;
   }
-
+  function dateTime(value){
+    const d=dateValue(value);
+    return d?new Intl.DateTimeFormat("pt-BR",{dateStyle:"short",timeStyle:"short"}).format(d):"Não registrada";
+  }
   function dateOnly(value){
-    if(!value)return "—";
-    const d=new Date(value.length===10?value+"T12:00:00":value);
-    return Number.isNaN(d.getTime())?"—":d.toLocaleDateString("pt-BR");
+    if(!value)return "Não definida";
+    const d=dateValue(value.length===10?value+"T12:00:00":value);
+    return d?d.toLocaleDateString("pt-BR"):"Não definida";
   }
-
-  function money(value){
-    if(value===null||value===undefined||value==="")return "—";
+  function brl(value){
     const n=Number(value);
     return Number.isFinite(n)?n.toLocaleString("pt-BR",{style:"currency",currency:"BRL"}):"—";
   }
-
-  function statusClass(status){
-    if(status==="concluido"||status==="pago"||status==="ativo"||status==="approved")return "pill ok";
-    if(status==="cancelado"||status==="rejeitado"||status==="reembolsado"||status==="erro_criacao")return "pill bad";
-    return "pill warn";
+  function isPaid(order){
+    return ["pago","approved","ativo","active"].includes(String(order.status||"").toLowerCase());
   }
-
-  function labelPayment(status){
-    const map={
-      pendente:"Pendente",pago:"Pago",approved:"Aprovado",
-      active:"Ativa",ativo:"Ativo",rejeitado:"Rejeitado",
-      cancelled:"Cancelado",cancelado:"Cancelado",
-      reembolsado:"Reembolsado",contestado:"Contestado",
-      erro_criacao:"Erro na criação",paused:"Pausada",pausado:"Pausado"
-    };
-    return map[status]||status||"Sem status";
+  function paymentStatus(status){return paymentNames[String(status||"").toLowerCase()]||status||"Sem status"}
+  function pill(status){
+    const s=String(status||"").toLowerCase();
+    const cls=["pago","approved","ativo","active","concluido"].includes(s)?"ok":
+      ["rejeitado","rejected","cancelado","cancelled","reembolsado","refunded","erro_criacao"].includes(s)?"bad":"warn";
+    return `<span class="badge ${cls}">${esc(statusNames[s]||paymentStatus(s))}</span>`;
+  }
+  function orderDate(o){
+    return o.pago_em||o.paid_at||o.atualizado_em||o.created_at||null;
+  }
+  function orderValue(o){return Number(o.valor||0)}
+  function orderMatchesBrief(order,brief){
+    const emailA=String(order.email||"").trim().toLowerCase();
+    const emailB=String(brief.email||"").trim().toLowerCase();
+    if(emailA&&emailB&&emailA===emailB)return true;
+    const ref=String(order.referencia||"");
+    return !!ref&&String(brief.referencia||"")===ref;
   }
 
   async function verifyAdmin(user){
-    const {data,error}=await db.from("profiles")
-      .select("nome,cargo").eq("id",user.id).maybeSingle();
-    if(error){console.error("Perfil:",error);return null}
+    const {data,error}=await db.from("profiles").select("nome,cargo").eq("id",user.id).maybeSingle();
+    if(error){console.error("Verificação de administrador:",error);return null}
     return data&&data.cargo==="admin"?data:null;
   }
 
@@ -247,12 +373,12 @@ td strong{display:block;font-size:14px;overflow-wrap:anywhere}
     if(!profile){
       await db.auth.signOut();
       $("login").classList.remove("hidden");
-      notify("loginMsg","Esta conta não tem acesso de administrador. Confira profiles.cargo = admin.",true);
+      show("loginMsg","Esta conta não possui perfil administrativo. Verifique profiles.cargo = admin.","error");
       return;
     }
     $("login").classList.add("hidden");
     $("app").classList.remove("hidden");
-    $("welcome").textContent="Bem-vindo, "+(profile.nome||user.email);
+    $("welcome").textContent="Bem-vindo, "+(profile.nome||user.email)+". Aqui está o resumo atualizado da sua operação.";
     await loadAll();
   }
 
@@ -260,204 +386,259 @@ td strong{display:block;font-size:14px;overflow-wrap:anywhere}
     if(busy)return;
     busy=true;
     $("refresh").disabled=true;
-    $("refresh").textContent="Atualizando...";
+    $("refresh").textContent="Carregando...";
     hide("globalMsg");
-    hide("briefingMsg");
     hide("paymentMsg");
 
     try{
-      const results=await Promise.all([
+      const [b,p]=await Promise.all([
         db.from("vortex_briefings").select("*").limit(1000),
         db.from("vortex_pedidos").select("*").limit(1000)
       ]);
 
-      const b=results[0],p=results[1];
-
       if(b.error){
         console.error("Briefings:",b.error);
         briefs=[];
-        notify("briefingMsg","Não foi possível carregar os clientes. Confira a tabela vortex_briefings e as permissões RLS.",true);
+        show("globalMsg","Não foi possível carregar os clientes. Confira a tabela vortex_briefings e suas políticas RLS.","error");
       }else{
         briefs=b.data||[];
-        briefs.sort((x,y)=>new Date(y.created_at||0)-new Date(x.created_at||0));
+        briefs.sort((x,y)=>(dateValue(y.created_at)?.getTime()||0)-(dateValue(x.created_at)?.getTime()||0));
       }
 
       if(p.error){
         console.error("Pedidos:",p.error);
         orders=[];
-        notify("paymentMsg","Os pedidos não puderam ser lidos. Confira as permissões SELECT da tabela vortex_pedidos.",true);
+        show("paymentMsg","Não foi possível consultar os pedidos. Confira a tabela vortex_pedidos e as permissões SELECT de administrador.","error");
       }else{
         orders=p.data||[];
-        orders.sort((x,y)=>new Date(y.created_at||0)-new Date(x.created_at||0));
+        orders.sort((x,y)=>(dateValue(orderDate(y))?.getTime()||0)-(dateValue(orderDate(x))?.getTime()||0));
       }
 
-      $("mTotal").textContent=b.error?"—":briefs.length;
-      $("mNovo").textContent=b.error?"—":briefs.filter(r=>(r.status||"novo")==="novo").length;
-      $("mDev").textContent=b.error?"—":briefs.filter(r=>r.status==="em_desenvolvimento").length;
-      $("mDone").textContent=b.error?"—":briefs.filter(r=>r.status==="concluido").length;
-
+      updateFinance();
+      updateWorkflow();
       renderClients();
       renderPayments();
-
-      if(!b.error&&!p.error){
-        notify("globalMsg","Lista atualizada em "+new Date().toLocaleTimeString("pt-BR")+".");
-      }
+      $("syncLabel").textContent="Atualizado às "+new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
+      $("lastUpdate").textContent="Última atualização: "+new Date().toLocaleString("pt-BR");
     }catch(error){
       console.error(error);
-      notify("globalMsg","Erro inesperado ao atualizar os dados.",true);
+      show("globalMsg","Ocorreu um erro ao atualizar o painel.","error");
     }finally{
       busy=false;
       $("refresh").disabled=false;
-      $("refresh").textContent="↻ Atualizar lista";
+      $("refresh").textContent="↻ Atualizar dados";
     }
   }
 
-  function matchingOrders(brief){
-    const email=String(brief.email||"").trim().toLowerCase();
-    if(!email)return [];
-    return orders.filter(o=>String(o.email||"").trim().toLowerCase()===email);
+  function updateFinance(){
+    const now=new Date();
+    const todayStart=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    const weekday=(todayStart.getDay()+6)%7;
+    const weekStart=new Date(todayStart);
+    weekStart.setDate(todayStart.getDate()-weekday);
+    const monthStart=new Date(now.getFullYear(),now.getMonth(),1);
+    const yearStart=new Date(now.getFullYear(),0,1);
+
+    const paid=orders.filter(isPaid);
+    const amountIn=(list)=>list.reduce((sum,o)=>sum+orderValue(o),0);
+    const byDate=paid.map(o=>({o,d:dateValue(orderDate(o))})).filter(x=>x.d);
+
+    $("revTotal").textContent=brl(amountIn(paid));
+    $("revWeek").textContent=brl(amountIn(byDate.filter(x=>x.d>=weekStart&&x.d<=now).map(x=>x.o)));
+    $("revMonth").textContent=brl(amountIn(byDate.filter(x=>x.d>=monthStart&&x.d<=now).map(x=>x.o)));
+    $("revYear").textContent=brl(amountIn(byDate.filter(x=>x.d>=yearStart&&x.d<=now).map(x=>x.o)));
+
+    const pending=orders.filter(o=>["pendente","pending","in_process","authorized"].includes(String(o.status||"").toLowerCase()));
+    $("pendingValue").textContent=brl(amountIn(pending));
+    $("pendingCount").textContent=pending.length+" pedido(s) aguardando confirmação";
+    $("clientCount").textContent=briefs.length;
+    $("workingCount").textContent=briefs.filter(b=>b.status==="em_desenvolvimento").length;
+    $("doneCount").textContent=briefs.filter(b=>b.status==="concluido").length;
+
+    const year=now.getFullYear();
+    $("chartYear").textContent=String(year);
+    const names=["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
+    const monthly=Array.from({length:12},(_,i)=>({
+      name:names[i],
+      total:amountIn(byDate.filter(x=>x.d.getFullYear()===year&&x.d.getMonth()===i).map(x=>x.o))
+    }));
+    const max=Math.max(1,...monthly.map(x=>x.total));
+    $("monthlyChart").innerHTML=monthly.map(m=>{
+      const height=m.total?Math.max(5,(m.total/max)*100):2;
+      const label=m.total?brl(m.total):"R$ 0";
+      return `<div class="bar-column" title="${esc(m.name+": "+label)}">
+        <div class="bar-value">${m.total?esc(compactMoney(m.total)):""}</div>
+        <div class="bar" style="height:${height}%"></div>
+        <div class="bar-label">${m.name}</div>
+      </div>`;
+    }).join("");
+    renderStageProgress();
+  }
+
+  function compactMoney(n){
+    if(n>=1000000)return "R$"+(n/1000000).toLocaleString("pt-BR",{maximumFractionDigits:1})+" mi";
+    if(n>=1000)return "R$"+(n/1000).toLocaleString("pt-BR",{maximumFractionDigits:1})+" mil";
+    return "R$"+Math.round(n);
+  }
+
+  function updateWorkflow(){
+    const stages=[
+      ["novo","Na lista de espera","Aguardando início"],
+      ["em_desenvolvimento","Em desenvolvimento","Trabalho em andamento"],
+      ["concluido","Concluídos","Finalizados pela equipe"]
+    ];
+    $("workflow").innerHTML=stages.map(([key,title,desc])=>{
+      const count=briefs.filter(b=>(b.status||"novo")===key).length;
+      return `<article class="stage"><div class="stage-top"><h3>${title}</h3><span class="badge">${key==="concluido"?"✓":"●"}</span></div><div class="stage-count">${count}</div><p>${desc}</p></article>`;
+    }).join("");
+  }
+
+  function renderStageProgress(){
+    const stages=[
+      ["novo","Lista de espera","#e6bd65"],
+      ["em_analise","Em análise","#60a5fa"],
+      ["aguardando_cliente","Aguardando cliente","#c084fc"],
+      ["em_desenvolvimento","Em desenvolvimento","#38bdf8"],
+      ["concluido","Concluído","#4ade80"],
+      ["cancelado","Cancelado","#f87171"]
+    ];
+    const total=Math.max(1,briefs.length);
+    $("stageProgress").innerHTML=stages.map(([key,label,color])=>{
+      const n=briefs.filter(b=>(b.status||"novo")===key).length;
+      return `<div class="progress-item"><div class="progress-label"><span>${label}</span><strong>${n}</strong></div><div class="track"><span style="width:${Math.min(100,n/total*100)}%;background:${color}"></span></div></div>`;
+    }).join("");
   }
 
   function renderClients(){
+    const query=$("search").value.trim().toLowerCase();
     const filter=$("filter").value;
     const sort=$("sort").value;
-    let list=briefs.filter(r=>!filter||(r.status||"novo")===filter);
+    let list=briefs.filter(r=>{
+      const matchesStatus=!filter||(r.status||"novo")===filter;
+      const haystack=[r.nome,r.empresa,r.email,r.whatsapp].join(" ").toLowerCase();
+      return matchesStatus&&haystack.includes(query);
+    });
 
-    if(sort==="recentes")list.sort((a,b)=>new Date(b.created_at||0)-new Date(a.created_at||0));
-    if(sort==="antigos")list.sort((a,b)=>new Date(a.created_at||0)-new Date(b.created_at||0));
+    if(sort==="recentes")list.sort((a,b)=>(dateValue(b.created_at)?.getTime()||0)-(dateValue(a.created_at)?.getTime()||0));
+    if(sort==="antigos")list.sort((a,b)=>(dateValue(a.created_at)?.getTime()||0)-(dateValue(b.created_at)?.getTime()||0));
     if(sort==="prazo")list.sort((a,b)=>String(a.data_prevista||"9999-12-31").localeCompare(String(b.data_prevista||"9999-12-31")));
 
     $("clientRows").innerHTML=list.map(r=>{
-      const matches=matchingOrders(r);
-      const payment=matches.length===1
-        ?money(matches[0].valor)+" · "+labelPayment(matches[0].status)
-        :matches.length>1
-          ?matches.length+" pedidos para este e-mail"
-          :"Sem vínculo de pagamento";
-
+      const linked=orders.filter(o=>orderMatchesBrief(o,r));
+      const paidOrders=linked.filter(isPaid);
+      const paidValue=paidOrders.reduce((s,o)=>s+orderValue(o),0);
+      const paymentText=linked.length
+        ?brl(paidValue)+(paidOrders.length?" recebido":" confirmado: nenhum")
+        :"Pagamento não vinculado";
       const project=[r.segmento,r.estilo].filter(Boolean).join(" · ");
-      const date= r.created_at?dateTime(r.created_at):"Data não registrada";
+      const status=r.status||"novo";
       const due=r.data_prevista||"";
+      const dueDate=dateValue(due?due+"T12:00:00":null);
+      const overdue=dueDate&&dueDate<new Date()&&!["concluido","cancelado"].includes(status);
+      const statusOptions=Object.entries(statusNames).map(([v,t])=>`<option value="${v}" ${status===v?"selected":""}>${t}</option>`).join("");
 
       return `<tr>
         <td><strong>${esc(r.empresa||"Empresa não informada")}</strong>
-          ${esc(r.nome||"Nome não informado")}<br>
-          <span class="muted">${esc(r.email||"Sem e-mail")}</span><br>
-          <span class="muted">${esc(r.whatsapp||"Sem WhatsApp")}</span>
+          <div>${esc(r.nome||"Nome não informado")}</div>
+          <div class="client-sub">${esc(r.email||"Sem e-mail")}</div>
+          <div class="client-sub">${esc(r.whatsapp||"Sem WhatsApp")}</div>
         </td>
-        <td>${esc(date)}</td>
+        <td>${esc(dateTime(r.created_at))}</td>
         <td><strong>${esc(project||"Projeto não informado")}</strong>
-          <div class="client-detail">${esc(r.descricao||"Sem descrição")}</div>
-          <span class="muted">Funções: ${esc(Array.isArray(r.funcionalidades)?r.funcionalidades.join(", "):"Não informadas")}</span>
+          <div class="client-sub">${esc(r.descricao||"Sem descrição")}</div>
+          <div class="client-sub">${esc(Array.isArray(r.funcionalidades)?r.funcionalidades.join(", "):"Funcionalidades não informadas")}</div>
         </td>
-        <td>${esc(payment)}<br>
-          ${matches.length===1?`<span class="${statusClass(matches[0].status)}">${esc(labelPayment(matches[0].status))}</span>`:""}
-        </td>
-        <td>
-          <label class="muted">Prazo pedido: ${esc(r.prazo||"—")}</label>
-          <input aria-label="Data prevista para ${esc(r.empresa||r.nome||"projeto")}" type="date" id="date-${esc(r.id)}" value="${esc(due)}">
-          <span class="muted">${due?dateOnly(due):"Data não definida"}</span>
+        <td><strong>${esc(paymentText)}</strong>
+          ${linked.length?`<div class="client-sub">${linked.length} pedido(s) relacionado(s)</div>`:""}
         </td>
         <td>
-          <div class="row-actions">
-            <span class="${statusClass(r.status||"novo")}">${esc(statuses[r.status||"novo"]||r.status||"Novo")}</span>
-            <select id="status-${esc(r.id)}" aria-label="Status do projeto">
-              ${Object.entries(statuses).map(([v,t])=>`<option value="${v}" ${(r.status||"novo")===v?"selected":""}>${t}</option>`).join("")}
-            </select>
-            <button class="btn blue" data-save="${esc(r.id)}" type="button">Salvar status e prazo</button>
-            ${r.status!=="em_desenvolvimento"&&r.status!=="concluido"?`<button class="btn" data-start="${esc(r.id)}" type="button">Iniciar projeto</button>`:""}
-            ${r.status!=="concluido"?`<button class="btn green" data-done="${esc(r.id)}" type="button">Concluir projeto</button>`:""}
-            ${r.whatsapp?`<button class="btn alt" data-wa="${esc(r.id)}" type="button">WhatsApp</button>`:""}
-          </div>
+          <div class="client-sub">Prazo solicitado: ${esc(r.prazo||"—")}</div>
+          ${overdue?'<span class="badge bad">Prazo vencido</span>':""}
+          <input type="date" data-date="${esc(r.id)}" aria-label="Data prevista" value="${esc(due)}" style="width:145px;max-width:100%;margin-top:7px;background:#09111f;color:white;border:1px solid #344761;border-radius:8px;padding:8px">
         </td>
+        <td><div class="row-buttons">
+          ${pill(status)}
+          <select data-status="${esc(r.id)}" aria-label="Etapa do projeto">${statusOptions}</select>
+          <button type="button" class="btn blue" data-save="${esc(r.id)}">Salvar alterações</button>
+          ${status!=="em_desenvolvimento"&&status!=="concluido"?`<button type="button" class="btn" data-start="${esc(r.id)}">▶ Iniciar projeto</button>`:""}
+          ${status!=="concluido"?`<button type="button" class="btn green" data-done="${esc(r.id)}">✓ Concluir projeto</button>`:""}
+          ${r.whatsapp?`<button type="button" class="btn secondary" data-wa="${esc(r.id)}">Abrir WhatsApp</button>`:""}
+        </div></td>
       </tr>`;
     }).join("");
 
     $("clientEmpty").classList.toggle("hidden",list.length>0);
-
-    document.querySelectorAll("[data-save]").forEach(b=>b.onclick=()=>saveProject(b.dataset.save));
-    document.querySelectorAll("[data-start]").forEach(b=>b.onclick=()=>quickStatus(b.dataset.start,"em_desenvolvimento"));
-    document.querySelectorAll("[data-done]").forEach(b=>b.onclick=()=>quickStatus(b.dataset.done,"concluido"));
-    document.querySelectorAll("[data-wa]").forEach(b=>b.onclick=()=>{
-      const r=briefs.find(x=>String(x.id)===b.dataset.wa);
-      if(r)openWhatsApp(r);
-    });
   }
 
   function renderPayments(){
     $("paymentRows").innerHTML=orders.map(o=>{
-      const briefing=briefs.find(b=>b.email&&o.email&&String(b.email).trim().toLowerCase()===String(o.email).trim().toLowerCase());
-      const title=o.tipo==="plano"?"Plano: "+(o.item_id||"—"):o.tipo==="servico"?"Serviço: "+(o.item_id||"—"):(o.item_id||o.tipo||"Pedido");
-      const orderDate=o.created_at?dateTime(o.created_at):"Data não registrada";
+      const linked=briefs.find(b=>orderMatchesBrief(o,b));
+      const title=o.tipo==="plano"?"Plano "+(o.item_id||""):o.tipo==="servico"?"Serviço "+(o.item_id||""):(o.item_id||o.tipo||"Pedido");
       return `<tr>
-        <td><strong>${esc(title)}</strong><span class="muted">${esc(o.referencia||"Sem referência")}</span></td>
-        <td>${esc(briefing?(briefing.nome+" · "+briefing.empresa):(o.email||"Cliente não vinculado"))}<br><span class="muted">${esc(o.email||"Sem e-mail no pedido")}</span></td>
-        <td><strong>${esc(money(o.valor))}</strong></td>
-        <td><span class="${statusClass(o.status)}">${esc(labelPayment(o.status))}</span></td>
-        <td>${esc(orderDate)}</td>
+        <td><strong>${esc(title)}</strong><div class="client-sub">${esc(o.referencia||"Sem referência")}</div></td>
+        <td>${esc(linked?(linked.nome+" · "+linked.empresa):(o.email||"Cliente não vinculado"))}<div class="client-sub">${esc(o.email||"Sem e-mail")}</div></td>
+        <td><strong>${esc(brl(o.valor))}</strong></td>
+        <td>${pill(o.status)}</td>
+        <td>${esc(dateTime(orderDate(o)))}</td>
       </tr>`;
     }).join("");
-
     $("paymentEmpty").classList.toggle("hidden",orders.length>0);
   }
 
-  async function saveProject(id,overrideStatus=null){
+  async function saveProject(id,forcedStatus=null){
     const r=briefs.find(x=>String(x.id)===String(id));
     if(!r)return;
+    const status=forcedStatus||document.querySelector(`[data-status="${CSS.escape(String(id))}"]`)?.value;
+    const date=document.querySelector(`[data-date="${CSS.escape(String(id))}"]`)?.value||null;
+    if(!status)return;
 
-    const status=overrideStatus||$("status-"+id).value;
-    const date=$("date-"+id).value||null;
     const buttons=document.querySelectorAll(`[data-save="${CSS.escape(String(id))}"],[data-start="${CSS.escape(String(id))}"],[data-done="${CSS.escape(String(id))}"]`);
     buttons.forEach(b=>b.disabled=true);
-
-    const payload={
-      status,
-      data_prevista:date,
-      atualizado_em:new Date().toISOString()
-    };
-
     try{
-      const {data,error}=await db.from("vortex_briefings")
-        .update(payload).eq("id",r.id).select("id");
-
+      const {data,error}=await db.from("vortex_briefings").update({
+        status,
+        data_prevista:date,
+        atualizado_em:new Date().toISOString()
+      }).eq("id",r.id).select("id");
       if(error)throw error;
       if(!data||!data.length){
-        notify("globalMsg","Nenhum registro foi atualizado. Verifique a política RLS de UPDATE para administradores.",true);
+        show("globalMsg","Nenhuma alteração foi confirmada. Confira as políticas RLS de UPDATE para administradores.","error");
         return;
       }
-
-      notify("globalMsg",status==="em_desenvolvimento"?"Projeto iniciado e movido para Em desenvolvimento.":status==="concluido"?"Projeto marcado como concluído.":"Status e prazo atualizados com sucesso.");
+      show("globalMsg",status==="em_desenvolvimento"?"Projeto iniciado com sucesso.":status==="concluido"?"Projeto marcado como concluído.":"Projeto atualizado com sucesso.","success");
       await loadAll();
     }catch(error){
-      console.error("Erro ao salvar projeto:",error);
-      notify("globalMsg","Não foi possível salvar. Verifique as colunas status, data_prevista, atualizado_em e as políticas RLS.",true);
-    }finally{
-      buttons.forEach(b=>b.disabled=false);
-    }
+      console.error("Falha ao salvar projeto:",error);
+      show("globalMsg","Não foi possível salvar. Verifique as colunas data_prevista, status e atualizado_em, além das políticas RLS.","error");
+    }finally{buttons.forEach(b=>b.disabled=false)}
   }
 
-  function quickStatus(id,status){
-    const input=$("date-"+id);
-    if(!input)return;
+  function openWhatsApp(id){
     const r=briefs.find(x=>String(x.id)===String(id));
     if(!r)return;
-    const action=status==="concluido"?"concluir":"iniciar";
-    const question=status==="concluido"
-      ?"Confirmar que o projeto de "+(r.empresa||r.nome)+" foi concluído?"
-      :"Iniciar o desenvolvimento do projeto de "+(r.empresa||r.nome)+"?";
-    if(!confirm(question))return;
-    saveProject(id,status);
-  }
-
-  function openWhatsApp(r){
     const phone=String(r.whatsapp||"").replace(/\D/g,"");
     if(phone.length<10||phone.length>15){
-      notify("globalMsg","O WhatsApp deste cliente não possui um número válido.",true);
+      show("globalMsg","Este cliente não possui um WhatsApp válido cadastrado.","error");
       return;
     }
     const message=`Olá, ${r.nome||"tudo bem"}! Aqui é da Vortex Tech. Estou entrando em contato sobre o projeto da ${r.empresa||"sua empresa"}.`;
     window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(message),"_blank","noopener");
   }
+
+  $("clientRows").addEventListener("click",e=>{
+    const b=e.target.closest("button");
+    if(!b)return;
+    if(b.dataset.save)saveProject(b.dataset.save);
+    if(b.dataset.start){
+      const r=briefs.find(x=>String(x.id)===b.dataset.start);
+      if(r&&confirm("Iniciar o projeto de "+(r.empresa||r.nome)+"?"))saveProject(b.dataset.start,"em_desenvolvimento");
+    }
+    if(b.dataset.done){
+      const r=briefs.find(x=>String(x.id)===b.dataset.done);
+      if(r&&confirm("Marcar o projeto de "+(r.empresa||r.nome)+" como concluído?"))saveProject(b.dataset.done,"concluido");
+    }
+    if(b.dataset.wa)openWhatsApp(b.dataset.wa);
+  });
 
   $("loginForm").addEventListener("submit",async e=>{
     e.preventDefault();
@@ -465,24 +646,21 @@ td strong{display:block;font-size:14px;overflow-wrap:anywhere}
     hide("loginMsg");
     try{
       const {data,error}=await db.auth.signInWithPassword({
-        email:$("email").value.trim(),
-        password:$("senha").value
+        email:$("email").value.trim(),password:$("senha").value
       });
       if(error)throw error;
       await enter(data.user);
     }catch(error){
       console.error(error);
-      notify("loginMsg","Não foi possível entrar. Confira seu e-mail, senha e perfil administrativo.",true);
+      show("loginMsg","Não foi possível entrar. Confira o e-mail, a senha e o perfil de administrador.","error");
     }finally{$("loginBtn").disabled=false}
   });
 
   $("refresh").addEventListener("click",loadAll);
+  $("search").addEventListener("input",renderClients);
   $("filter").addEventListener("change",renderClients);
   $("sort").addEventListener("change",renderClients);
-  $("logout").addEventListener("click",async()=>{
-    await db.auth.signOut();
-    location.reload();
-  });
+  $("logout").addEventListener("click",async()=>{await db.auth.signOut();location.reload()});
 
   db.auth.getSession().then(({data,error})=>{
     if(error){console.error(error);return}
