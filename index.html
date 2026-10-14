@@ -4,77 +4,238 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Vortex Tech: sites profissionais, catálogos digitais e soluções para empresas.">
+<meta name="description" content="Vortex Tech: criação de sites profissionais e catálogos digitais sob medida para sua empresa.">
 <meta name="theme-color" content="#090e19">
-<title>Vortex Tech | Transformando ideias em tecnologia</title>
+<title>Vortex Tech | Sua ideia, nosso projeto</title>
 <style>
-:root{--bg:#090e19;--card:#131c2c;--gold:#e6bd65;--blue:#3d9fff;--white:#f7f9ff}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--white);line-height:1.6}a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}.wrap{max-width:1120px;margin:auto;padding:0 22px}header{position:sticky;top:0;z-index:5;background:#090e19ed;border-bottom:1px solid #26354a}.nav{display:flex;justify-content:space-between;align-items:center;gap:18px;min-height:75px;flex-wrap:wrap}.logo{font-weight:900;font-size:23px;letter-spacing:1px}.logo span{color:var(--gold)}nav{display:flex;gap:20px;flex-wrap:wrap}nav a:hover{color:var(--gold)}.hero{padding:90px 0;background:radial-gradient(ellipse at 75% 15%,#153e6b 0,transparent 52%),linear-gradient(130deg,#0b101b,#10182a)}.eyebrow{color:var(--gold);text-transform:uppercase;font-size:13px;letter-spacing:3px;font-weight:bold}h1{font-size:clamp(39px,6vw,72px);line-height:1.1;margin:15px 0 20px;max-width:850px}h1 span{color:var(--gold)}.hero p{max-width:650px;color:#c4d0df;font-size:19px}.buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}.btn{display:inline-block;padding:13px 20px;border-radius:10px;font-weight:bold;background:var(--gold);color:#10131a;border:1px solid var(--gold);cursor:pointer;transition:.2s}.btn.alt{background:transparent;color:var(--white);border-color:#496787}.btn:hover{filter:brightness(1.1);transform:translateY(-2px)}.btn:disabled{opacity:.65;cursor:wait;transform:none}section{padding:68px 0}h2{font-size:clamp(28px,4vw,42px);margin:0 0 12px}.muted{color:#aebed0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:35px}.card{background:var(--card);padding:28px;border:1px solid #293950;border-radius:17px;min-width:0}.card h3{margin:10px 0;font-size:22px}.icon{font-size:32px}.price{font-size:27px;font-weight:bold;color:var(--gold)}.price small{font-size:14px;font-weight:normal}.card p{color:#bdcadd}.card .btn{margin-top:8px}.band{background:linear-gradient(100deg,#14243a,#101827);border-top:1px solid #29425c;border-bottom:1px solid #29425c}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:25px}.steps strong{color:var(--gold);font-size:28px}.contact{background:linear-gradient(125deg,#112944,#131b2c);border-radius:20px;padding:42px;border:1px solid #31506d}.field{width:100%;padding:12px;margin:5px 0 12px;border-radius:8px;border:1px solid #40516a;background:#090e19;color:white}label{display:block;color:#d5deea;font-size:14px;margin:8px 0}.notice{margin-top:14px;color:#f1d28b;overflow-wrap:anywhere}footer{border-top:1px solid #26354a;padding:30px 0;color:#aebed0;font-size:14px}.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.admin-link{color:var(--gold);text-decoration:underline}
-.vtx-form{background:#101a2a;border:1px solid #2a3c55;border-radius:18px;padding:clamp(18px,3vw,30px);display:grid;gap:18px;margin-top:28px}.vtx-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.vtx-form input:not([type=color]):not([type=checkbox]),.vtx-form select,.vtx-form textarea{width:100%;padding:12px;border:1px solid #40516a;border-radius:8px;background:#090e19;color:#fff}.vtx-custom{display:grid;grid-template-columns:.9fr 1.1fr;gap:20px}.vtx-controls{display:grid;gap:8px;align-content:start}.vtx-colors{display:grid;grid-template-columns:1fr 1fr;gap:10px}.vtx-colors input[type=color]{width:100%;height:44px;padding:3px;background:#090e19;border:1px solid #40516a;border-radius:8px}.vtx-checks{border:1px solid #40516a;border-radius:10px;padding:12px;display:grid;gap:8px}.vtx-checks label{margin:0;display:flex;gap:8px;align-items:center}.vtx-checks input{accent-color:var(--gold)}.vtx-preview{--vp:#2563eb;--vf:#ffffff;background:var(--vf);color:#172033;border-radius:14px;padding:18px;min-height:280px;display:flex;flex-direction:column;gap:20px}.vtx-preview-nav{display:flex;justify-content:space-between;gap:10px;font-size:12px}.vtx-preview-nav strong{color:var(--vp)}.vtx-preview-hero{background:var(--vp);color:white;padding:25px;border-radius:12px;flex:1}.vtx-preview-hero h3{font-size:clamp(20px,3vw,32px);line-height:1.15}.vtx-preview-hero p{font-size:13px}.vtx-preview-cta{display:inline-block;padding:8px 12px;border-radius:7px;background:#fff;color:#172033;font-weight:bold;font-size:12px}.vtx-small{font-size:12px;color:#aebed0}.vtx-status{color:#f1d28b;font-size:14px}.vtx-video{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center}.vtx-video-frame{width:100%;aspect-ratio:16/9;border:1px solid #2a3c55;border-radius:15px;background:linear-gradient(135deg,#152b45,#0b101b);display:grid;place-items:center;text-align:center;padding:20px}.vtx-video-frame .play{font-size:48px;color:var(--gold)}@media(max-width:760px){.grid,.steps,.vtx-fields,.vtx-custom,.vtx-video{grid-template-columns:1fr}.hero{padding:65px 0}.nav{padding:14px 0}nav{font-size:14px;gap:13px}.contact{padding:25px}.vtx-preview{min-height:250px}}
+:root{--bg:#090e19;--card:#131c2c;--gold:#e6bd65;--white:#f7f9ff;--muted:#aebed0;--line:#293950}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--white);line-height:1.6}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:1120px;margin:auto;padding:0 22px}
+header{position:sticky;top:0;z-index:5;background:#090e19ed;border-bottom:1px solid #26354a;backdrop-filter:blur(12px)}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:18px;min-height:75px;flex-wrap:wrap}
+.logo{font-weight:900;font-size:23px;letter-spacing:1px}.logo span{color:var(--gold)}
+nav{display:flex;gap:20px;flex-wrap:wrap;font-size:14px}nav a:hover{color:var(--gold)}
+.hero{padding:82px 0;background:radial-gradient(ellipse at 78% 12%,#153e6b 0,transparent 50%),linear-gradient(130deg,#0b101b,#10182a)}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center}
+.eyebrow{color:var(--gold);text-transform:uppercase;font-size:12px;letter-spacing:2.5px;font-weight:bold}
+h1{font-size:clamp(39px,6vw,68px);line-height:1.08;margin:15px 0 20px}
+h1 span{color:var(--gold)}h2{font-size:clamp(28px,4vw,42px);line-height:1.15;margin:0 0 12px}
+h3{line-height:1.25}.hero p{max-width:650px;color:#c4d0df;font-size:18px}
+.buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:27px}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border-radius:10px;font-weight:bold;background:var(--gold);color:#10131a;border:1px solid var(--gold);transition:.2s}
+.btn.alt{background:transparent;color:var(--white);border-color:#496787}
+.btn:hover{filter:brightness(1.1);transform:translateY(-2px)}
+.visual{position:relative;min-height:330px;border:1px solid #34506e;border-radius:24px;background:linear-gradient(145deg,#162944,#0d1422);padding:20px;overflow:hidden;box-shadow:0 25px 70px #0005}
+.visual:before{content:"";position:absolute;width:230px;height:230px;border-radius:50%;background:#3d9fff24;right:-50px;top:-55px}
+.mock-window{position:relative;background:#f8fafc;color:#142033;border-radius:13px;padding:13px;box-shadow:0 14px 35px #0004;transform:rotate(-2deg)}
+.mock-top{display:flex;gap:5px;margin-bottom:14px}.mock-top i{width:7px;height:7px;border-radius:50%;background:#bdc7d5}
+.mock-brand{font-size:11px;font-weight:900;color:#315c98}
+.mock-banner{background:linear-gradient(120deg,#163d70,#3d9fff);color:white;border-radius:9px;padding:23px 16px;margin:10px 0}
+.mock-banner strong{display:block;font-size:22px;line-height:1.15}
+.mock-banner small{font-size:10px;opacity:.85}
+.mock-lines{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px}.mock-lines i{display:block;height:44px;background:#e7edf5;border-radius:6px}
+.visual-note{position:absolute;right:17px;bottom:16px;background:#101c2d;border:1px solid #395575;border-radius:10px;padding:10px 13px;font-size:12px;color:#e7eef8}
+.visual-note b{color:var(--gold)}
+section{padding:68px 0}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:30px}
+.card{background:var(--card);padding:25px;border:1px solid var(--line);border-radius:17px;min-width:0}
+.card h3{margin:10px 0;font-size:21px}.card p{color:#bdcadd}
+.price{font-size:27px;font-weight:bold;color:var(--gold);margin:12px 0}
+.band{background:linear-gradient(100deg,#14243a,#101827);border-top:1px solid #29425c;border-bottom:1px solid #29425c}
+.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:35px;align-items:center}
+.idea-steps{display:grid;gap:13px;margin-top:20px}
+.idea-step{display:flex;gap:13px;align-items:flex-start}
+.step-num{flex:0 0 35px;height:35px;border-radius:10px;display:grid;place-items:center;background:#263a55;color:var(--gold);font-weight:bold}
+.idea-step p{margin:3px 0 0;color:var(--muted);font-size:14px}
+.idea-card{padding:25px;border-radius:18px;border:1px solid #35516f;background:linear-gradient(145deg,#172b45,#101827)}
+.idea-card .symbol{font-size:38px}.idea-card h3{font-size:23px;margin:12px 0}.idea-card p{color:#c2cfdf}
+.lock-note{display:flex;gap:12px;align-items:flex-start;padding:16px;border:1px solid #3a4c66;border-radius:12px;background:#101a2a;margin-top:20px}
+.lock-note strong{display:block;color:var(--gold)}.lock-icon{font-size:23px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:28px}
+.steps strong{color:var(--gold);font-size:27px}
+.muted{color:var(--muted)}
+.contact{background:linear-gradient(125deg,#112944,#131b2c);border-radius:20px;padding:38px;border:1px solid #31506d}
+.notice{margin-top:14px;color:#f1d28b;overflow-wrap:anywhere}
+footer{border-top:1px solid #26354a;padding:28px 0;color:var(--muted);font-size:14px}
+.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.admin-link{color:var(--gold);text-decoration:underline}
+@media(max-width:760px){.hero{padding:58px 0}.hero-grid,.intro-grid{grid-template-columns:1fr}.visual{min-height:290px}.grid,.steps{grid-template-columns:1fr}.nav{padding:14px 0}nav{gap:12px}.contact{padding:25px}.visual-note{font-size:11px}}
 </style>
 </head>
 <body>
-<header><div class="wrap nav"><a class="logo" href="#inicio">VORTEX <span>TECH</span></a><nav><a href="#servicos">Serviços</a><a href="#planos">Planos</a><a href="#briefing">Monte seu projeto</a><a href="#como-funciona">Como funciona</a><a href="#contato">Contato</a></nav></div></header>
-<main>
-<div class="hero" id="inicio"><div class="wrap"><div class="eyebrow">Tecnologia para fazer seu negócio crescer</div><h1>Transformando ideias em <span>tecnologia.</span></h1><p>Sites profissionais, catálogos digitais e soluções inteligentes para destacar sua empresa no mundo digital.</p><div class="buttons"><a class="btn" target="_blank" rel="noopener" href="https://wa.me/5531997653448?text=Ol%C3%A1%21%20Conheci%20a%20Vortex%20Tech%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento.">Solicitar orçamento ↗</a><a class="btn alt" href="#servicos">Conhecer serviços</a><a class="btn alt" href="#briefing">Personalizar meu projeto</a><a class="btn" style="background:#3d9fff;border-color:#3d9fff;color:#07111f" href="personalizar.html?modo=teste">TESTE: experimentar personalizador</a></div></div></div>
-<section id="servicos"><div class="wrap"><div class="eyebrow">Nossas soluções</div><h2>Seu negócio merece mais</h2><p class="muted">Escolha a solução ideal para começar a vender e se apresentar melhor na internet.</p><div class="grid">
-<article class="card"><div class="icon">🌐</div><h3>Sites profissionais</h3><p>Site responsivo para divulgar seus serviços e receber contatos de clientes.</p><div class="price">R$ 399,00</div><p><button class="btn" type="button" onclick="iniciarPagamento('site',this)">Contratar e pagar</button></p></article>
-<article class="card"><div class="icon">🛍️</div><h3>Catálogos digitais</h3><p>Apresente produtos e facilite pedidos pelo WhatsApp.</p><div class="price">R$ 199,00</div><p><button class="btn" type="button" onclick="iniciarPagamento('catalogo',this)">Contratar e pagar</button></p></article>
-<article class="card"><div class="icon">⚙️</div><h3>Soluções sob medida</h3><p>Formulários, sistemas simples e melhorias digitais conforme a necessidade da empresa.</p><div class="price">Sob orçamento</div><p><a class="btn" target="_blank" rel="noopener" href="https://wa.me/5531997653448?text=Quero%20conversar%20sobre%20uma%20solu%C3%A7%C3%A3o%20personalizada">Tenho interesse</a></p></article>
-</div></div></section>
-<section class="band" id="planos"><div class="wrap"><div class="eyebrow">Planos mensais</div><h2>Escolha seu plano</h2><p class="muted">Soluções para acompanhar o crescimento do seu negócio.</p><div class="grid">
-<article class="card"><div class="icon">🚀</div><h3>Básico</h3><div class="price">R$ 29,90 <small>/mês</small></div><p>Para começar.</p><label for="email-basico">Seu e-mail</label><input class="field" id="email-basico" type="email" autocomplete="email" placeholder="voce@email.com" required><button class="btn" type="button" onclick="iniciarAssinatura('basico',this)">Assinar plano</button></article>
-<article class="card"><div class="icon">⚡</div><h3>Profissional</h3><div class="price">R$ 59,90 <small>/mês</small></div><p>Para crescer e vender mais.</p><label for="email-profissional">Seu e-mail</label><input class="field" id="email-profissional" type="email" autocomplete="email" placeholder="voce@email.com" required><button class="btn" type="button" onclick="iniciarAssinatura('profissional',this)">Assinar plano</button></article>
-<article class="card"><div class="icon">👑</div><h3>Premium</h3><div class="price">R$ 99,90 <small>/mês</small></div><p>Para quem quer mais recursos.</p><label for="email-premium">Seu e-mail</label><input class="field" id="email-premium" type="email" autocomplete="email" placeholder="voce@email.com" required><button class="btn" type="button" onclick="iniciarAssinatura('premium',this)">Assinar plano</button></article>
-</div><p class="muted">As formas de pagamento recorrente dependem da disponibilidade na sua conta do Mercado Pago.</p></div></section>
-<section class="band" id="apresentacao"><div class="wrap"><div class="vtx-video"><div><div class="eyebrow">Do briefing ao site pronto</div><h2>Você imagina. Nossa equipe desenvolve.</h2><p class="muted">Escolha suas cores, conte sobre sua empresa e diga o que precisa. Nossa equipe analisa o briefing e desenvolve o projeto com você.</p><a class="btn" href="#briefing">Começar meu briefing</a></div><div class="vtx-video-frame"><div><div class="play">▶</div><strong>Apresentação da Vortex Tech</strong><p class="muted">Adicione aqui um vídeo próprio ou um vídeo autorizado do YouTube. O site não utiliza vídeos copiados do Pinterest sem autorização.</p></div></div></div></div></section>
-<section id="briefing"><div class="wrap"><div class="eyebrow">Seu projeto começa aqui</div><h2>Monte a ideia do seu site do seu jeito</h2><p class="muted">Experimente cores e descreva sua ideia. A prévia é ilustrativa: nossa equipe cria o site final.</p>
-<form id="briefingForm" class="vtx-form">
-<div class="vtx-fields">
-<label>Seu nome *<input name="nome" required maxlength="120" placeholder="Seu nome"></label>
-<label>Nome da empresa *<input name="empresa" required maxlength="120" placeholder="Nome da empresa"></label>
-<label>E-mail *<input name="email" type="email" required maxlength="200" placeholder="voce@empresa.com"></label>
-<label>WhatsApp com DDD *<input name="whatsapp" required inputmode="tel" maxlength="20" placeholder="Ex.: 5531999999999"></label>
-<label>Ramo da empresa *<select name="segmento" required><option value="">Selecione</option><option>Loja / comércio</option><option>Prestação de serviços</option><option>Restaurante / alimentação</option><option>Beleza / estética</option><option>Saúde / bem-estar</option><option>Educação / cursos</option><option>Tecnologia</option><option>Outro</option></select></label>
-<label>Instagram (URL)<input name="instagram" type="url" placeholder="https://www.instagram.com/suaempresa/"></label>
-<label>Prazo desejado *<select name="prazo" required><option value="">Selecione</option><option>2 semanas</option><option>3 semanas</option><option>4 semanas</option><option>5 semanas</option><option>6 semanas</option><option>7 semanas</option><option>8 semanas (até 2 meses)</option></select></label>
-<label>Estilo visual<select name="estilo"><option>Moderno e profissional</option><option>Minimalista e elegante</option><option>Luxuoso e sofisticado</option><option>Criativo e colorido</option><option>Tecnológico</option><option>Clássico</option></select></label>
+
+<header>
+<div class="wrap nav">
+<a class="logo" href="#inicio">VORTEX <span>TECH</span></a>
+<nav>
+<a href="#servicos">Projetos</a>
+<a href="#como-funciona">Como funciona</a>
+<a href="#contato">Contato</a>
+</nav>
 </div>
-<div class="vtx-custom"><div class="vtx-controls"><h3>Escolha suas cores</h3><p class="muted">A prévia muda na hora. Você não está montando nem publicando o site final.</p><div class="vtx-colors"><label>Cor principal<input type="color" name="cor_principal" id="corPrincipal" value="#2563eb"></label><label>Cor de fundo<input type="color" name="cor_fundo" id="corFundo" value="#ffffff"></label></div>
-<fieldset class="vtx-checks"><legend>Funcionalidades desejadas</legend><label><input type="checkbox" name="funcionalidades" value="WhatsApp"> WhatsApp</label><label><input type="checkbox" name="funcionalidades" value="Agendamento online"> Agendamento online</label><label><input type="checkbox" name="funcionalidades" value="Formulário de contato"> Formulário de contato</label><label><input type="checkbox" name="funcionalidades" value="Catálogo"> Catálogo de produtos/serviços</label><label><input type="checkbox" name="funcionalidades" value="Integração com redes sociais"> Integração com redes sociais</label></fieldset></div>
-<div class="vtx-preview" id="sitePreview"><div class="vtx-preview-nav"><strong id="previewNome">Sua Empresa</strong><span>Início · Sobre · Contato</span></div><div class="vtx-preview-hero"><small>SEU NEGÓCIO ONLINE</small><h3>Uma presença digital com a sua identidade.</h3><p>Uma prévia de estilo para inspirar o projeto da sua empresa.</p><span class="vtx-preview-cta">Conheça nosso trabalho</span></div><small style="color:#64748b">Prévia ilustrativa — não é o site final.</small></div></div>
-<label>Conte como você imagina o site *<textarea name="descricao" required rows="5" maxlength="5000" placeholder="Explique o que sua empresa faz, o que quer destacar e como imagina o site."></textarea></label>
-<label>Links de referência (opcional)<input name="referencias" placeholder="Links de sites de que gosta"></label>
-<label>Outras observações (opcional)<textarea name="observacoes" rows="3" maxlength="3000" placeholder="Outros detalhes importantes"></textarea></label>
-<button class="btn" id="enviarBriefing" type="submit">Enviar briefing para a Vortex Tech</button><div id="briefingStatus" class="vtx-status" role="status" aria-live="polite"></div>
-<p class="vtx-small">Ao enviar, você solicita contato da equipe para tratar do projeto. O site não será gerado nem publicado automaticamente.</p>
-</form></div></section>
-<section class="band" id="como-funciona"><div class="wrap"><div class="eyebrow">Simples e direto</div><h2>Como funciona</h2><div class="steps"><div><strong>01</strong><h3>Conte sua ideia</h3><p class="muted">Preencha o briefing e escolha o estilo que combina com sua empresa.</p></div><div><strong>02</strong><h3>Receba a proposta</h3><p class="muted">Analisamos suas necessidades e confirmamos escopo, prazo e investimento.</p></div><div><strong>03</strong><h3>Vamos criar</h3><p class="muted">Nossa equipe desenvolve o projeto e combina a entrega com você.</p></div></div></div></section>
-<section id="contato"><div class="wrap"><div class="contact"><div class="eyebrow">Vamos conversar?</div><h2>Seu próximo projeto começa aqui.</h2><p class="muted">Entre em contato e solicite um orçamento sem compromisso.</p><a class="btn" target="_blank" rel="noopener" href="https://wa.me/5531997653448?text=Ol%C3%A1%21%20Conheci%20a%20Vortex%20Tech%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento.">Falar no WhatsApp ↗</a><div id="mensagem-pagamento" class="notice" role="status" aria-live="polite"></div></div></div></section>
+</header>
+
+<main>
+<section class="hero" id="inicio">
+<div class="wrap hero-grid">
+<div>
+<div class="eyebrow">Tecnologia para fazer seu negócio crescer</div>
+<h1>Sua ideia merece virar <span>um grande projeto.</span></h1>
+<p>A Vortex Tech cria sites profissionais e catálogos digitais sob medida. Você conta o que precisa; nossa equipe planeja, desenvolve e entrega o projeto.</p>
+<div class="buttons">
+<a class="btn" href="#servicos">Conhecer projetos</a>
+<a class="btn alt" target="_blank" rel="noopener" href="https://wa.me/5531997653448?text=Ol%C3%A1%21%20Conheci%20a%20Vortex%20Tech%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento.">Solicitar orçamento ↗</a>
+</div>
+</div>
+<div class="visual" aria-label="Ilustração de um site profissional">
+<div class="mock-window">
+<div class="mock-top"><i></i><i></i><i></i></div>
+<div class="mock-brand">SUA MARCA</div>
+<div class="mock-banner">
+<small>UMA NOVA PRESENÇA DIGITAL</small>
+<strong>Seu negócio,<br>do seu jeito.</strong>
+<p style="font-size:10px;margin-bottom:0">Design pensado para seus clientes.</p>
+</div>
+<div class="mock-lines"><i></i><i></i><i></i></div>
+</div>
+<div class="visual-note"><b>Vortex Tech</b><br>Da ideia à execução</div>
+</div>
+</div>
+</section>
+
+<section id="servicos">
+<div class="wrap">
+<div class="eyebrow">Projetos sob medida</div>
+<h2>Escolha o que sua empresa precisa</h2>
+<p class="muted">Projetos avulsos, com pagamento único. O escopo e o prazo são combinados antes do desenvolvimento.</p>
+<div class="grid">
+<article class="card">
+<div style="font-size:30px">🌐</div>
+<h3>Site profissional</h3>
+<p>Uma presença digital responsiva para apresentar sua empresa, divulgar serviços e receber contatos.</p>
+<div class="price">R$ 399,00</div>
+<button class="btn" type="button" onclick="iniciarPagamento('site',this)">Contratar projeto</button>
+</article>
+<article class="card">
+<div style="font-size:30px">🛍️</div>
+<h3>Catálogo digital</h3>
+<p>Apresente produtos e serviços de forma organizada e facilite pedidos pelo WhatsApp.</p>
+<div class="price">R$ 199,00</div>
+<button class="btn" type="button" onclick="iniciarPagamento('catalogo',this)">Contratar projeto</button>
+</article>
+<article class="card">
+<div style="font-size:30px">⚙️</div>
+<h3>Solução personalizada</h3>
+<p>Uma solução digital planejada para as necessidades específicas da sua empresa.</p>
+<div class="price">Sob orçamento</div>
+<a class="btn" target="_blank" rel="noopener" href="https://wa.me/5531997653448?text=Quero%20conversar%20sobre%20um%20projeto%20personalizado%20com%20a%20Vortex%20Tech.">Solicitar orçamento</a>
+</article>
+</div>
+</div>
+</section>
+
+<section class="band" id="apresentacao">
+<div class="wrap intro-grid">
+<div>
+<div class="eyebrow">Você apresenta. Nós executamos.</div>
+<h2>O projeto começa com a sua ideia.</h2>
+<p class="muted">Você não precisa saber programar nem montar o site sozinho. Depois de contratar o projeto e ter o pagamento confirmado, você poderá informar o nome da empresa, escolher referências visuais, indicar cores e explicar o que gostaria de ver no resultado.</p>
+<div class="idea-steps">
+<div class="idea-step"><span class="step-num">01</span><div><strong>Você explica a ideia</strong><p>Conta sobre sua empresa, seus clientes e o que quer destacar.</p></div></div>
+<div class="idea-step"><span class="step-num">02</span><div><strong>Nossa equipe planeja</strong><p>Organizamos suas preferências e confirmamos os detalhes do projeto.</p></div></div>
+<div class="idea-step"><span class="step-num">03</span><div><strong>Nós desenvolvemos</strong><p>A Vortex Tech executa o projeto e acompanha as etapas combinadas.</p></div></div>
+</div>
+</div>
+<aside class="idea-card">
+<div class="symbol">✦</div>
+<div class="eyebrow">Personalização do projeto</div>
+<h3>Você dá a direção. A gente cuida da execução.</h3>
+<p>O espaço de briefing será disponibilizado após a confirmação do pagamento. Nele, você poderá compartilhar suas preferências sem precisar criar ou publicar o site por conta própria.</p>
+<div class="lock-note"><span class="lock-icon">🔒</span><div><strong>Acesso após a compra</strong><span class="muted">A área de personalização faz parte do projeto contratado.</span></div></div>
+</aside>
+</div>
+</section>
+
+<section class="band" id="como-funciona">
+<div class="wrap">
+<div class="eyebrow">Simples e transparente</div>
+<h2>Como funciona</h2>
+<div class="steps">
+<div><strong>01</strong><h3>Escolha o projeto</h3><p class="muted">Conheça as opções e escolha a solução para sua empresa.</p></div>
+<div><strong>02</strong><h3>Compartilhe sua ideia</h3><p class="muted">Após a confirmação do pagamento, você informa suas preferências e referências.</p></div>
+<div><strong>03</strong><h3>A Vortex desenvolve</h3><p class="muted">Nossa equipe cria o projeto conforme o escopo e o prazo combinados.</p></div>
+</div>
+</div>
+</section>
+
+<section id="contato">
+<div class="wrap">
+<div class="contact">
+<div class="eyebrow">Vamos conversar?</div>
+<h2>Seu próximo projeto começa aqui.</h2>
+<p class="muted">Fale com a equipe para tirar dúvidas ou solicitar um orçamento personalizado.</p>
+<a class="btn" target="_blank" rel="noopener" href="https://wa.me/5531997653448?text=Ol%C3%A1%21%20Conheci%20a%20Vortex%20Tech%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento.">Falar no WhatsApp ↗</a>
+<div id="mensagem-pagamento" class="notice" role="status" aria-live="polite"></div>
+</div>
+</div>
+</section>
 </main>
-<footer><div class="wrap foot"><div>© <span id="year"></span> Vortex Tech · Transformando ideias em tecnologia.</div><a class="admin-link" href="admin.html">Área do Administrador / Desenvolvedor</a></div></footer>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<footer>
+<div class="wrap foot">
+<div>© <span id="year"></span> Vortex Tech · Transformando ideias em tecnologia.</div>
+<a class="admin-link" href="admin.html">Área do Administrador / Desenvolvedor</a>
+</div>
+</footer>
+
 <script>
 "use strict";
 document.getElementById("year").textContent=new Date().getFullYear();
+
+/*
+  Este endpoint precisa existir no Supabase e retornar:
+  { "checkoutUrl": "https://..." }
+  O servidor deve validar o serviço e o preço.
+*/
 const ENDPOINT_PAGAMENTO="https://bngxigbyxrksctylyanw.supabase.co/functions/v1/criar-pagamento";
-function mostrarMensagem(texto){document.getElementById("mensagem-pagamento").textContent=texto}
-async function solicitarCheckout(dados,botao){if(!botao||botao.disabled)return;const original=botao.textContent;botao.disabled=true;botao.textContent="Preparando pagamento...";mostrarMensagem("");try{const resposta=await fetch(ENDPOINT_PAGAMENTO,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(dados)});const resultado=await resposta.json().catch(()=>({}));if(!resposta.ok)throw new Error(resultado.erro||"Erro ao criar pagamento. Código: "+resposta.status);if(!resultado.checkoutUrl)throw new Error("O Supabase não retornou o link do checkout.");const url=new URL(resultado.checkoutUrl);const permitidos=["mercadopago.com.br","mercadopago.com"];if(url.protocol!=="https:"||!permitidos.some(d=>url.hostname===d||url.hostname.endsWith("."+d)))throw new Error("O endereço de pagamento retornado não é válido.");window.location.assign(url.href)}catch(e){console.error(e);const msg=e instanceof TypeError?"Não foi possível conectar ao Supabase. Verifique a conexão e o CORS.":(e.message||"Não foi possível iniciar o pagamento.");mostrarMensagem(msg);alert(msg);botao.disabled=false;botao.textContent=original}}
-function iniciarPagamento(servicoId,botao){solicitarCheckout({tipo:"servico",servicoId},botao)}
-function iniciarAssinatura(planoId,botao){const campo=document.getElementById("email-"+planoId);if(!campo||!campo.checkValidity()||!campo.value.trim()){campo?.reportValidity();campo?.focus();return}solicitarCheckout({tipo:"plano",planoId,email:campo.value.trim()},botao)}
-const corPrincipal=document.getElementById("corPrincipal"),corFundo=document.getElementById("corFundo"),preview=document.getElementById("sitePreview"),nomeEmpresa=document.querySelector('[name="empresa"]');
-function atualizarPreview(){preview.style.setProperty("--vp",corPrincipal.value);preview.style.setProperty("--vf",corFundo.value);document.getElementById("previewNome").textContent=nomeEmpresa.value.trim()||"Sua Empresa"}
-[corPrincipal,corFundo,nomeEmpresa].forEach(el=>el.addEventListener("input",atualizarPreview));atualizarPreview();
-const SUPABASE_URL="https://bngxigbyxrksctylyanw.supabase.co";
-const SUPABASE_ANON_KEY="sb_publishable_WYRvOzBLQuUDMPf_ZK9qmg_lvIXaHyo";
-const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
-document.getElementById("briefingForm").addEventListener("submit",async e=>{e.preventDefault();const form=e.currentTarget,btn=document.getElementById("enviarBriefing"),status=document.getElementById("briefingStatus");btn.disabled=true;btn.textContent="Enviando...";status.textContent="";
-const fd=new FormData(form),phone=String(fd.get("whatsapp")||"").replace(/\D/g,"");
-if(phone.length<10||phone.length>15){status.textContent="Confira o WhatsApp com código do país e DDD.";btn.disabled=false;btn.textContent="Enviar briefing para a Vortex Tech";return}
-const instagram=String(fd.get("instagram")||"").trim();
-if(instagram&&!/^https:\/\/(www\.)?instagram\.com\//i.test(instagram)){status.textContent="Cole uma URL válida do Instagram começando por https://www.instagram.com/";btn.disabled=false;btn.textContent="Enviar briefing para a Vortex Tech";return}
-const payload={nome:String(fd.get("nome")).trim(),empresa:String(fd.get("empresa")).trim(),email:String(fd.get("email")).trim(),whatsapp:phone,segmento:fd.get("segmento"),instagram:instagram||null,prazo:fd.get("prazo"),estilo:fd.get("estilo"),cor_principal:fd.get("cor_principal"),cor_fundo:fd.get("cor_fundo"),funcionalidades:fd.getAll("funcionalidades"),descricao:String(fd.get("descricao")).trim(),referencias:String(fd.get("referencias")||"").trim()||null,observacoes:String(fd.get("observacoes")||"").trim()||null,status:"novo"};
-try{const {error}=await sb.from("vortex_briefings").insert(payload);if(error)throw error;status.textContent="Briefing enviado com sucesso! Nossa equipe analisará seu projeto.";form.reset();corPrincipal.value="#2563eb";corFundo.value="#ffffff";atualizarPreview();}catch(err){console.error(err);status.textContent="Não foi possível enviar o briefing. Confira se a tabela e as políticas do Supabase foram configuradas.";}finally{btn.disabled=false;btn.textContent="Enviar briefing para a Vortex Tech"}});
+
+function mostrarMensagem(texto){
+ document.getElementById("mensagem-pagamento").textContent=texto;
+}
+async function iniciarPagamento(servicoId,botao){
+ if(!botao||botao.disabled)return;
+ const original=botao.textContent;
+ botao.disabled=true;
+ botao.textContent="Preparando pagamento...";
+ mostrarMensagem("");
+ try{
+  const resposta=await fetch(ENDPOINT_PAGAMENTO,{
+   method:"POST",
+   headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({tipo:"servico",servicoId})
+  });
+  const resultado=await resposta.json().catch(()=>({}));
+  if(!resposta.ok)throw new Error(resultado.erro||"Não foi possível iniciar o pagamento. Código "+resposta.status);
+  if(!resultado.checkoutUrl)throw new Error("O serviço de pagamento não retornou o link do checkout.");
+  const url=new URL(resultado.checkoutUrl);
+  const permitidos=["mercadopago.com.br","mercadopago.com"];
+  if(url.protocol!=="https:"||!permitidos.some(d=>url.hostname===d||url.hostname.endsWith("."+d))){
+   throw new Error("O endereço de pagamento retornado não é válido.");
+  }
+  window.location.assign(url.href);
+ }catch(e){
+  console.error(e);
+  const erro=e instanceof TypeError?"Não foi possível conectar ao serviço de pagamento.":(e.message||"Erro ao iniciar pagamento.");
+  mostrarMensagem(erro);
+  alert(erro);
+  botao.disabled=false;
+  botao.textContent=original;
+ }
+}
 </script>
 </body>
 </html>
