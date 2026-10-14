@@ -5,206 +5,271 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#080d18">
-<title>Vortex Tech | Painel Administrativo</title>
-
+<title>Vortex Tech | Administração</title>
 <style>
-:root{--bg:#080d18;--panel:#111a2a;--line:#293951;--gold:#e6bd65;--text:#f5f7fc;--muted:#a8b6ca;--green:#4ade80;--red:#ff9292}
+:root{--bg:#080d18;--card:#121e30;--line:#2b405b;--gold:#e6bd65;--muted:#acbbcf;--green:#4ade80}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif;line-height:1.5}
+body{margin:0;background:var(--bg);color:#f7f9ff;font:14px/1.5 Arial,sans-serif}
 button,input,select{font:inherit}
 button{cursor:pointer}
-button:disabled{opacity:.55;cursor:wait}
+button:disabled{opacity:.6;cursor:wait}
 a{color:var(--gold)}
 .hidden{display:none!important}
 .login{min-height:100vh;display:grid;place-items:center;padding:20px}
-.login-card{width:min(100%,430px);padding:28px;background:var(--panel);border:1px solid var(--line);border-radius:18px}
-.brand{font-size:22px;font-weight:900;letter-spacing:1px}
-.brand span{color:var(--gold)}
-.field{display:grid;gap:6px;margin:13px 0;font-size:13px}
-.field input,.field select{width:100%;padding:12px;background:#080d18;color:white;border:1px solid #40516a;border-radius:8px}
-.btn{padding:10px 14px;border-radius:9px;border:1px solid var(--gold);background:var(--gold);color:#111;font-weight:bold;font-size:13px}
-.btn.secondary{background:#17243a;border-color:#344863;color:white}
-.btn.green{background:#155b3c;border-color:#237b53;color:white}
-.link-btn{background:none;border:0;color:var(--gold);text-decoration:underline;padding:10px}
-.notice{margin:12px 0;padding:12px;border-radius:9px;background:#182a43;color:#dceaff;font-size:13px;overflow-wrap:anywhere}
-.notice.error{background:#49222b;color:#ffd1d6}
-.notice.success{background:#153e2d;color:#b5f5cf}
-.notice.warning{background:#49391d;color:#ffe6a6}
-.topbar{position:sticky;top:0;z-index:3;background:#0b1220f2;border-bottom:1px solid var(--line);padding:14px 4%;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.login-box{width:min(100%,430px);background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px}
+.logo{font-weight:900;font-size:23px}
+.logo span{color:var(--gold)}
+h1,h2,h3{line-height:1.25}
+.muted{color:var(--muted);font-size:12px}
+label{display:grid;gap:6px;margin:13px 0}
+input,select{width:100%;padding:11px;border-radius:8px;border:1px solid #405370;background:#090f1b;color:white}
+.btn{border:1px solid var(--gold);border-radius:8px;padding:10px 14px;background:var(--gold);color:#10151c;font-weight:bold}
+.btn.alt{background:#17263c;border-color:#3a5574;color:white}
+.btn.green{background:#155f40;border-color:#257750;color:white}
+.btn.blue{background:#194978;border-color:#3478b9;color:white}
+.message{padding:12px;border-radius:9px;margin:12px 0;background:#1a3047;color:#d5ecff;overflow-wrap:anywhere}
+.message.error{background:#4a202a;color:#ffd6da}
+.message.ok{background:#153e2d;color:#c1f7d3}
+.top{background:#101a2a;border-bottom:1px solid var(--line);padding:16px 4%;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
 .actions{display:flex;gap:8px;flex-wrap:wrap}
-.wrap{max-width:1450px;margin:auto;padding:25px 18px 50px}
-.hero{padding:23px;border:1px solid #33415b;border-radius:16px;background:linear-gradient(120deg,#17243a,#101827)}
-.eyebrow{font-size:10px;letter-spacing:1.5px;color:var(--gold);font-weight:bold}
-.hero h2{font-size:29px;margin:8px 0}
-.muted{font-size:13px;color:var(--muted)}
-.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:14px}
-.metric{padding:18px;background:var(--panel);border:1px solid var(--line);border-radius:14px;min-width:0}
-.metric-label{color:var(--muted);font-size:12px}
-.metric-value{font-size:clamp(22px,2.5vw,29px);font-weight:bold;margin:10px 0 3px;overflow-wrap:anywhere}
-.gold{color:var(--gold)}
-.green-text{color:var(--green)}
-.section-title{margin:27px 0 12px}
-.section-title h2{margin:0 0 4px;font-size:20px}
-details{margin-top:14px;border:1px solid var(--line);border-radius:14px;background:var(--panel);overflow:hidden}
-summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px;font-weight:bold}
+.wrap{max-width:1400px;margin:auto;padding:24px 16px 55px}
+.welcome{padding:24px;border-radius:17px;background:linear-gradient(120deg,#1b3453,#101929);border:1px solid #365575}
+.welcome h1{margin:6px 0}
+.eyebrow{color:var(--gold);font-size:11px;font-weight:bold;letter-spacing:1.5px}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}
+.metric{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:19px}
+.metric span{font-size:12px;color:var(--muted)}
+.metric strong{display:block;color:var(--gold);font-size:27px;margin:8px 0}
+.section{margin:24px 0}
+details{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:13px 0;overflow:hidden}
+summary{list-style:none;cursor:pointer;padding:19px;font-size:16px;font-weight:bold;display:flex;justify-content:space-between;align-items:center}
 summary::-webkit-details-marker{display:none}
-summary:after{content:"＋";color:var(--gold);font-size:20px}
-details[open]>summary:after{content:"−"}
-.details-body{padding:0 18px 18px}
-.chart{height:180px;display:flex;gap:8px;align-items:stretch;border-bottom:1px solid var(--line);padding-top:10px}
-.bar-col{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px}
-.bar{width:min(100%,28px);min-height:3px;background:linear-gradient(#f2d58c,#b68a39);border-radius:6px 6px 0 0}
-.bar-label,.bar-value{font-size:10px;color:var(--muted)}
-.progress-list{display:grid;gap:13px;margin-top:15px}
-.progress-label{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px}
-.track{height:7px;border-radius:20px;background:#253149;overflow:hidden}
-.track span{display:block;height:100%;border-radius:20px}
-.filters{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px}
-.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px;margin-top:12px}
-table{width:100%;border-collapse:collapse;min-width:950px}
-th,td{text-align:left;vertical-align:top;padding:12px;border-bottom:1px solid var(--line);font-size:12px}
-th{background:#152136;color:var(--muted);font-size:10px;text-transform:uppercase}
-td strong{display:block;font-size:13px;overflow-wrap:anywhere}
-tbody tr:hover{background:#172338}
-.sub{font-size:11px;color:var(--muted);margin-top:4px;overflow-wrap:anywhere}
-.badge{display:inline-block;border-radius:25px;padding:5px 8px;background:#263149;font-size:11px}
-.badge.ok{background:#153e2d;color:#b5f5cf}
-.badge.bad{background:#49222b;color:#ffc9d0}
-.row-actions{display:flex;flex-direction:column;gap:6px;min-width:140px}
-.row-actions button,.row-actions select,.row-actions input{width:100%;padding:8px;font-size:11px;border-radius:7px}
-.row-actions select,.row-actions input{background:#080d18;color:white;border:1px solid #344761}
-.empty{text-align:center;padding:24px;color:var(--muted)}
-footer{text-align:center;color:#75859b;font-size:11px;padding:25px}
-@media(max-width:900px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:620px){.topbar{position:static}.wrap{padding:16px 10px}.filters{grid-template-columns:1fr}.metric{padding:13px}.details-body{padding:0 10px 12px}.metric-value{font-size:22px}}
+summary:after{content:"＋";color:var(--gold);font-size:22px}
+details[open] summary:after{content:"−"}
+.inner{padding:0 18px 20px}
+.filters{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-bottom:15px}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:900px}
+th,td{padding:12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;font-size:12px}
+th{background:#192a42;color:#bdc9d9}
+td strong{display:block;overflow-wrap:anywhere}
+.sub{color:var(--muted);font-size:11px;margin-top:5px;overflow-wrap:anywhere}
+.row-actions{display:grid;gap:6px;min-width:125px}
+.row-actions button{font-size:11px;padding:9px}
+.badge{display:inline-block;background:#26394f;color:white;padding:5px 10px;border-radius:30px;font-size:11px}
+.badge.ok{background:#155234;color:#b8f5cf}
+.badge.warn{background:#4a391c;color:#ffe3a4}
+.chart{display:flex;align-items:end;gap:7px;height:180px;border-bottom:1px solid var(--line);margin:20px 0 34px}
+.bar-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;min-width:0}
+.bar{width:min(100%,32px);background:linear-gradient(#f3d790,#ad8039);border-radius:5px 5px 0 0;min-height:2px}
+.bar-item small{font-size:10px;color:var(--muted);transform:translateY(18px)}
+.progress{display:grid;gap:13px}
+.progress label{display:flex;justify-content:space-between}
+.track{height:7px;border-radius:10px;background:#26354a;overflow:hidden}
+.track i{display:block;height:100%;background:var(--gold)}
+.empty{padding:18px;color:var(--muted);text-align:center}
+footer{text-align:center;color:var(--muted);padding:20px}
+@media(max-width:900px){.metrics{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.wrap{padding:15px 10px}.filters{grid-template-columns:1fr}.metric{padding:13px}.metric strong{font-size:21px}.top{align-items:flex-start}.inner{padding:0 10px 15px}}
 </style>
 </head>
 <body>
 
-<section id="login" class="login">
-<div class="login-card">
-<div class="brand">VORTEX <span>TECH</span></div>
-<h2 style="margin-top:24px">Entrar no painel</h2>
-<p class="muted">Área exclusiva de administração.</p>
+<section class="login" id="login">
+<div class="login-box">
+<div class="logo">VORTEX <span>TECH</span></div>
+<h2>Área do Administrador</h2>
+<p class="muted">Acesso exclusivo para contas autorizadas.</p>
 
-<div id="startupMsg" class="notice warning">Verificando conexão...</div>
+<div id="inicioMsg" class="message" role="status">
+Carregando autenticação...
+</div>
 
 <form id="loginForm">
-<label class="field">E-mail
-<input id="email" type="email" autocomplete="username" required>
+<label>E-mail
+<input id="email" type="email" required autocomplete="username">
 </label>
-<label class="field">Senha
-<input id="senha" type="password" autocomplete="current-password" required>
+<label>Senha
+<input id="senha" type="password" required autocomplete="current-password">
 </label>
-<button id="loginBtn" class="btn" style="width:100%" type="submit" disabled>Carregando sistema...</button>
+<button class="btn" id="entrar" style="width:100%" disabled>
+Carregando...
+</button>
 </form>
 
 <div style="text-align:center;margin-top:12px">
-<button type="button" id="esqueciSenha" class="link-btn">Esqueci minha senha</button>
-<p id="mensagemRecuperacao" class="muted" role="status"></p>
+<button class="btn alt" id="recuperar" type="button">
+Esqueci minha senha
+</button>
 </div>
-<div id="loginMsg" class="notice hidden" role="status"></div>
-<p class="muted"><a href="index.html">← Voltar ao site</a></p>
+
+<div id="loginErro" class="message hidden" role="alert"></div>
+
+<p class="muted">
+<a href="index.html">← Voltar ao site</a>
+</p>
 </div>
 </section>
 
-<section id="app" class="hidden">
-<header class="topbar">
-<div class="brand">VORTEX <span>TECH</span><div class="muted">Painel administrativo</div></div>
+<section id="painel" class="hidden">
+<header class="top">
+<div class="logo">VORTEX <span>TECH</span></div>
 <div class="actions">
-<a class="btn secondary" href="index.html">Ver site</a>
-<button class="btn secondary" id="refresh" type="button">↻ Atualizar dados</button>
-<button class="btn" id="logout" type="button">Sair</button>
+<a class="btn alt" href="index.html" style="text-decoration:none">Ver site</a>
+<button id="atualizar" class="btn blue" type="button">↻ Atualizar dados</button>
+<button id="sair" class="btn" type="button">Sair</button>
 </div>
 </header>
 
 <main class="wrap">
-<div class="hero">
-<div class="eyebrow">CENTRAL DE COMANDO</div>
-<h2>Visão geral do negócio</h2>
-<p id="welcome" class="muted">Carregando...</p>
-<span id="syncLabel" class="muted"></span>
+<div class="welcome">
+<div class="eyebrow">PAINEL EXECUTIVO</div>
+<h1>Visão geral do negócio</h1>
+<p id="bemvindo" class="muted"></p>
+<p id="sync" class="muted"></p>
 </div>
-<div id="globalMsg" class="notice hidden" role="status"></div>
 
-<div class="section-title"><div class="eyebrow">FINANCEIRO</div><h2>Resumo do faturamento</h2></div>
-<section class="metrics">
-<article class="metric"><div class="metric-label">Total recebido</div><div id="revTotal" class="metric-value green-text">—</div><div class="muted">Pedidos pagos</div></article>
-<article class="metric"><div class="metric-label">Esta semana</div><div id="revWeek" class="metric-value">—</div><div class="muted">Desde segunda-feira</div></article>
-<article class="metric"><div class="metric-label">Este mês</div><div id="revMonth" class="metric-value gold">—</div><div class="muted">Mês atual</div></article>
-<article class="metric"><div class="metric-label">Este ano</div><div id="revYear" class="metric-value">—</div><div class="muted">Ano atual</div></article>
-</section>
+<div id="aviso" class="message hidden" role="status"></div>
 
-<section class="metrics">
-<article class="metric"><div class="metric-label">Pagamentos pendentes</div><div id="pendingValue" class="metric-value">—</div><div id="pendingCount" class="muted">Aguardando confirmação</div></article>
-<article class="metric"><div class="metric-label">Clientes / briefings</div><div id="clientCount" class="metric-value">—</div><div class="muted">Registros recebidos</div></article>
-<article class="metric"><div class="metric-label">Em desenvolvimento</div><div id="workingCount" class="metric-value">—</div><div class="muted">Projetos em andamento</div></article>
-<article class="metric"><div class="metric-label">Concluídos</div><div id="doneCount" class="metric-value green-text">—</div><div class="muted">Projetos finalizados</div></article>
-</section>
+<h2 class="section">Resumo do faturamento</h2>
 
-<details id="performance">
-<summary><span>Desempenho</span><span class="muted">Gráfico e etapas</span></summary>
-<div class="details-body">
-<h3>Faturamento mensal <span id="chartYear"></span></h3>
-<div id="monthlyChart" class="chart"></div>
-<h3 style="margin-top:24px">Etapas dos projetos</h3>
-<div id="stageProgress" class="progress-list"></div>
+<div class="metrics">
+<div class="metric">
+<span>Total recebido</span>
+<strong id="fTotal">—</strong>
+</div>
+<div class="metric">
+<span>Esta semana</span>
+<strong id="fSemana">—</strong>
+</div>
+<div class="metric">
+<span>Este mês</span>
+<strong id="fMes">—</strong>
+</div>
+<div class="metric">
+<span>Este ano</span>
+<strong id="fAno">—</strong>
+</div>
+</div>
+
+<div class="metrics">
+<div class="metric">
+<span>Pagamentos pendentes</span>
+<strong id="fPendente">—</strong>
+</div>
+<div class="metric">
+<span>Total de briefings</span>
+<strong id="cTotal">—</strong>
+</div>
+<div class="metric">
+<span>Em desenvolvimento</span>
+<strong id="cAndamento">—</strong>
+</div>
+<div class="metric">
+<span>Concluídos</span>
+<strong id="cConcluido">—</strong>
+</div>
+</div>
+
+<details>
+<summary>Desempenho e gráficos</summary>
+<div class="inner">
+<h3>Faturamento por mês</h3>
+<p class="muted">Período baseado na data registrada pelo banco.</p>
+<div class="chart" id="grafico"></div>
+<h3>Etapas dos projetos</h3>
+<div class="progress" id="etapas"></div>
 </div>
 </details>
 
-<details id="clientsSection">
-<summary><span>Clientes e projetos</span><span class="muted">Lista, prazos e andamento</span></summary>
-<div class="details-body">
-<p class="muted">Altere o prazo e o status diretamente na lista.</p>
+<details>
+<summary>Clientes e projetos</summary>
+<div class="inner">
+<p class="muted">
+Acompanhe os projetos e altere as datas previstas.
+</p>
 <div class="filters">
-<label class="field">Buscar cliente<input id="search" placeholder="Nome, empresa, e-mail ou WhatsApp"></label>
-<label class="field">Status<select id="filter">
-<option value="">Todos</option><option value="novo">Lista de espera</option>
-<option value="em_analise">Em análise</option><option value="aguardando_cliente">Aguardando cliente</option>
-<option value="em_desenvolvimento">Em desenvolvimento</option><option value="concluido">Concluído</option><option value="cancelado">Cancelado</option>
-</select></label>
-<label class="field">Ordenar<select id="sort"><option value="recentes">Mais recentes</option><option value="antigos">Mais antigos</option><option value="prazo">Prazo mais próximo</option></select></label>
+<label>Buscar cliente
+<input id="busca" placeholder="Nome, e-mail ou empresa">
+</label>
+<label>Status
+<select id="filtro">
+<option value="">Todos</option>
+<option value="novo">Lista de espera</option>
+<option value="em_analise">Em análise</option>
+<option value="aguardando_cliente">Aguardando cliente</option>
+<option value="em_desenvolvimento">Em desenvolvimento</option>
+<option value="concluido">Concluído</option>
+<option value="cancelado">Cancelado</option>
+</select>
+</label>
 </div>
-<div class="table-wrap"><table>
-<thead><tr><th>Cliente</th><th>Data</th><th>Projeto</th><th>Pagamento</th><th>Prazo</th><th>Ações</th></tr></thead>
-<tbody id="clientRows"></tbody>
-</table></div>
-<div id="clientEmpty" class="empty hidden">Nenhum cliente encontrado.</div>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Cliente</th>
+<th>Recebido em</th>
+<th>Projeto</th>
+<th>Pagamento</th>
+<th>Prazo</th>
+<th>Status e ações</th>
+</tr>
+</thead>
+<tbody id="clientes"></tbody>
+</table>
+</div>
+<div id="vazioClientes" class="empty hidden">Nenhum briefing encontrado.</div>
 </div>
 </details>
 
-<details id="paymentsSection">
-<summary><span>Pedidos e pagamentos</span><span class="muted">Valores e status</span></summary>
-<div class="details-body">
-<div id="paymentMsg" class="notice hidden"></div>
-<div class="table-wrap"><table>
-<thead><tr><th>Pedido / serviço</th><th>Cliente / e-mail</th><th>Valor</th><th>Status</th><th>Data</th></tr></thead>
-<tbody id="paymentRows"></tbody>
-</table></div>
-<div id="paymentEmpty" class="empty hidden">Nenhum pedido disponível.</div>
+<details>
+<summary>Pedidos e pagamentos</summary>
+<div class="inner">
+<p class="muted">Somente pagamentos confirmados entram no faturamento.</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Referência</th>
+<th>Tipo de projeto</th>
+<th>E-mail</th>
+<th>Valor</th>
+<th>Status</th>
+<th>Data</th>
+</tr>
+</thead>
+<tbody id="pedidos"></tbody>
+</table>
+</div>
+<div id="vazioPedidos" class="empty hidden">Nenhum pedido disponível.</div>
 </div>
 </details>
 
-<footer>VORTEX TECH · PAINEL EXECUTIVO<br><span id="lastUpdate">Aguardando dados</span></footer>
+<footer>Vortex Tech · Administração</footer>
 </main>
 </section>
 
 <script>
 "use strict";
 
-(async function(){
 const CONFIG={
  url:"https://bngxigbyxrksctylyanw.supabase.co",
  key:"sb_publishable_WYRvOzBLQuUDMPf_ZK9qmg_lvIXaHyo",
- site:"https://brayanmarinho04-sudo.github.io/vortex-tech/",
- maxRetries:2
+ site:"https://brayanmarinho04-sudo.github.io/vortex-tech/"
 };
 
 const $=id=>document.getElementById(id);
-let db=null,briefs=[],orders=[],busy=false,authBusy=false,entering=false;
-let adminUser=null;
 
-const statuses={
+let banco=null;
+let usuarioAdmin=null;
+let briefings=[];
+let pedidos=[];
+let carregando=false;
+let fazendoLogin=false;
+
+const statusProjeto={
  novo:"Lista de espera",
  em_analise:"Em análise",
  aguardando_cliente:"Aguardando cliente",
@@ -213,496 +278,575 @@ const statuses={
  cancelado:"Cancelado"
 };
 
-const paymentNames={
- pago:"Pago",approved:"Aprovado",ativo:"Ativo",active:"Ativo",
- pendente:"Pendente",pending:"Pendente",in_process:"Em processamento",
- authorized:"Autorizado",rejected:"Rejeitado",rejeitado:"Rejeitado",
- cancelado:"Cancelado",cancelled:"Cancelado",refunded:"Reembolsado",
- reembolsado:"Reembolsado",erro_criacao:"Erro na criação"
-};
+function esc(valor){
+ return String(valor??"").replace(/[&<>"']/g,c=>({
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#39;"
+ }[c]));
+}
 
-const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({
- "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-}[c]));
-
-function showMsg(id,text,type=""){
+function mensagem(id,texto,tipo=""){
  const el=$(id);
- if(!el)return;
- el.textContent=text;
- el.className="notice"+(type?" "+type:"");
-}
-function hide(id){if($(id))$(id).classList.add("hidden")}
-function show(id){if($(id))$(id).classList.remove("hidden")}
-
-function friendlyError(error){
- const text=String(error?.message||error||"");
- if(/invalid login credentials/i.test(text))return "E-mail ou senha incorretos.";
- if(/email not confirmed/i.test(text))return "Confirme seu e-mail antes de entrar.";
- if(/failed to fetch|network|fetch/i.test(text))return "Falha de conexão. Verifique sua internet e tente novamente.";
- if(/invalid api key|apikey/i.test(text))return "A chave pública do Supabase foi recusada. Confira a configuração do projeto.";
- if(/permission denied|row-level security|rls/i.test(text))return "O banco recusou o acesso por causa das permissões de segurança.";
- if(/does not exist|schema cache|could not find/i.test(text))return "Uma tabela ou coluna necessária não foi encontrada no banco.";
- return "Não foi possível concluir a operação. Detalhe: "+text.slice(0,180);
+ el.textContent=texto;
+ el.className="message"+(tipo?" "+tipo:"");
 }
 
-function dt(v){
- if(!v)return null;
- const d=new Date(v);
- return Number.isNaN(d.getTime())?null:d;
-}
-function dateText(v){
- const d=dt(v);
- return d?d.toLocaleString("pt-BR",{dateStyle:"short",timeStyle:"short"}):"Não registrada";
-}
-function money(v){
- const n=Number(v);
- return (Number.isFinite(n)?n:0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
-}
-function isPaid(o){
- return ["pago","approved","ativo","active"].includes(String(o.status||"").toLowerCase());
-}
-function payName(s){
- s=String(s||"").toLowerCase();
- return paymentNames[s]||s||"Sem status";
-}
-function badge(s){
- s=String(s||"").toLowerCase();
- const cls=["pago","approved","ativo","active","concluido"].includes(s)?"ok":
- ["rejeitado","rejected","cancelado","cancelled","refunded","reembolsado","erro_criacao"].includes(s)?"bad":"";
- return `<span class="badge ${cls}">${esc(statuses[s]||payName(s))}</span>`;
-}
-function orderDate(o){return o.pago_em||o.paid_at||o.atualizado_em||o.created_at||null}
-function amount(o){return Number(o.valor||0)||0}
-function linked(o,b){
- const a=String(o.email||"").trim().toLowerCase();
- const c=String(b.email||"").trim().toLowerCase();
- return (!!a&&!!c&&a===c)||(!!o.referencia&&o.referencia===b.referencia);
-}
-
-function loadSupabase(){
- return new Promise((resolve,reject)=>{
-  if(window.supabase?.createClient){resolve();return}
-  const sources=[
-   "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2",
-   "https://unpkg.com/@supabase/supabase-js@2"
-  ];
-  let i=0;
-  function attempt(){
-   if(window.supabase?.createClient){resolve();return}
-   if(i>=sources.length){reject(new Error("Não foi possível carregar a biblioteca do Supabase. Verifique sua conexão ou tente novamente mais tarde."));return}
-   const src=sources[i++];
-   const script=document.createElement("script");
-   script.src=src;
-   script.async=true;
-   script.onload=()=>window.supabase?.createClient?resolve():attempt();
-   script.onerror=()=>{script.remove();attempt()};
-   document.head.appendChild(script);
-  }
-  attempt();
+function dinheiro(n){
+ return Number(n||0).toLocaleString("pt-BR",{
+  style:"currency",
+  currency:"BRL"
  });
 }
 
-async function withRetry(operation,retries=CONFIG.maxRetries){
- let last;
- for(let attempt=0;attempt<=retries;attempt++){
-  try{return await operation()}
-  catch(e){
-   last=e;
-   if(attempt<retries)await new Promise(resolve=>setTimeout(resolve,700*(attempt+1)));
-  }
- }
- throw last;
+function dataValida(valor){
+ if(!valor)return null;
+ const d=new Date(valor);
+ return Number.isNaN(d.getTime())?null:d;
 }
 
-async function verifyAdmin(user){
- const {data,error}=await db.from("profiles")
-  .select("nome,cargo").eq("id",user.id).maybeSingle();
+function dataTexto(valor){
+ const d=dataValida(valor);
+ return d?d.toLocaleString("pt-BR",{
+  dateStyle:"short",
+  timeStyle:"short"
+ }):"Não registrada";
+}
+
+function erroAmigavel(erro){
+ const texto=String(erro?.message||erro||"");
+ if(/invalid login credentials/i.test(texto))
+  return "E-mail ou senha incorretos.";
+ if(/email not confirmed/i.test(texto))
+  return "Você precisa confirmar o e-mail.";
+ if(/failed to fetch|network|fetch/i.test(texto))
+  return "Erro de conexão. Confira sua internet.";
+ if(/permission denied|row.level.security|rls/i.test(texto))
+  return "Acesso bloqueado pelas permissões do Supabase.";
+ if(/schema cache|does not exist|could not find/i.test(texto))
+  return "A tabela ou uma coluna necessária não existe no Supabase.";
+ return "Não foi possível concluir: "+texto.slice(0,160);
+}
+
+function carregarBiblioteca(){
+ return new Promise((resolve,reject)=>{
+  if(window.supabase?.createClient){
+   resolve();
+   return;
+  }
+
+  const fontes=[
+   "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2",
+   "https://unpkg.com/@supabase/supabase-js@2"
+  ];
+  let indice=0;
+
+  function proxima(){
+   if(window.supabase?.createClient){
+    resolve();
+    return;
+   }
+
+   if(indice>=fontes.length){
+    reject(new Error("Biblioteca de autenticação indisponível."));
+    return;
+   }
+
+   const s=document.createElement("script");
+   s.src=fontes[indice++];
+   s.async=true;
+   s.onload=()=>{
+    if(window.supabase?.createClient)resolve();
+    else proxima();
+   };
+   s.onerror=()=>{
+    s.remove();
+    proxima();
+   };
+   document.head.appendChild(s);
+  }
+  proxima();
+ });
+}
+
+async function buscarPerfil(user){
+ const {data,error}=await banco
+  .from("profiles")
+  .select("nome,cargo")
+  .eq("id",user.id)
+  .maybeSingle();
+
  if(error)throw error;
- return data&&String(data.cargo||"").toLowerCase()==="admin"?data:null;
+
+ return data&&data.cargo==="admin"?data:null;
 }
 
-
-async function enter(user){
-  if(entering)return;
-  entering=true;
-
-  try{
-    const profile=await verifyAdmin(user);
-
-    if(!profile){
-      await db.auth.signOut();
-      $("login").classList.remove("hidden");
-      $("app").classList.add("hidden");
-      showMsg(
-        "loginMsg",
-        "A conta entrou, mas não possui permissão de administrador. Verifique o perfil no Supabase.",
-        "error"
-      );
-      return;
-    }
-
-    adminUser=user;
-    $("login").classList.add("hidden");
-    $("app").classList.remove("hidden");
-    $("welcome").textContent="Bem-vindo, "+(profile.nome||user.email)+".";
-
-    await loadAll();
-
-  }catch(e){
-    console.error("[Vortex] Erro ao abrir o painel:",e);
-    $("login").classList.remove("hidden");
-    $("app").classList.add("hidden");
-    showMsg("loginMsg",friendlyError(e),"error");
-
-  }finally{
-    entering=false;
-  }
-}
-
- if(authBusy)return;
- authBusy=true;
- $("loginBtn").disabled=true;
+async function abrirPainel(user){
  try{
-  const profile=await verifyAdmin(user);
-  if(!profile){
-   await db.auth.signOut();
+  const perfil=await buscarPerfil(user);
+
+  if(!perfil){
+   await banco.auth.signOut();
+   mensagem("loginErro",
+    "Sua conta não possui acesso administrativo. Verifique a tabela profiles.",
+    "error");
    $("login").classList.remove("hidden");
-   $("app").classList.add("hidden");
-   showMsg("loginMsg","A conta entrou, mas não possui permissão de administrador. Verifique o perfil no Supabase.","error");
+   $("painel").classList.add("hidden");
    return;
   }
-  adminUser=user;
+
+  usuarioAdmin=user;
   $("login").classList.add("hidden");
-  $("app").classList.remove("hidden");
-  $("welcome").textContent="Bem-vindo, "+(profile.nome||user.email)+".";
-  await loadAll();
+  $("painel").classList.remove("hidden");
+
+  $("bemvindo").textContent=
+   "Bem-vindo, "+(perfil.nome||user.email)+".";
+
+  await atualizarPainel();
+
  }catch(e){
-  console.error("[Vortex] Verificação do administrador:",e);
-  $("login").classList.remove("hidden");
-  $("app").classList.add("hidden");
-  showMsg("loginMsg",friendlyError(e),"error");
- }finally{
-  authBusy=false;
-  $("loginBtn").disabled=false;
-  $("loginBtn").textContent="Entrar no painel →";
+  console.error("Erro ao abrir painel:",e);
+  mensagem("loginErro",erroAmigavel(e),"error");
  }
 }
 
-async function start(){
+async function iniciar(){
  try{
-  showMsg("startupMsg","Carregando sistema de autenticação...");
-  await loadSupabase();
-  db=window.supabase.createClient(CONFIG.url,CONFIG.key,{
-   auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}
-  });
-  $("loginBtn").disabled=false;
-  $("loginBtn").textContent="Entrar no painel →";
-  showMsg("startupMsg","Sistema carregado. Faça login com sua conta autorizada.","success");
+  await carregarBiblioteca();
 
-  const {data,error}=await db.auth.getSession();
+  banco=window.supabase.createClient(
+   CONFIG.url,
+   CONFIG.key,
+   {auth:{
+    persistSession:true,
+    autoRefreshToken:true,
+    detectSessionInUrl:true
+   }}
+  );
+
+  $("entrar").disabled=false;
+  $("entrar").textContent="Entrar no painel";
+  mensagem("inicioMsg","Sistema carregado.","ok");
+
+  const {data,error}=await banco.auth.getSession();
   if(error)throw error;
-  if(data?.session?.user)await enter(data.session.user);
- }catch(e){
-  console.error("[Vortex] Inicialização:",e);
-  $("loginBtn").disabled=true;
-  $("loginBtn").textContent="Sistema indisponível";
-  showMsg("startupMsg",friendlyError(e)+" Atualize a página para tentar novamente.","error");
- }
-}
 
-async function loadAll(){
- if(!db||!adminUser||busy)return;
- busy=true;
- $("refresh").disabled=true;
- $("refresh").textContent="Carregando...";
- hide("globalMsg");
- hide("paymentMsg");
-
- try{
-  const [b,p]=await Promise.all([
-   withRetry(async()=>{
-    const r=await db.from("vortex_briefings").select("*").limit(1000);
-    if(r.error)throw r.error;
-    return r.data||[];
-   }),
-   withRetry(async()=>{
-    const r=await db.from("vortex_pedidos").select("*").limit(1000);
-    if(r.error)throw r.error;
-    return r.data||[];
-   })
-  ]);
-  briefs=b;
-  orders=p;
-  updateFinance();
-  renderClients();
-  renderPayments();
-  $("syncLabel").textContent="Atualizado às "+new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
-  $("lastUpdate").textContent="Última atualização: "+new Date().toLocaleString("pt-BR");
- }catch(e){
-  console.error("[Vortex] Carregamento de dados:",e);
-  showMsg("globalMsg",friendlyError(e),"error");
- }finally{
-  busy=false;
-  $("refresh").disabled=false;
-  $("refresh").textContent="↻ Atualizar dados";
- }
-}
-
-function updateFinance(){
- const now=new Date();
- const day=new Date(now.getFullYear(),now.getMonth(),now.getDate());
- const week=new Date(day);
- week.setDate(day.getDate()-((day.getDay()+6)%7));
- const month=new Date(now.getFullYear(),now.getMonth(),1);
- const yearStart=new Date(now.getFullYear(),0,1);
- const paid=orders.filter(isPaid);
- const sum=list=>list.reduce((s,o)=>s+amount(o),0);
- const dated=paid.map(o=>({o,d:dt(orderDate(o))})).filter(x=>x.d);
-
- $("revTotal").textContent=money(sum(paid));
- $("revWeek").textContent=money(sum(dated.filter(x=>x.d>=week&&x.d<=now).map(x=>x.o)));
- $("revMonth").textContent=money(sum(dated.filter(x=>x.d>=month&&x.d<=now).map(x=>x.o)));
- $("revYear").textContent=money(sum(dated.filter(x=>x.d>=yearStart&&x.d<=now).map(x=>x.o)));
-
- const pending=orders.filter(o=>["pendente","pending","in_process","authorized"].includes(String(o.status||"").toLowerCase()));
- $("pendingValue").textContent=money(sum(pending));
- $("pendingCount").textContent=pending.length+" pedido(s) pendente(s)";
- $("clientCount").textContent=briefs.length;
- $("workingCount").textContent=briefs.filter(b=>b.status==="em_desenvolvimento").length;
- $("doneCount").textContent=briefs.filter(b=>b.status==="concluido").length;
-
- const names=["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
- const monthly=names.map((name,i)=>({
-  name,total:sum(dated.filter(x=>x.d.getFullYear()===now.getFullYear()&&x.d.getMonth()===i).map(x=>x.o))
- }));
- const max=Math.max(1,...monthly.map(x=>x.total));
- $("chartYear").textContent=now.getFullYear();
- $("monthlyChart").innerHTML=monthly.map(m=>
-  `<div class="bar-col" title="${esc(m.name+": "+money(m.total))}">
-   <div class="bar-value">${m.total?esc(m.total>=1000?"R$"+Math.round(m.total/1000)+" mil":money(m.total)):""}</div>
-   <div class="bar" style="height:${m.total?Math.max(5,m.total/max*100):2}%"></div>
-   <div class="bar-label">${m.name}</div></div>`
- ).join("");
-
- const stages=[
-  ["novo","Lista de espera","#e6bd65"],
-  ["em_analise","Em análise","#60a5fa"],
-  ["aguardando_cliente","Aguardando cliente","#c084fc"],
-  ["em_desenvolvimento","Em desenvolvimento","#38bdf8"],
-  ["concluido","Concluído","#4ade80"],
-  ["cancelado","Cancelado","#f87171"]
- ];
- $("stageProgress").innerHTML=stages.map(([key,label,color])=>{
-  const n=briefs.filter(b=>(b.status||"novo")===key).length;
-  const pct=briefs.length?n/briefs.length*100:0;
-  return `<div><div class="progress-label"><span>${label}</span><strong>${n}</strong></div>
-  <div class="track"><span style="width:${pct}%;background:${color}"></span></div></div>`;
- }).join("");
-}
-
-function renderClients(){
- const q=$("search").value.trim().toLowerCase();
- const filter=$("filter").value;
- const sort=$("sort").value;
- let list=briefs.filter(r=>
-  (!filter||(r.status||"novo")===filter)&&
-  [r.nome,r.empresa,r.email,r.whatsapp].join(" ").toLowerCase().includes(q)
- );
-
- if(sort==="recentes")list.sort((a,b)=>(dt(b.created_at)?.getTime()||0)-(dt(a.created_at)?.getTime()||0));
- if(sort==="antigos")list.sort((a,b)=>(dt(a.created_at)?.getTime()||0)-(dt(b.created_at)?.getTime()||0));
- if(sort==="prazo")list.sort((a,b)=>String(a.data_prevista||"9999-12-31").localeCompare(String(b.data_prevista||"9999-12-31")));
-
- $("clientRows").innerHTML=list.map(r=>{
-  const linkedOrders=orders.filter(o=>linked(o,r));
-  const received=linkedOrders.filter(isPaid).reduce((s,o)=>s+amount(o),0);
-  const status=r.status||"novo";
-  const options=Object.entries(statuses).map(([v,t])=>
-   `<option value="${v}" ${status===v?"selected":""}>${t}</option>`
-  ).join("");
-
-  return `<tr>
-   <td><strong>${esc(r.empresa||"Empresa não informada")}</strong>${esc(r.nome||"Nome não informado")}
-   <div class="sub">${esc(r.email||"Sem e-mail")}</div>
-   <div class="sub">${esc(r.whatsapp||"Sem WhatsApp")}</div></td>
-   <td>${esc(dateText(r.created_at))}</td>
-   <td><strong>${esc([r.segmento,r.estilo].filter(Boolean).join(" · ")||"Projeto não informado")}</strong>
-   <div class="sub">${esc(r.descricao||"Sem descrição")}</div>
-   <div class="sub">${esc(Array.isArray(r.funcionalidades)?r.funcionalidades.join(", "):"")}</div></td>
-   <td>${esc(money(received))}<div class="sub">${linkedOrders.length} pedido(s)</div></td>
-   <td><div class="sub">Solicitado: ${esc(r.prazo||"—")}</div>
-   <input data-date="${esc(r.id)}" type="date" value="${esc(r.data_prevista||"")}" aria-label="Prazo previsto"></td>
-   <td><div class="row-actions">${badge(status)}
-   <select data-status="${esc(r.id)}">${options}</select>
-   <button class="btn secondary" data-save="${esc(r.id)}">Salvar alterações</button>
-   ${status!=="em_desenvolvimento"&&status!=="concluido"?`<button class="btn" data-start="${esc(r.id)}">Iniciar projeto</button>`:""}
-   ${status!=="concluido"?`<button class="btn green" data-done="${esc(r.id)}">Concluir projeto</button>`:""}
-   ${r.whatsapp?`<button class="btn secondary" data-wa="${esc(r.id)}">Abrir WhatsApp</button>`:""}
-   </div></td></tr>`;
- }).join("");
-
- $("clientEmpty").classList.toggle("hidden",list.length>0);
-}
-
-function renderPayments(){
- $("paymentRows").innerHTML=orders.map(o=>{
-  const client=briefs.find(b=>linked(o,b));
-  const title=o.item_id||o.tipo||"Pedido";
-  return `<tr>
-   <td><strong>${esc(title)}</strong><div class="sub">${esc(o.referencia||"Sem referência")}</div></td>
-   <td>${esc(client?(client.nome+" · "+client.empresa):(o.email||"Cliente não vinculado"))}<div class="sub">${esc(o.email||"")}</div></td>
-   <td><strong>${esc(money(o.valor))}</strong></td>
-   <td>${badge(o.status)}</td>
-   <td>${esc(dateText(orderDate(o)))}</td>
-  </tr>`;
- }).join("");
- $("paymentEmpty").classList.toggle("hidden",orders.length>0);
-}
-
-async function saveProject(id,forcedStatus=null){
- const r=briefs.find(x=>String(x.id)===String(id));
- if(!r)return;
- const status=forcedStatus||document.querySelector(`[data-status="${CSS.escape(String(id))}"]`)?.value;
- const date=document.querySelector(`[data-date="${CSS.escape(String(id))}"]`)?.value||null;
- if(!status)return;
-
- const buttons=[...document.querySelectorAll(`[data-save="${CSS.escape(String(id))}"],[data-start="${CSS.escape(String(id))}"],[data-done="${CSS.escape(String(id))}"]`)];
- buttons.forEach(b=>b.disabled=true);
-
- try{
-  const {data,error}=await db.from("vortex_briefings")
-   .update({status,data_prevista:date})
-   .eq("id",r.id).select("id");
-
-  if(error)throw error;
-  if(!data||!data.length){
-   showMsg("globalMsg","O banco não confirmou a alteração. Verifique as permissões de UPDATE no Supabase.","error");
-   return;
+  if(data.session?.user){
+   await abrirPainel(data.session.user);
   }
-  showMsg("globalMsg","Projeto atualizado com sucesso.","success");
-  await loadAll();
+
  }catch(e){
-  console.error("[Vortex] Atualização de projeto:",e);
-  showMsg("globalMsg",friendlyError(e)+" Se a mensagem mencionar data_prevista, confira se essa coluna existe em vortex_briefings.","error");
- }finally{
-  buttons.forEach(b=>b.disabled=false);
+  console.error(e);
+  mensagem("inicioMsg",erroAmigavel(e),"error");
+  $("entrar").disabled=true;
+  $("entrar").textContent="Sistema indisponível";
  }
 }
-
-$("clientRows").addEventListener("click",async e=>{
- const b=e.target.closest("button");
- if(!b)return;
-
- if(b.dataset.save)await saveProject(b.dataset.save);
-
- if(b.dataset.start){
-  const r=briefs.find(x=>String(x.id)===b.dataset.start);
-  if(r&&confirm("Iniciar o projeto de "+(r.empresa||r.nome)+"?"))
-   await saveProject(b.dataset.start,"em_desenvolvimento");
- }
-
- if(b.dataset.done){
-  const r=briefs.find(x=>String(x.id)===b.dataset.done);
-  if(r&&confirm("Marcar como concluído o projeto de "+(r.empresa||r.nome)+"?"))
-   await saveProject(b.dataset.done,"concluido");
- }
-
- if(b.dataset.wa){
-  const r=briefs.find(x=>String(x.id)===b.dataset.wa);
-  if(!r)return;
-  const phone=String(r.whatsapp||"").replace(/\D/g,"");
-  if(phone.length<10||phone.length>15){
-   showMsg("globalMsg","WhatsApp inválido. Confira o número cadastrado.","error");
-   return;
-  }
-  window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(
-   "Olá, "+(r.nome||"tudo bem")+"! Aqui é da Vortex Tech. Estou entrando em contato sobre seu projeto."
-  ),"_blank","noopener");
- }
-});
 
 $("loginForm").addEventListener("submit",async e=>{
  e.preventDefault();
- if(!db){showMsg("loginMsg","O sistema ainda não está conectado. Atualize a página e tente novamente.","error");return}
- if(authBusy)return;
+ if(!banco||fazendoLogin)return;
 
- authBusy=true;
- $("loginBtn").disabled=true;
- $("loginBtn").textContent="Verificando acesso...";
- hide("loginMsg");
+ fazendoLogin=true;
+ $("entrar").disabled=true;
+ $("entrar").textContent="Verificando acesso...";
+ $("loginErro").classList.add("hidden");
 
  try{
-  const {data,error}=await withRetry(()=>db.auth.signInWithPassword({
+  const {data,error}=await banco.auth.signInWithPassword({
    email:$("email").value.trim(),
    password:$("senha").value
-  }),1);
+  });
 
   if(error)throw error;
-  if(!data?.user)throw new Error("A autenticação não retornou um usuário.");
-  await enter(data.user);
+  if(!data.user)throw new Error("Usuário não retornado.");
+
+  await abrirPainel(data.user);
+
  }catch(e){
-  console.error("[Vortex] Login:",e);
-  showMsg("loginMsg",friendlyError(e),"error");
+  console.error(e);
+  mensagem("loginErro",erroAmigavel(e),"error");
  }finally{
-  authBusy=false;
-  $("loginBtn").disabled=!db;
-  $("loginBtn").textContent="Entrar no painel →";
+  fazendoLogin=false;
+  $("entrar").disabled=false;
+  $("entrar").textContent="Entrar no painel";
  }
 });
 
-$("esqueciSenha").addEventListener("click",async()=>{
- if(!db){
-  $("mensagemRecuperacao").textContent="Sistema indisponível. Atualize a página e tente novamente.";
+$("recuperar").addEventListener("click",async()=>{
+ if(!banco){
+  mensagem("loginErro","Autenticação indisponível.","error");
   return;
  }
+
  const email=$("email").value.trim();
- const out=$("mensagemRecuperacao");
- if(!email){
-  out.textContent="Digite seu e-mail no campo acima primeiro.";
+ if(!email||!$("email").checkValidity()){
+  mensagem("loginErro","Informe um e-mail válido.","error");
   $("email").focus();
   return;
  }
 
- const btn=$("esqueciSenha");
- btn.disabled=true;
- out.textContent="Enviando solicitação...";
+ $("recuperar").disabled=true;
+
  try{
-  const {error}=await db.auth.resetPasswordForEmail(email,{
+  const {error}=await banco.auth.resetPasswordForEmail(email,{
    redirectTo:CONFIG.site+"redefinir-senha.html"
   });
   if(error)throw error;
-  out.textContent="Solicitação enviada. Confira seu e-mail e a caixa de spam.";
+
+  mensagem("loginErro",
+   "Se a conta puder receber recuperação, verifique seu e-mail.",
+   "ok");
+
  }catch(e){
-  console.error("[Vortex] Recuperação:",e);
-  out.textContent=friendlyError(e);
+  mensagem("loginErro",erroAmigavel(e),"error");
  }finally{
-  btn.disabled=false;
+  $("recuperar").disabled=false;
  }
 });
 
-$("refresh").addEventListener("click",()=>loadAll());
-$("search").addEventListener("input",renderClients);
-$("filter").addEventListener("change",renderClients);
-$("sort").addEventListener("change",renderClients);
+async function consultar(tabela){
+ const {data,error}=await banco.from(tabela)
+  .select("*")
+  .limit(1000);
 
-$("logout").addEventListener("click",async()=>{
- try{if(db)await db.auth.signOut()}
- catch(e){console.error("[Vortex] Logout:",e)}
- finally{location.reload()}
+ if(error)throw error;
+ return data||[];
+}
+
+async function atualizarPainel(){
+ if(!usuarioAdmin||carregando)return;
+
+ carregando=true;
+ $("atualizar").disabled=true;
+ $("atualizar").textContent="Atualizando...";
+ $("aviso").classList.add("hidden");
+
+ const resultados=await Promise.allSettled([
+  consultar("vortex_briefings"),
+  consultar("vortex_pedidos")
+ ]);
+
+ const briefOk=resultados[0].status==="fulfilled";
+ const pedOk=resultados[1].status==="fulfilled";
+
+ if(briefOk){
+  briefings=resultados[0].value;
+  renderClientes();
+  renderIndicadores();
+ }else{
+  console.error("Erro de briefings:",resultados[0].reason);
+  mensagem("aviso",
+   "Não foi possível carregar clientes: "+erroAmigavel(resultados[0].reason),
+   "error");
+ }
+
+ if(pedOk){
+  pedidos=resultados[1].value;
+  renderFinanceiro();
+  renderPedidos();
+ }else{
+  console.error("Erro de pedidos:",resultados[1].reason);
+  $("fTotal").textContent="—";
+  $("fSemana").textContent="—";
+  $("fMes").textContent="—";
+  $("fAno").textContent="—";
+  $("fPendente").textContent="—";
+  mensagem("aviso",
+   "Não foi possível carregar pagamentos: "+erroAmigavel(resultados[1].reason),
+   "error");
+ }
+
+ if(briefOk&&pedOk){
+  renderClientes();
+  renderIndicadores();
+  mensagem("aviso","Dados atualizados com sucesso.","ok");
+ }
+
+ $("sync").textContent=
+  "Última consulta: "+new Date().toLocaleString("pt-BR");
+
+ carregando=false;
+ $("atualizar").disabled=false;
+ $("atualizar").textContent="↻ Atualizar dados";
+}
+
+function pago(p){
+ return ["pago","approved"].includes(
+  String(p.status||"").toLowerCase()
+ );
+}
+
+function valor(p){
+ return Number(p.valor||0)||0;
+}
+
+function dataPagamento(p){
+ return dataValida(
+  p.pago_em||p.paid_at||p.atualizado_em||p.created_at
+ );
+}
+
+function renderFinanceiro(){
+ const hoje=new Date();
+ const inicioDia=new Date(hoje.getFullYear(),hoje.getMonth(),hoje.getDate());
+ const semana=new Date(inicioDia);
+ semana.setDate(inicioDia.getDate()-((inicioDia.getDay()+6)%7));
+ const mes=new Date(hoje.getFullYear(),hoje.getMonth(),1);
+ const ano=new Date(hoje.getFullYear(),0,1);
+
+ const confirmados=pedidos.filter(pago);
+ const soma=lista=>lista.reduce((total,p)=>total+valor(p),0);
+ const datados=confirmados
+  .map(p=>({p,d:dataPagamento(p)}))
+  .filter(x=>x.d);
+
+ const filtrar=inicio=>datados.filter(
+  x=>x.d>=inicio&&x.d<=hoje
+ ).map(x=>x.p);
+
+ $("fTotal").textContent=dinheiro(soma(confirmados));
+ $("fSemana").textContent=dinheiro(soma(filtrar(semana)));
+ $("fMes").textContent=dinheiro(soma(filtrar(mes)));
+ $("fAno").textContent=dinheiro(soma(filtrar(ano)));
+
+ $("fPendente").textContent=dinheiro(soma(
+  pedidos.filter(p=>String(p.status).toLowerCase()==="pendente")
+ ));
+
+ const meses=["Jan","Fev","Mar","Abr","Mai","Jun",
+ "Jul","Ago","Set","Out","Nov","Dez"];
+
+ const totais=meses.map((nome,i)=>({
+  nome,
+  total:soma(datados.filter(x=>
+   x.d.getFullYear()===hoje.getFullYear()&&
+   x.d.getMonth()===i
+  ).map(x=>x.p))
+ }));
+
+ const max=Math.max(1,...totais.map(x=>x.total));
+
+ $("grafico").innerHTML=totais.map(x=>`
+  <div class="bar-item" title="${esc(x.nome+" - "+dinheiro(x.total))}">
+   <div class="bar" style="height:${x.total?Math.max(3,x.total/max*95):2}%"></div>
+   <small>${x.nome}</small>
+  </div>
+ `).join("");
+}
+
+function renderIndicadores(){
+ $("cTotal").textContent=briefings.length;
+ $("cAndamento").textContent=briefings.filter(
+  b=>b.status==="em_desenvolvimento"
+ ).length;
+ $("cConcluido").textContent=briefings.filter(
+  b=>b.status==="concluido"
+ ).length;
+
+ const lista=[
+  ["novo","Lista de espera"],
+  ["em_analise","Em análise"],
+  ["aguardando_cliente","Aguardando cliente"],
+  ["em_desenvolvimento","Em desenvolvimento"],
+  ["concluido","Concluído"],
+  ["cancelado","Cancelado"]
+ ];
+
+ $("etapas").innerHTML=lista.map(([chave,nome])=>{
+  const n=briefings.filter(b=>(b.status||"novo")===chave).length;
+  const pct=briefings.length?n/briefings.length*100:0;
+
+  return `<div>
+    <label><span>${nome}</span><b>${n}</b></label>
+    <div class="track"><i style="width:${pct}%"></i></div>
+   </div>`;
+ }).join("");
+}
+
+function associar(brief){
+ // Correspondência por referência explícita somente.
+ // E-mail igual, sozinho, não comprova que é o mesmo pedido.
+ return pedidos.filter(p=>
+  brief.referencia&&p.referencia&&
+  String(brief.referencia)===String(p.referencia)
+ );
+}
+
+function renderClientes(){
+ const busca=$("busca").value.trim().toLowerCase();
+ const filtro=$("filtro").value;
+
+ const lista=briefings.filter(b=>{
+  const texto=[b.nome,b.empresa,b.email,b.whatsapp]
+   .join(" ").toLowerCase();
+  return texto.includes(busca)&&(!filtro||(b.status||"novo")===filtro);
+ }).sort((a,b)=>
+  (dataValida(b.created_at)?.getTime()||0)-
+  (dataValida(a.created_at)?.getTime()||0)
+ );
+
+ $("clientes").innerHTML=lista.map(b=>{
+  const relacionados=associar(b);
+  const recebido=relacionados.filter(pago).reduce(
+   (s,p)=>s+valor(p),0
+  );
+  const opcoes=Object.entries(statusProjeto).map(([v,t])=>
+   `<option value="${v}" ${(b.status||"novo")===v?"selected":""}>${t}</option>`
+  ).join("");
+
+  return `<tr>
+   <td><strong>${esc(b.empresa||"Empresa não informada")}</strong>
+     ${esc(b.nome||"Cliente")}
+     <div class="sub">${esc(b.email||"")}</div>
+     <div class="sub">${esc(b.whatsapp||"")}</div>
+   </td>
+   <td>${esc(dataTexto(b.created_at))}</td>
+   <td>
+     <strong>${esc(b.segmento||"Projeto")}</strong>
+     <div class="sub">${esc(b.estilo||"")}</div>
+     <div class="sub">${esc(b.descricao||"")}</div>
+   </td>
+   <td>${relacionados.length?esc(dinheiro(recebido)):"Sem vínculo confirmado"}</td>
+   <td>
+     <div class="sub">Solicitado: ${esc(b.prazo||"—")}</div>
+     <input type="date" data-data="${esc(b.id)}"
+       value="${esc(b.data_prevista||"")}">
+   </td>
+   <td>
+     <div class="row-actions">
+       <span class="badge">${esc(statusProjeto[b.status]||"Lista de espera")}</span>
+       <select data-status="${esc(b.id)}">${opcoes}</select>
+       <button class="btn blue" type="button" data-salvar="${esc(b.id)}">Salvar alterações</button>
+       <button class="btn green" type="button" data-iniciar="${esc(b.id)}">Iniciar projeto</button>
+       <button class="btn alt" type="button" data-concluir="${esc(b.id)}">Concluir projeto</button>
+       ${b.whatsapp?`<button class="btn alt" type="button" data-whatsapp="${esc(b.id)}">WhatsApp</button>`:""}
+     </div>
+   </td>
+  </tr>`;
+ }).join("");
+
+ $("vazioClientes").classList.toggle("hidden",lista.length>0);
+}
+
+function renderPedidos(){
+ const lista=[...pedidos].sort((a,b)=>
+  (dataPagamento(b)?.getTime()||0)-
+  (dataPagamento(a)?.getTime()||0)
+ );
+
+ $("pedidos").innerHTML=lista.map(p=>`
+  <tr>
+   <td>${esc(p.referencia||"—")}</td>
+   <td>${esc((p.tipo||"")+" · "+(p.item_id||""))}</td>
+   <td>${esc(p.email||"Não informado")}</td>
+   <td><strong>${esc(dinheiro(p.valor))}</strong></td>
+   <td><span class="badge ${pago(p)?"ok":"warn"}">${esc(p.status||"—")}</span></td>
+   <td>${esc(dataTexto(p.created_at))}</td>
+  </tr>
+ `).join("");
+
+ $("vazioPedidos").classList.toggle("hidden",lista.length>0);
+}
+
+async function salvarProjeto(id,statusForcado=null){
+ const b=briefings.find(x=>String(x.id)===String(id));
+ if(!b)return;
+
+ const campoStatus=[...document.querySelectorAll("[data-status]")]
+  .find(el=>el.dataset.status===id);
+ const campoData=[...document.querySelectorAll("[data-data]")]
+  .find(el=>el.dataset.data===id);
+
+ const status=statusForcado||(campoStatus?.value||"novo");
+ const prazo=campoData?.value||null;
+
+ try{
+  const {data,error}=await banco.from("vortex_briefings")
+   .update({
+    status,
+    data_prevista:prazo,
+    atualizado_em:new Date().toISOString()
+   })
+   .eq("id",b.id)
+   .select("id");
+
+  if(error)throw error;
+  if(!data?.length){
+   throw new Error("Nenhum registro atualizado. Verifique as políticas RLS.");
+  }
+
+  mensagem("aviso","Projeto atualizado com sucesso.","ok");
+  await atualizarPainel();
+
+ }catch(e){
+  console.error(e);
+  mensagem("aviso",erroAmigavel(e),"error");
+ }
+}
+
+$("clientes").addEventListener("click",e=>{
+ const btn=e.target.closest("button");
+ if(!btn)return;
+
+ const id=btn.dataset.salvar||
+  btn.dataset.iniciar||
+  btn.dataset.concluir||
+  btn.dataset.whatsapp;
+
+ if(!id)return;
+
+ const b=briefings.find(x=>String(x.id)===id);
+ if(!b)return;
+
+ if(btn.dataset.salvar){
+  salvarProjeto(id);
+ }else if(btn.dataset.iniciar){
+  if(confirm("Iniciar o projeto de "+(b.empresa||b.nome)+"?"))
+   salvarProjeto(id,"em_desenvolvimento");
+ }else if(btn.dataset.concluir){
+  if(confirm("Marcar o projeto como concluído?"))
+   salvarProjeto(id,"concluido");
+ }else if(btn.dataset.whatsapp){
+  const numero=String(b.whatsapp||"").replace(/\D/g,"");
+  if(numero.length<10||numero.length>15){
+   mensagem("aviso","Número de WhatsApp inválido.","error");
+   return;
+  }
+
+  const texto="Olá, "+(b.nome||"tudo bem")+
+   "! Aqui é da Vortex Tech. Vamos conversar sobre o seu projeto.";
+
+  window.open(
+   "https://wa.me/"+numero+"?text="+encodeURIComponent(texto),
+   "_blank","noopener"
+  );
+ }
+});
+
+$("atualizar").addEventListener("click",atualizarPainel);
+$("busca").addEventListener("input",renderClientes);
+$("filtro").addEventListener("change",renderClientes);
+
+$("sair").addEventListener("click",async()=>{
+ await banco.auth.signOut();
+ location.reload();
 });
 
 window.addEventListener("online",()=>{
- if(db&&adminUser)loadAll();
+ if(usuarioAdmin)atualizarPainel();
 });
+
 window.addEventListener("unhandledrejection",e=>{
- console.error("[Vortex] Erro assíncrono:",e.reason);
- if(!$("app").classList.contains("hidden")){
-  showMsg("globalMsg","Ocorreu um erro inesperado. Os dados não serão considerados salvos até que o banco confirme a operação.","error");
+ console.error("Erro assíncrono:",e.reason);
+ if(!$("painel").classList.contains("hidden")){
+  mensagem("aviso","Ocorreu um erro inesperado. Confira a operação antes de tentar novamente.","error");
  }
 });
 
-await start();
-})();
+iniciar();
 </script>
 </body>
 </html>
