@@ -3,49 +3,57 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Vortex Tech | Administração</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vortex Tech | Gestão de Projetos</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,sans-serif;background:#090e19;color:#f7f9ff;line-height:1.5}
 .hidden{display:none!important}
+button,input,select{font:inherit}
 a{color:#e6bd65}
-button,input,select,textarea{font:inherit}
-.login{min-height:100vh;display:grid;place-items:center;padding:20px}
-.card{background:#131c2c;border:1px solid #293950;border-radius:16px;padding:22px}
-.login .card{width:min(100%,430px)}
-h1{color:#e6bd65}
-.field{display:grid;gap:6px;margin:12px 0}
-.field input,.field select,.field textarea{width:100%;padding:12px;border:1px solid #40516a;border-radius:8px;background:#090e19;color:white}
-.btn{border:1px solid #e6bd65;border-radius:9px;padding:11px 15px;background:#e6bd65;color:#10131a;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
-.btn.alt{background:transparent;color:white;border-color:#40516a}
-.btn.green{background:#16834a;border-color:#16834a;color:white}
-.btn:disabled{opacity:.6}
+h1{margin:0;color:#e6bd65}
+h2,h3{margin-top:0}
 .muted{color:#aebed0;font-size:13px}
-.top{padding:18px clamp(16px,4vw,38px);display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;background:#131c2c;border-bottom:1px solid #293950}
-.top h1{margin:0}
-.wrap{max-width:1280px;margin:auto;padding:24px 16px 55px}
-.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0}
-.metric strong{display:block;font-size:28px;color:#e6bd65}
-.metric span{font-size:13px;color:#aebed0}
-.toolbar,.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:end}
+.login{min-height:100vh;display:grid;place-items:center;padding:20px}
+.card{background:#131c2c;border:1px solid #293950;border-radius:15px;padding:22px}
+.login .card{width:min(100%,430px)}
+.field{display:grid;gap:6px;margin:12px 0}
+.field input,.field select{width:100%;min-width:130px;padding:10px;border:1px solid #40516a;border-radius:8px;background:#090e19;color:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid #e6bd65;border-radius:8px;padding:10px 13px;background:#e6bd65;color:#11151d;font-weight:bold;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn.alt{background:transparent;color:#fff;border-color:#40516a}
+.btn.green{background:#16834a;border-color:#16834a;color:#fff}
+.btn.blue{background:#244b78;border-color:#3d9fff;color:#fff}
+.btn:disabled{opacity:.55;cursor:wait}
+.top{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;padding:18px clamp(16px,4vw,38px);background:#131c2c;border-bottom:1px solid #293950}
+.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.wrap{max-width:1500px;margin:auto;padding:25px 16px 55px}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin:20px 0}
+.metric span{display:block;color:#aebed0;font-size:13px}
+.metric strong{display:block;margin-top:5px;font-size:30px;color:#e6bd65}
+.toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:end}
 .toolbar .field{flex:1;min-width:190px}
-.tablewrap{overflow:auto;margin-top:16px}
-table{width:100%;border-collapse:collapse;min-width:1000px}
-th,td{text-align:left;padding:12px;border-bottom:1px solid #293950;vertical-align:top;font-size:13px}
-th{font-size:11px;color:#aebed0;text-transform:uppercase}
-td strong{display:block;font-size:14px}
-.pill{display:inline-block;border-radius:30px;padding:4px 8px;background:#1e3450;font-size:12px}
-.actions .btn{font-size:12px;padding:8px 10px}
+.tablewrap{overflow:auto;margin-top:15px}
+table{width:100%;border-collapse:collapse;min-width:1150px}
+th,td{text-align:left;vertical-align:top;padding:12px;border-bottom:1px solid #293950;font-size:13px}
+th{color:#aebed0;text-transform:uppercase;font-size:11px;letter-spacing:.4px}
+td strong{display:block;font-size:14px;overflow-wrap:anywhere}
+.pill{display:inline-block;padding:4px 8px;border-radius:30px;background:#263b54;font-size:12px}
+.pill.ok{background:#174b32;color:#b8f4ca}
+.pill.warn{background:#493719;color:#ffe0a0}
+.pill.bad{background:#4a2027;color:#ffc6cd}
+.client-detail{max-width:270px;white-space:pre-wrap;overflow-wrap:anywhere;color:#c5d0de}
+.row-actions{display:flex;flex-direction:column;gap:7px;align-items:flex-start}
+.row-actions .btn{font-size:12px}
+.row-actions select,.row-actions input{width:155px;max-width:100%;padding:8px;background:#090e19;color:white;border:1px solid #40516a;border-radius:7px}
 .notice{padding:12px;border-radius:8px;background:#142d48;color:#dbeafe;margin:12px 0;font-size:13px;overflow-wrap:anywhere}
 .notice.error{background:#4a1e25;color:#fecaca}
-.editor{margin-top:18px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.summary{white-space:pre-wrap;overflow-wrap:anywhere;color:#d6deeb;font-size:13px}
-.empty{padding:30px;text-align:center;color:#aebed0}
-@media(max-width:760px){.metrics,.grid2{grid-template-columns:repeat(2,minmax(0,1fr))}.top{align-items:flex-start}}
-@media(max-width:520px){.metrics,.grid2{grid-template-columns:1fr}.wrap{padding-top:15px}}
+.empty{text-align:center;padding:30px;color:#aebed0}
+.section-title{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.payments{margin-top:28px}
+.payments table{min-width:850px}
+@media(max-width:760px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.top{align-items:flex-start}.wrap{padding-top:16px}}
+@media(max-width:420px){.metrics{grid-template-columns:1fr 1fr}.metric strong{font-size:25px}}
 </style>
 </head>
 <body>
@@ -53,8 +61,8 @@ td strong{display:block;font-size:14px}
 <section id="login" class="login">
   <div class="card">
     <h1>VORTEX TECH</h1>
-    <h2>Área do Administrador</h2>
-    <p class="muted">Entre com sua conta administrativa do Supabase.</p>
+    <h2 style="margin-top:10px">Painel do administrador</h2>
+    <p class="muted">Entre com sua conta administrativa.</p>
     <form id="loginForm">
       <label class="field">E-mail
         <input id="email" type="email" required autocomplete="username">
@@ -62,10 +70,10 @@ td strong{display:block;font-size:14px}
       <label class="field">Senha
         <input id="senha" type="password" required autocomplete="current-password">
       </label>
-      <button id="loginBtn" class="btn" type="submit" style="width:100%">Entrar no painel</button>
+      <button id="loginBtn" class="btn" style="width:100%" type="submit">Entrar no painel</button>
       <div id="loginMsg" class="notice hidden" role="status"></div>
     </form>
-    <p><a href="index.html">Voltar para o site</a></p>
+    <p><a href="index.html">Voltar ao site</a></p>
   </div>
 </section>
 
@@ -73,35 +81,40 @@ td strong{display:block;font-size:14px}
 <header class="top">
   <div>
     <h1>VORTEX TECH</h1>
-    <div class="muted">Clientes · Briefings · Prazos · Projetos</div>
+    <div class="muted">Clientes · Lista de espera · Pagamentos · Projetos</div>
   </div>
   <div class="actions">
-    <a class="btn alt" href="index.html">Ver site</a>
-    <button id="refresh" class="btn alt" type="button">Atualizar lista</button>
+    <a href="index.html" class="btn alt">Ver site</a>
+    <button id="refresh" class="btn blue" type="button">↻ Atualizar lista</button>
     <button id="logout" class="btn" type="button">Sair</button>
   </div>
 </header>
 
 <main class="wrap">
-  <h2>Gestão de projetos</h2>
+  <h2>Visão geral</h2>
   <p id="welcome" class="muted"></p>
+  <div id="globalMsg" class="notice hidden" role="status"></div>
 
   <div class="metrics">
-    <div class="card metric"><span>Total de briefings</span><strong id="mTotal">—</strong></div>
-    <div class="card metric"><span>Lista de espera</span><strong id="mNovo">—</strong></div>
-    <div class="card metric"><span>Aguardando cliente</span><strong id="mWait">—</strong></div>
+    <div class="card metric"><span>Total de clientes / briefings</span><strong id="mTotal">—</strong></div>
+    <div class="card metric"><span>Na lista de espera</span><strong id="mNovo">—</strong></div>
     <div class="card metric"><span>Em desenvolvimento</span><strong id="mDev">—</strong></div>
+    <div class="card metric"><span>Projetos concluídos</span><strong id="mDone">—</strong></div>
   </div>
 
-  <div class="card">
+  <section class="card">
+    <div class="section-title">
+      <div>
+        <h2 style="margin-bottom:4px">Clientes e projetos</h2>
+        <p class="muted">Atualize o status diretamente na lista, sem precisar abrir outra tela.</p>
+      </div>
+    </div>
+
     <div class="toolbar">
-      <label class="field">Buscar cliente, empresa ou e-mail
-        <input id="search" placeholder="Digite para buscar">
-      </label>
       <label class="field">Filtrar por status
         <select id="filter">
-          <option value="">Todos</option>
-          <option value="novo">Novo / lista de espera</option>
+          <option value="">Todos os status</option>
+          <option value="novo">Lista de espera</option>
           <option value="em_analise">Em análise</option>
           <option value="aguardando_cliente">Aguardando cliente</option>
           <option value="em_desenvolvimento">Em desenvolvimento</option>
@@ -109,69 +122,45 @@ td strong{display:block;font-size:14px}
           <option value="cancelado">Cancelado</option>
         </select>
       </label>
+      <label class="field">Ordenação
+        <select id="sort">
+          <option value="recentes">Mais recentes primeiro</option>
+          <option value="antigos">Mais antigos primeiro</option>
+          <option value="prazo">Data prevista mais próxima</option>
+        </select>
+      </label>
     </div>
 
-    <div id="listMsg" class="notice hidden"></div>
+    <div id="briefingMsg" class="notice hidden"></div>
     <div class="tablewrap">
       <table>
         <thead>
-          <tr><th>Cliente</th><th>Projeto</th><th>Prazo pedido</th><th>Data prevista</th><th>Status</th><th>Ações</th></tr>
+          <tr>
+            <th>Cliente / contato</th>
+            <th>Recebido em</th>
+            <th>Projeto solicitado</th>
+            <th>Pagamento</th>
+            <th>Prazo de entrega</th>
+            <th>Status / ações</th>
+          </tr>
         </thead>
-        <tbody id="rows"></tbody>
+        <tbody id="clientRows"></tbody>
       </table>
     </div>
-    <div id="empty" class="empty hidden">Nenhum briefing encontrado.</div>
-  </div>
+    <div id="clientEmpty" class="empty hidden">Nenhum cliente encontrado.</div>
+  </section>
 
-  <section id="editor" class="card editor hidden">
-    <div class="toolbar" style="justify-content:space-between;align-items:center">
-      <div><h2 id="edTitle">Projeto</h2><p id="edSubtitle" class="muted"></p></div>
-      <button id="closeEditor" class="btn alt" type="button">Fechar</button>
+  <section class="card payments">
+    <h2>Pedidos e pagamentos</h2>
+    <p class="muted">Dados consultados diretamente em vortex_pedidos. Um pedido só é associado a um briefing quando há correspondência exata de e-mail.</p>
+    <div id="paymentMsg" class="notice hidden"></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Pedido</th><th>Cliente / e-mail</th><th>Valor</th><th>Status do pagamento</th><th>Data do pedido</th></tr></thead>
+        <tbody id="paymentRows"></tbody>
+      </table>
     </div>
-
-    <form id="editForm">
-      <input id="edId" type="hidden">
-      <div class="grid2">
-        <label class="field">WhatsApp com DDD e código do país
-          <input id="edPhone" inputmode="tel" placeholder="5531999999999">
-        </label>
-        <label class="field">Data prevista de entrega
-          <input id="edDate" type="date">
-        </label>
-        <label class="field">Status
-          <select id="edStatus">
-            <option value="novo">Novo / lista de espera</option>
-            <option value="em_analise">Em análise</option>
-            <option value="aguardando_cliente">Aguardando cliente</option>
-            <option value="em_desenvolvimento">Em desenvolvimento</option>
-            <option value="concluido">Concluído</option>
-            <option value="cancelado">Cancelado</option>
-          </select>
-        </label>
-        <label class="field">Modelo de mensagem
-          <select id="msgType">
-            <option value="prazo">Propor novo prazo</option>
-            <option value="recebido">Confirmar recebimento</option>
-            <option value="info">Solicitar informações</option>
-            <option value="custom">Mensagem personalizada</option>
-          </select>
-        </label>
-      </div>
-
-      <label id="customWrap" class="field hidden">Mensagem personalizada
-        <textarea id="customMsg" rows="4"></textarea>
-      </label>
-      <p class="muted">A mensagem será aberta no WhatsApp para você revisar e enviar. Ela não será enviada automaticamente.</p>
-      <div class="actions">
-        <button class="btn" id="saveBtn" type="submit">Salvar alterações</button>
-        <button id="openWa" class="btn green" type="button">Abrir WhatsApp</button>
-      </div>
-      <div id="editMsg" class="notice hidden" role="status"></div>
-    </form>
-
-    <hr style="border-color:#293950;margin:22px 0">
-    <h3>Detalhes do briefing</h3>
-    <div id="summary" class="summary"></div>
+    <div id="paymentEmpty" class="empty hidden">Nenhum pedido encontrado ou os pedidos não estão disponíveis para esta conta.</div>
   </section>
 </main>
 </section>
@@ -179,15 +168,16 @@ td strong{display:block;font-size:14px}
 <script>
 "use strict";
 (() => {
-  const URL="https://bngxigbyxrksctylyanw.supabase.co";
-  const KEY="sb_publishable_WYRvOzBLQuUDMPf_ZK9qmg_lvIXaHyo";
-  const db=window.supabase.createClient(URL,KEY);
+  const SUPABASE_URL="https://bngxigbyxrksctylyanw.supabase.co";
+  const SUPABASE_KEY="sb_publishable_WYRvOzBLQuUDMPf_ZK9qmg_lvIXaHyo";
+  const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
   const $=id=>document.getElementById(id);
-  let records=[];
-  let selected=null;
+  let briefs=[];
+  let orders=[];
+  let busy=false;
 
-  const labels={
-    novo:"Novo / lista de espera",
+  const statuses={
+    novo:"Lista de espera",
     em_analise:"Em análise",
     aguardando_cliente:"Aguardando cliente",
     em_desenvolvimento:"Em desenvolvimento",
@@ -195,213 +185,304 @@ td strong{display:block;font-size:14px}
     cancelado:"Cancelado"
   };
 
-  const esc=value=>String(value??"").replace(/[&<>"']/g,c=>({
+  const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
   })[c]);
 
-  function notice(id,text,error=false){
+  function notify(id,text,isError=false){
     $(id).textContent=text;
     $(id).classList.remove("hidden");
-    $(id).classList.toggle("error",error);
+    $(id).classList.toggle("error",isError);
   }
 
-  async function checkAdmin(user){
+  function hide(id){$(id).classList.add("hidden")}
+
+  function dateTime(value){
+    if(!value)return "—";
+    const d=new Date(value);
+    if(Number.isNaN(d.getTime()))return "—";
+    return new Intl.DateTimeFormat("pt-BR",{
+      dateStyle:"short",timeStyle:"short"
+    }).format(d);
+  }
+
+  function dateOnly(value){
+    if(!value)return "—";
+    const d=new Date(value.length===10?value+"T12:00:00":value);
+    return Number.isNaN(d.getTime())?"—":d.toLocaleDateString("pt-BR");
+  }
+
+  function money(value){
+    if(value===null||value===undefined||value==="")return "—";
+    const n=Number(value);
+    return Number.isFinite(n)?n.toLocaleString("pt-BR",{style:"currency",currency:"BRL"}):"—";
+  }
+
+  function statusClass(status){
+    if(status==="concluido"||status==="pago"||status==="ativo"||status==="approved")return "pill ok";
+    if(status==="cancelado"||status==="rejeitado"||status==="reembolsado"||status==="erro_criacao")return "pill bad";
+    return "pill warn";
+  }
+
+  function labelPayment(status){
+    const map={
+      pendente:"Pendente",pago:"Pago",approved:"Aprovado",
+      active:"Ativa",ativo:"Ativo",rejeitado:"Rejeitado",
+      cancelled:"Cancelado",cancelado:"Cancelado",
+      reembolsado:"Reembolsado",contestado:"Contestado",
+      erro_criacao:"Erro na criação",paused:"Pausada",pausado:"Pausado"
+    };
+    return map[status]||status||"Sem status";
+  }
+
+  async function verifyAdmin(user){
     const {data,error}=await db.from("profiles")
       .select("nome,cargo").eq("id",user.id).maybeSingle();
-
-    if(error){console.error("Erro ao verificar perfil:",error);return null}
+    if(error){console.error("Perfil:",error);return null}
     return data&&data.cargo==="admin"?data:null;
   }
 
   async function enter(user){
-    const profile=await checkAdmin(user);
+    const profile=await verifyAdmin(user);
     if(!profile){
       await db.auth.signOut();
       $("login").classList.remove("hidden");
-      notice("loginMsg","A conta não tem perfil administrativo. Verifique profiles.cargo = admin.",true);
+      notify("loginMsg","Esta conta não tem acesso de administrador. Confira profiles.cargo = admin.",true);
       return;
     }
     $("login").classList.add("hidden");
     $("app").classList.remove("hidden");
     $("welcome").textContent="Bem-vindo, "+(profile.nome||user.email);
-    await load();
+    await loadAll();
   }
 
-  async function load(){
-    $("listMsg").classList.add("hidden");
-    const {data,error}=await db.from("vortex_briefings")
-      .select("*").order("created_at",{ascending:false}).limit(500);
+  async function loadAll(){
+    if(busy)return;
+    busy=true;
+    $("refresh").disabled=true;
+    $("refresh").textContent="Atualizando...";
+    hide("globalMsg");
+    hide("briefingMsg");
+    hide("paymentMsg");
 
-    if(error){
-      console.error("Erro ao carregar briefings:",error);
-      notice("listMsg","Não foi possível carregar os briefings. Verifique a tabela, as colunas e as políticas RLS.",true);
-      return;
-    }
-
-    records=data||[];
-    $("mTotal").textContent=records.length;
-    $("mNovo").textContent=records.filter(r=>(r.status||"novo")==="novo").length;
-    $("mWait").textContent=records.filter(r=>r.status==="aguardando_cliente").length;
-    $("mDev").textContent=records.filter(r=>r.status==="em_desenvolvimento").length;
-    render();
-  }
-
-  function render(){
-    const q=$("search").value.trim().toLowerCase();
-    const status=$("filter").value;
-    const filtered=records.filter(r=>
-      (!status||r.status===status)&&
-      [r.nome,r.empresa,r.email,r.whatsapp].some(v=>String(v||"").toLowerCase().includes(q))
-    );
-
-    $("rows").innerHTML=filtered.map(r=>`
-      <tr>
-        <td><strong>${esc(r.empresa)}</strong>${esc(r.nome)}<br>
-          <span class="muted">${esc(r.email)}</span><br>
-          <span class="muted">${esc(r.whatsapp||"Sem WhatsApp")}</span>
-        </td>
-        <td>${esc(r.segmento)}<br><span class="muted">${esc(r.estilo)}</span><br>
-          <span class="muted">${esc(Array.isArray(r.funcionalidades)?r.funcionalidades.join(", "):"")}</span>
-        </td>
-        <td>${esc(r.prazo||"—")}</td>
-        <td>${esc(r.data_prevista?new Date(r.data_prevista+"T12:00:00").toLocaleDateString("pt-BR"):"Não definida")}</td>
-        <td><span class="pill">${esc(labels[r.status]||r.status||"novo")}</span></td>
-        <td><div class="actions">
-          <button class="btn" type="button" data-edit="${esc(r.id)}">Abrir / editar</button>
-          ${r.whatsapp?`<button class="btn green" type="button" data-wa="${esc(r.id)}">WhatsApp</button>`:""}
-        </div></td>
-      </tr>`).join("");
-
-    $("empty").classList.toggle("hidden",filtered.length>0);
-
-    document.querySelectorAll("[data-edit]").forEach(b=>{
-      b.onclick=()=>openEditor(records.find(r=>String(r.id)===b.dataset.edit));
-    });
-    document.querySelectorAll("[data-wa]").forEach(b=>{
-      b.onclick=()=>{
-        openEditor(records.find(r=>String(r.id)===b.dataset.wa));
-        openWA();
-      };
-    });
-  }
-
-  function openEditor(r){
-    if(!r)return;
-    selected=r;
-    $("edId").value=r.id;
-    $("edTitle").textContent=r.empresa||"Projeto";
-    $("edSubtitle").textContent=(r.nome||"Cliente")+" · "+(r.email||"");
-    $("edPhone").value=r.whatsapp||"";
-    $("edDate").value=r.data_prevista||"";
-    $("edStatus").value=r.status||"novo";
-    $("msgType").value="prazo";
-    $("customMsg").value="";
-    $("customWrap").classList.add("hidden");
-    $("editMsg").classList.add("hidden");
-    $("summary").textContent=
-      "Descrição: "+(r.descricao||"—")+
-      "\nInstagram: "+(r.instagram||"—")+
-      "\nEstilo: "+(r.estilo||"—")+
-      "\nCor principal: "+(r.cor_principal||"—")+
-      "\nCor de fundo: "+(r.cor_fundo||"—")+
-      "\nFuncionalidades: "+(Array.isArray(r.funcionalidades)?r.funcionalidades.join(", "):"—")+
-      "\nReferências: "+(r.referencias||"—")+
-      "\nObservações: "+(r.observacoes||"—");
-    $("editor").classList.remove("hidden");
-    $("editor").scrollIntoView({behavior:"smooth",block:"start"});
-  }
-
-  function phone(){return $("edPhone").value.replace(/\D/g,"")}
-
-  function buildMessage(){
-    if(!selected)return "";
-    const name=selected.nome||"tudo bem";
-    const company=selected.empresa||"sua empresa";
-    const kind=$("msgType").value;
-
-    if(kind==="custom")return $("customMsg").value.trim();
-    if(kind==="recebido")return `Olá, ${name}! Recebemos o briefing do projeto da ${company} na Vortex Tech. Nossa equipe vai analisar os detalhes e entraremos em contato.`;
-    if(kind==="info")return `Olá, ${name}! Aqui é da Vortex Tech. Precisamos de algumas informações adicionais sobre o projeto da ${company}. Podemos conversar por aqui?`;
-
-    const date=$("edDate").value;
-    const dateText=date?new Date(date+"T12:00:00").toLocaleDateString("pt-BR"):"uma nova data a combinar";
-    return `Olá, ${name}! Aqui é da Vortex Tech. Precisamos combinar a previsão de entrega do projeto da ${company}. Nossa sugestão é ${dateText}. Esse prazo funciona para você?`;
-  }
-
-  function openWA(){
-    if(!selected)return;
-    const p=phone();
-    if(p.length<10||p.length>15){
-      notice("editMsg","Informe o WhatsApp com código do país e DDD, por exemplo 5531999999999.",true);
-      return;
-    }
-    window.open("https://wa.me/"+p+"?text="+encodeURIComponent(buildMessage()),"_blank","noopener");
-  }
-
-  $("loginForm").addEventListener("submit",async e=>{
-    e.preventDefault();
-    $("loginBtn").disabled=true;
-    $("loginMsg").classList.add("hidden");
     try{
-      const {data,error}=await db.auth.signInWithPassword({
-        email:$("email").value.trim(),password:$("senha").value
-      });
-      if(error)throw error;
-      await enter(data.user);
+      const results=await Promise.all([
+        db.from("vortex_briefings").select("*").limit(1000),
+        db.from("vortex_pedidos").select("*").limit(1000)
+      ]);
+
+      const b=results[0],p=results[1];
+
+      if(b.error){
+        console.error("Briefings:",b.error);
+        briefs=[];
+        notify("briefingMsg","Não foi possível carregar os clientes. Confira a tabela vortex_briefings e as permissões RLS.",true);
+      }else{
+        briefs=b.data||[];
+        briefs.sort((x,y)=>new Date(y.created_at||0)-new Date(x.created_at||0));
+      }
+
+      if(p.error){
+        console.error("Pedidos:",p.error);
+        orders=[];
+        notify("paymentMsg","Os pedidos não puderam ser lidos. Confira as permissões SELECT da tabela vortex_pedidos.",true);
+      }else{
+        orders=p.data||[];
+        orders.sort((x,y)=>new Date(y.created_at||0)-new Date(x.created_at||0));
+      }
+
+      $("mTotal").textContent=b.error?"—":briefs.length;
+      $("mNovo").textContent=b.error?"—":briefs.filter(r=>(r.status||"novo")==="novo").length;
+      $("mDev").textContent=b.error?"—":briefs.filter(r=>r.status==="em_desenvolvimento").length;
+      $("mDone").textContent=b.error?"—":briefs.filter(r=>r.status==="concluido").length;
+
+      renderClients();
+      renderPayments();
+
+      if(!b.error&&!p.error){
+        notify("globalMsg","Lista atualizada em "+new Date().toLocaleTimeString("pt-BR")+".");
+      }
     }catch(error){
       console.error(error);
-      notice("loginMsg","Não foi possível entrar. Confira as credenciais e o perfil administrativo.",true);
+      notify("globalMsg","Erro inesperado ao atualizar os dados.",true);
     }finally{
-      $("loginBtn").disabled=false;
+      busy=false;
+      $("refresh").disabled=false;
+      $("refresh").textContent="↻ Atualizar lista";
     }
-  });
+  }
 
-  $("editForm").addEventListener("submit",async e=>{
-    e.preventDefault();
-    if(!selected)return;
-    const p=phone();
-    if(p&&(p.length<10||p.length>15)){
-      notice("editMsg","Confira o telefone com código do país e DDD.",true);
-      return;
-    }
+  function matchingOrders(brief){
+    const email=String(brief.email||"").trim().toLowerCase();
+    if(!email)return [];
+    return orders.filter(o=>String(o.email||"").trim().toLowerCase()===email);
+  }
 
-    $("saveBtn").disabled=true;
-    const changes={
-      whatsapp:p||null,
-      data_prevista:$("edDate").value||null,
-      status:$("edStatus").value,
+  function renderClients(){
+    const filter=$("filter").value;
+    const sort=$("sort").value;
+    let list=briefs.filter(r=>!filter||(r.status||"novo")===filter);
+
+    if(sort==="recentes")list.sort((a,b)=>new Date(b.created_at||0)-new Date(a.created_at||0));
+    if(sort==="antigos")list.sort((a,b)=>new Date(a.created_at||0)-new Date(b.created_at||0));
+    if(sort==="prazo")list.sort((a,b)=>String(a.data_prevista||"9999-12-31").localeCompare(String(b.data_prevista||"9999-12-31")));
+
+    $("clientRows").innerHTML=list.map(r=>{
+      const matches=matchingOrders(r);
+      const payment=matches.length===1
+        ?money(matches[0].valor)+" · "+labelPayment(matches[0].status)
+        :matches.length>1
+          ?matches.length+" pedidos para este e-mail"
+          :"Sem vínculo de pagamento";
+
+      const project=[r.segmento,r.estilo].filter(Boolean).join(" · ");
+      const date= r.created_at?dateTime(r.created_at):"Data não registrada";
+      const due=r.data_prevista||"";
+
+      return `<tr>
+        <td><strong>${esc(r.empresa||"Empresa não informada")}</strong>
+          ${esc(r.nome||"Nome não informado")}<br>
+          <span class="muted">${esc(r.email||"Sem e-mail")}</span><br>
+          <span class="muted">${esc(r.whatsapp||"Sem WhatsApp")}</span>
+        </td>
+        <td>${esc(date)}</td>
+        <td><strong>${esc(project||"Projeto não informado")}</strong>
+          <div class="client-detail">${esc(r.descricao||"Sem descrição")}</div>
+          <span class="muted">Funções: ${esc(Array.isArray(r.funcionalidades)?r.funcionalidades.join(", "):"Não informadas")}</span>
+        </td>
+        <td>${esc(payment)}<br>
+          ${matches.length===1?`<span class="${statusClass(matches[0].status)}">${esc(labelPayment(matches[0].status))}</span>`:""}
+        </td>
+        <td>
+          <label class="muted">Prazo pedido: ${esc(r.prazo||"—")}</label>
+          <input aria-label="Data prevista para ${esc(r.empresa||r.nome||"projeto")}" type="date" id="date-${esc(r.id)}" value="${esc(due)}">
+          <span class="muted">${due?dateOnly(due):"Data não definida"}</span>
+        </td>
+        <td>
+          <div class="row-actions">
+            <span class="${statusClass(r.status||"novo")}">${esc(statuses[r.status||"novo"]||r.status||"Novo")}</span>
+            <select id="status-${esc(r.id)}" aria-label="Status do projeto">
+              ${Object.entries(statuses).map(([v,t])=>`<option value="${v}" ${(r.status||"novo")===v?"selected":""}>${t}</option>`).join("")}
+            </select>
+            <button class="btn blue" data-save="${esc(r.id)}" type="button">Salvar status e prazo</button>
+            ${r.status!=="em_desenvolvimento"&&r.status!=="concluido"?`<button class="btn" data-start="${esc(r.id)}" type="button">Iniciar projeto</button>`:""}
+            ${r.status!=="concluido"?`<button class="btn green" data-done="${esc(r.id)}" type="button">Concluir projeto</button>`:""}
+            ${r.whatsapp?`<button class="btn alt" data-wa="${esc(r.id)}" type="button">WhatsApp</button>`:""}
+          </div>
+        </td>
+      </tr>`;
+    }).join("");
+
+    $("clientEmpty").classList.toggle("hidden",list.length>0);
+
+    document.querySelectorAll("[data-save]").forEach(b=>b.onclick=()=>saveProject(b.dataset.save));
+    document.querySelectorAll("[data-start]").forEach(b=>b.onclick=()=>quickStatus(b.dataset.start,"em_desenvolvimento"));
+    document.querySelectorAll("[data-done]").forEach(b=>b.onclick=()=>quickStatus(b.dataset.done,"concluido"));
+    document.querySelectorAll("[data-wa]").forEach(b=>b.onclick=()=>{
+      const r=briefs.find(x=>String(x.id)===b.dataset.wa);
+      if(r)openWhatsApp(r);
+    });
+  }
+
+  function renderPayments(){
+    $("paymentRows").innerHTML=orders.map(o=>{
+      const briefing=briefs.find(b=>b.email&&o.email&&String(b.email).trim().toLowerCase()===String(o.email).trim().toLowerCase());
+      const title=o.tipo==="plano"?"Plano: "+(o.item_id||"—"):o.tipo==="servico"?"Serviço: "+(o.item_id||"—"):(o.item_id||o.tipo||"Pedido");
+      const orderDate=o.created_at?dateTime(o.created_at):"Data não registrada";
+      return `<tr>
+        <td><strong>${esc(title)}</strong><span class="muted">${esc(o.referencia||"Sem referência")}</span></td>
+        <td>${esc(briefing?(briefing.nome+" · "+briefing.empresa):(o.email||"Cliente não vinculado"))}<br><span class="muted">${esc(o.email||"Sem e-mail no pedido")}</span></td>
+        <td><strong>${esc(money(o.valor))}</strong></td>
+        <td><span class="${statusClass(o.status)}">${esc(labelPayment(o.status))}</span></td>
+        <td>${esc(orderDate)}</td>
+      </tr>`;
+    }).join("");
+
+    $("paymentEmpty").classList.toggle("hidden",orders.length>0);
+  }
+
+  async function saveProject(id,overrideStatus=null){
+    const r=briefs.find(x=>String(x.id)===String(id));
+    if(!r)return;
+
+    const status=overrideStatus||$("status-"+id).value;
+    const date=$("date-"+id).value||null;
+    const buttons=document.querySelectorAll(`[data-save="${CSS.escape(String(id))}"],[data-start="${CSS.escape(String(id))}"],[data-done="${CSS.escape(String(id))}"]`);
+    buttons.forEach(b=>b.disabled=true);
+
+    const payload={
+      status,
+      data_prevista:date,
       atualizado_em:new Date().toISOString()
     };
 
     try{
       const {data,error}=await db.from("vortex_briefings")
-        .update(changes).eq("id",selected.id).select("id");
+        .update(payload).eq("id",r.id).select("id");
 
       if(error)throw error;
       if(!data||!data.length){
-        notice("editMsg","Nenhuma linha foi atualizada. Verifique as permissões RLS.",true);
+        notify("globalMsg","Nenhum registro foi atualizado. Verifique a política RLS de UPDATE para administradores.",true);
         return;
       }
-      notice("editMsg","Alterações salvas com sucesso.");
-      await load();
-      selected=records.find(r=>String(r.id)===String($("edId").value))||selected;
+
+      notify("globalMsg",status==="em_desenvolvimento"?"Projeto iniciado e movido para Em desenvolvimento.":status==="concluido"?"Projeto marcado como concluído.":"Status e prazo atualizados com sucesso.");
+      await loadAll();
+    }catch(error){
+      console.error("Erro ao salvar projeto:",error);
+      notify("globalMsg","Não foi possível salvar. Verifique as colunas status, data_prevista, atualizado_em e as políticas RLS.",true);
+    }finally{
+      buttons.forEach(b=>b.disabled=false);
+    }
+  }
+
+  function quickStatus(id,status){
+    const input=$("date-"+id);
+    if(!input)return;
+    const r=briefs.find(x=>String(x.id)===String(id));
+    if(!r)return;
+    const action=status==="concluido"?"concluir":"iniciar";
+    const question=status==="concluido"
+      ?"Confirmar que o projeto de "+(r.empresa||r.nome)+" foi concluído?"
+      :"Iniciar o desenvolvimento do projeto de "+(r.empresa||r.nome)+"?";
+    if(!confirm(question))return;
+    saveProject(id,status);
+  }
+
+  function openWhatsApp(r){
+    const phone=String(r.whatsapp||"").replace(/\D/g,"");
+    if(phone.length<10||phone.length>15){
+      notify("globalMsg","O WhatsApp deste cliente não possui um número válido.",true);
+      return;
+    }
+    const message=`Olá, ${r.nome||"tudo bem"}! Aqui é da Vortex Tech. Estou entrando em contato sobre o projeto da ${r.empresa||"sua empresa"}.`;
+    window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(message),"_blank","noopener");
+  }
+
+  $("loginForm").addEventListener("submit",async e=>{
+    e.preventDefault();
+    $("loginBtn").disabled=true;
+    hide("loginMsg");
+    try{
+      const {data,error}=await db.auth.signInWithPassword({
+        email:$("email").value.trim(),
+        password:$("senha").value
+      });
+      if(error)throw error;
+      await enter(data.user);
     }catch(error){
       console.error(error);
-      notice("editMsg","Erro ao salvar. Confira as colunas data_prevista e atualizado_em e as políticas RLS.",true);
-    }finally{
-      $("saveBtn").disabled=false;
-    }
+      notify("loginMsg","Não foi possível entrar. Confira seu e-mail, senha e perfil administrativo.",true);
+    }finally{$("loginBtn").disabled=false}
   });
 
-  $("msgType").addEventListener("change",()=>{
-    $("customWrap").classList.toggle("hidden",$("msgType").value!=="custom");
+  $("refresh").addEventListener("click",loadAll);
+  $("filter").addEventListener("change",renderClients);
+  $("sort").addEventListener("change",renderClients);
+  $("logout").addEventListener("click",async()=>{
+    await db.auth.signOut();
+    location.reload();
   });
-  $("openWa").addEventListener("click",openWA);
-  $("closeEditor").addEventListener("click",()=>$("editor").classList.add("hidden"));
-  $("refresh").addEventListener("click",load);
-  $("search").addEventListener("input",render);
-  $("filter").addEventListener("change",render);
-  $("logout").addEventListener("click",async()=>{await db.auth.signOut();location.reload()});
 
   db.auth.getSession().then(({data,error})=>{
     if(error){console.error(error);return}
