@@ -7,291 +7,274 @@
 <meta name="theme-color" content="#080d18">
 <title>Vortex Tech | Painel Executivo</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-:root{--bg:#080d18;--panel:#111a2a;--panel2:#162238;--line:#283750;--gold:#e6bd65;--text:#f5f7fc;--muted:#9eacc1;--green:#4ade80;--blue:#60a5fa;--red:#f87171;--radius:16px}
+:root{
+  --bg:#080d18;--panel:#111a2a;--panel2:#17243a;
+  --line:#293951;--gold:#e6bd65;--text:#f5f7fc;
+  --muted:#9eacc1;--green:#4ade80;--blue:#60a5fa;
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;line-height:1.5}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif;line-height:1.5}
 button,input,select{font:inherit}
-button{cursor:pointer}
-a{color:inherit;text-decoration:none}
+button,a{cursor:pointer}
 .hidden{display:none!important}
-.muted{color:var(--muted);font-size:13px}
+a{color:var(--gold)}
 h1,h2,h3,p{margin-top:0}
-h1{font-size:23px;letter-spacing:.3px;margin-bottom:3px}
-h2{font-size:19px;margin-bottom:7px}
-h3{font-size:15px;margin-bottom:5px}
+h1{font-size:23px;margin-bottom:4px}
+h2{font-size:19px}
+.muted{color:var(--muted);font-size:13px}
 .login{min-height:100vh;display:grid;place-items:center;padding:20px}
-.login-card{width:min(100%,420px);padding:30px;background:var(--panel);border:1px solid var(--line);border-radius:20px}
-.brand{display:flex;align-items:center;gap:12px}
-.brand-icon{display:grid;place-items:center;width:43px;height:43px;border-radius:13px;background:linear-gradient(135deg,#f5d98f,#bc8b30);color:#111;font-weight:900;font-size:20px}
-.brand-name{font-weight:900;letter-spacing:1px}
-.brand-name span{color:var(--gold)}
-.field{display:grid;gap:6px;margin:12px 0;color:#d4deeb;font-size:13px}
-.field input,.field select{width:100%;min-width:0;background:#0a1220;color:white;border:1px solid #354761;border-radius:9px;padding:11px}
-.btn{border:1px solid var(--gold);background:var(--gold);color:#12151c;border-radius:9px;padding:10px 14px;font-weight:750;font-size:13px;display:inline-flex;align-items:center;justify-content:center;gap:7px}
-.btn:hover{filter:brightness(1.08)}
+.login-card{width:min(100%,430px);padding:30px;background:var(--panel);border:1px solid var(--line);border-radius:19px}
+.brand{font-weight:900;letter-spacing:1px;font-size:21px}
+.brand span{color:var(--gold)}
+.field{display:grid;gap:6px;margin:14px 0;font-size:13px}
+.field input,.field select{width:100%;padding:12px;background:#080d18;color:white;border:1px solid #40516a;border-radius:9px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:10px 14px;border-radius:9px;background:var(--gold);color:#11151c;border:1px solid var(--gold);font-weight:bold;font-size:13px;text-decoration:none}
+.btn.secondary{background:#17243a;border-color:#344863;color:white}
+.btn.green{background:#155b3c;border-color:#237b53;color:#e0ffec}
+.btn.blue{background:#173c69;border-color:#2863a0;color:white}
 .btn:disabled{opacity:.55;cursor:wait}
-.btn.secondary{background:#17243a;border-color:#344863;color:#eaf0fa}
-.btn.green{background:#155b3c;border-color:#237b53;color:#d6ffe5}
-.btn.blue{background:#173c69;border-color:#2863a0;color:#e4f1ff}
-.btn.danger{background:#411f2a;border-color:#753443;color:#ffdbe0}
-.topbar{position:sticky;top:0;z-index:5;background:#0b1220ed;backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:14px clamp(15px,4vw,40px);display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
-.top-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.wrap{max-width:1500px;margin:auto;padding:28px clamp(14px,3vw,32px) 60px}
-.eyebrow{font-size:10px;color:var(--gold);font-weight:800;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:6px}
-.hero{padding:25px;border:1px solid #33415b;border-radius:20px;background:radial-gradient(ellipse at 90% 10%,#263958 0%,transparent 45%),linear-gradient(125deg,#17243a,#101827 70%);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
-.hero h2{font-size:clamp(24px,3vw,34px);margin:0 0 8px}
-.hero p{margin:0;color:#bdc9d9}
-.live{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border-radius:99px;background:#152c28;border:1px solid #285246;color:#a8f1c5;font-size:11px}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
-.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:30px 0 14px}
-.section-head h2{margin:0}
-.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
-.metric{padding:19px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);min-width:0}
-.metric-top{display:flex;align-items:center;justify-content:space-between;gap:8px;color:var(--muted);font-size:12px}
-.metric-icon{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:#26334a;font-size:17px}
-.metric-value{font-size:clamp(22px,2.5vw,30px);font-weight:800;letter-spacing:-.8px;margin:13px 0 4px;overflow-wrap:anywhere}
+.link-btn{background:transparent;border:0;color:var(--gold);text-decoration:underline;padding:9px;font-size:13px}
+.topbar{position:sticky;top:0;z-index:3;background:#0b1220f2;border-bottom:1px solid var(--line);padding:15px clamp(15px,4vw,38px);display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+.actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.wrap{max-width:1500px;margin:auto;padding:25px clamp(13px,3vw,30px) 55px}
+.hero{padding:24px;border:1px solid #33415b;border-radius:18px;background:radial-gradient(ellipse at 90% 10%,#263958,transparent 50%),linear-gradient(125deg,#17243a,#101827);display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+.hero h2{font-size:clamp(24px,3vw,34px);margin:0 0 7px}
+.hero p{color:#bdc9d9;margin:0}
+.eyebrow{font-size:10px;color:var(--gold);font-weight:bold;letter-spacing:1.5px;margin-bottom:6px}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:13px}
+.metric,.panel{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:18px;min-width:0}
+.metric-label{font-size:12px;color:var(--muted)}
+.metric-value{font-size:clamp(22px,2.5vw,29px);font-weight:800;margin:10px 0 4px;overflow-wrap:anywhere}
 .metric-foot{font-size:11px;color:var(--muted)}
-.green-text{color:var(--green)}
-.gold-text{color:var(--gold)}
-.blue-text{color:var(--blue)}
-.grid-main{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,1fr);gap:15px;margin-top:15px}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px;min-width:0}
-.panel-head{display:flex;justify-content:space-between;align-items:start;gap:12px;flex-wrap:wrap;margin-bottom:17px}
-.panel-head p{margin:4px 0 0}
-.chart{height:205px;display:flex;align-items:stretch;gap:10px;border-bottom:1px solid var(--line);padding:12px 0 0}
-.bar-column{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:7px}
-.bar-value{font-size:10px;color:#cbd5e1;white-space:nowrap;overflow:hidden;max-width:100%;text-overflow:ellipsis}
-.bar{width:min(100%,32px);min-height:3px;border-radius:7px 7px 2px 2px;background:linear-gradient(180deg,#f2d58c,#b68a39);transition:height .25s}
-.bar-label{font-size:10px;color:var(--muted);padding:8px 0}
-.donut-list{display:grid;gap:14px}
-.progress-item{display:grid;gap:7px}
-.progress-label{display:flex;justify-content:space-between;gap:10px;font-size:12px}
+.gold{color:var(--gold)}.green-text{color:var(--green)}.blue-text{color:var(--blue)}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap;margin:28px 0 13px}
+.section-head h2{margin:0}
+.grid-main{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(260px,1fr);gap:13px;margin-top:13px}
+.panel-head{display:flex;justify-content:space-between;align-items:start;gap:10px;flex-wrap:wrap}
+.chart{height:190px;display:flex;align-items:stretch;gap:9px;padding-top:10px;border-bottom:1px solid var(--line)}
+.bar-col{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px}
+.bar{width:min(100%,30px);min-height:3px;background:linear-gradient(#f2d58c,#b68a39);border-radius:6px 6px 0 0}
+.bar-value,.bar-label{font-size:10px;color:var(--muted);white-space:nowrap}
+.progress-list{display:grid;gap:15px;margin-top:20px}
+.progress-label{display:flex;justify-content:space-between;gap:8px;font-size:12px;margin-bottom:6px}
 .track{height:7px;border-radius:20px;background:#253149;overflow:hidden}
-.track span{display:block;height:100%;border-radius:20px;background:var(--gold)}
-.finance-note{font-size:11px;color:var(--muted);margin-top:14px}
-.filters{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px;margin-bottom:15px}
-.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px}
-table{width:100%;border-collapse:collapse;min-width:1050px}
-th,td{padding:13px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line);font-size:12px}
-th{background:#152136;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.7px;white-space:nowrap}
+.track span{display:block;height:100%;border-radius:20px}
+.workflow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.stage{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:17px}
+.stage strong{display:block;font-size:28px;margin:8px 0}
+.stage p{font-size:12px;color:var(--muted);margin:0}
+.filters{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:11px;margin-top:12px}
+table{width:100%;border-collapse:collapse;min-width:1000px}
+th,td{text-align:left;vertical-align:top;padding:12px;border-bottom:1px solid var(--line);font-size:12px}
+th{background:#152136;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
 tbody tr:hover{background:#172338}
-tbody tr:last-child td{border-bottom:0}
 td strong{display:block;font-size:13px;overflow-wrap:anywhere}
-.client-sub{color:var(--muted);font-size:11px;overflow-wrap:anywhere;margin-top:3px}
-.badge{display:inline-flex;align-items:center;gap:5px;border-radius:30px;padding:5px 9px;background:#253149;color:#dce5f4;font-size:11px;white-space:nowrap}
+.sub{font-size:11px;color:var(--muted);margin-top:4px;overflow-wrap:anywhere}
+.badge{display:inline-block;padding:5px 9px;border-radius:30px;background:#263149;font-size:11px;white-space:nowrap}
 .badge.ok{background:#153e2d;color:#b5f5cf}
 .badge.warn{background:#473719;color:#ffe4a7}
 .badge.bad{background:#49222b;color:#ffc9d0}
-.row-buttons{display:flex;flex-direction:column;align-items:stretch;gap:6px;min-width:145px}
-.row-buttons .btn{font-size:11px;padding:8px}
-.row-buttons select,.row-buttons input{width:100%;min-width:130px;background:#09111f;color:white;border:1px solid #344761;border-radius:8px;padding:8px;font-size:12px}
-.workflow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.stage{padding:16px;border-radius:13px;background:#111b2b;border:1px solid var(--line)}
-.stage-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.stage-count{font-size:28px;font-weight:800;margin:12px 0 4px}
-.stage p{font-size:12px;color:var(--muted);margin:0}
-.notice{padding:12px 14px;border-radius:10px;background:#182a43;color:#dceaff;font-size:13px;overflow-wrap:anywhere;margin:12px 0}
+.row-actions{display:flex;flex-direction:column;align-items:stretch;gap:6px;min-width:145px}
+.row-actions .btn{font-size:11px;padding:8px}
+.row-actions select,.row-actions input{width:100%;min-width:130px;background:#080d18;color:white;border:1px solid #344761;border-radius:8px;padding:8px;font-size:12px}
+.notice{padding:12px 14px;border-radius:9px;background:#182a43;color:#dceaff;font-size:13px;margin:12px 0;overflow-wrap:anywhere}
 .notice.error{background:#49222b;color:#ffd1d6}
 .notice.success{background:#153e2d;color:#b5f5cf}
-.empty{padding:30px;text-align:center;color:var(--muted);font-size:13px}
-.footer{padding-top:25px;text-align:center;color:#75859b;font-size:11px}
-@media(max-width:1050px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-main{grid-template-columns:1fr}}
-@media(max-width:600px){.wrap{padding:18px 12px 40px}.hero{padding:19px}.panel{padding:14px}.filters{grid-template-columns:1fr}.workflow{grid-template-columns:1fr}.metric{padding:14px}.topbar{position:static}.metric-value{font-size:23px}}
+.empty{padding:25px;text-align:center;color:var(--muted);font-size:13px}
+footer{text-align:center;color:#75859b;font-size:11px;padding:24px}
+@media(max-width:1000px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-main{grid-template-columns:1fr}}
+@media(max-width:650px){.topbar{position:static}.wrap{padding:17px 11px 35px}.workflow{grid-template-columns:1fr}.filters{grid-template-columns:1fr}.metric{padding:13px}.panel{padding:14px}}
 </style>
 </head>
+
 <body>
 
+<!-- LOGIN: A RECUPERAÇÃO FICA AQUI, FORA DO PAINEL ADMINISTRATIVO -->
 <section id="login" class="login">
   <div class="login-card">
-    <div class="brand">
-      <div class="brand-icon">V</div>
-      <div class="brand-name">VORTEX <span>TECH</span></div>
-    </div>
-    <h2 style="margin-top:27px">Painel executivo</h2>
-    <p class="muted">Entre com sua conta de administrador para gerenciar clientes, projetos e pagamentos.</p>
+    <div class="brand">VORTEX <span>TECH</span></div>
+    <h2 style="margin-top:27px">Entrar na plataforma</h2>
+    <p class="muted">Acesse sua conta para continuar.</p>
+
     <form id="loginForm">
       <label class="field">E-mail
-        <input id="email" type="email" required autocomplete="username">
+        <input id="email" type="email" placeholder="seu@email.com" required autocomplete="username">
       </label>
+
       <label class="field">Senha
-        <input id="senha" type="password" required autocomplete="current-password">
+        <input id="senha" type="password" placeholder="Sua senha" required autocomplete="current-password">
       </label>
-      <button id="loginBtn" class="btn" type="submit" style="width:100%;margin-top:8px">Entrar no painel →</button>
-      <div id="loginMsg" class="notice hidden" role="status"></div>
+
+      <button id="loginBtn" class="btn" type="submit" style="width:100%;margin-top:8px">
+        Entrar na plataforma →
+      </button>
     </form>
-    <p class="muted" style="margin-top:20px"><a href="index.html">← Voltar ao site</a></p>
+
+    <div style="text-align:center;margin-top:13px">
+      <button type="button" id="esqueciSenha" class="link-btn">
+        Esqueci minha senha
+      </button>
+      <p id="mensagemRecuperacao" class="muted" role="status" aria-live="polite"></p>
+    </div>
+
+    <div id="loginMsg" class="notice hidden" role="status"></div>
+    <p class="muted" style="margin-top:16px"><a href="index.html">← Voltar ao site</a></p>
   </div>
 </section>
 
+<!-- PAINEL ADMINISTRATIVO -->
 <section id="app" class="hidden">
-<header class="topbar">
-  <div class="brand">
-    <div class="brand-icon">V</div>
-    <div>
-      <div class="brand-name">VORTEX <span>TECH</span></div>
-      <div class="muted">Gestão inteligente de negócios</div>
+  <header class="topbar">
+    <div class="brand">VORTEX <span>TECH</span><div class="muted">Gestão inteligente de negócios</div></div>
+    <div class="actions">
+      <a href="index.html" class="btn secondary">↗ Ver site</a>
+      <button id="refresh" class="btn secondary" type="button">↻ Atualizar dados</button>
+      <button id="logout" class="btn" type="button">Sair</button>
     </div>
-  </div>
-  <div class="top-actions">
-    <a href="index.html" class="btn secondary">↗ Ver site</a>
-    <button id="refresh" class="btn secondary" type="button">↻ Atualizar dados</button>
-    <button id="logout" class="btn" type="button">Sair</button>
-  </div>
-</header>
+  </header>
 
-<main class="wrap">
-  <section class="hero">
-    <div>
-      <div class="eyebrow">CENTRAL DE COMANDO</div>
-      <h2>Visão geral do negócio</h2>
-      <p id="welcome">Seus clientes, projetos e resultados em um só lugar.</p>
-    </div>
-    <div class="live"><span class="dot"></span><span id="syncLabel">Aguardando conexão</span></div>
-  </section>
-
-  <div id="globalMsg" class="notice hidden" role="status"></div>
-
-  <div class="section-head">
-    <div><div class="eyebrow">FINANCEIRO</div><h2>Resumo do faturamento</h2></div>
-    <span class="muted">Valores calculados a partir dos pedidos disponíveis</span>
-  </div>
-
-  <section class="metrics">
-    <article class="metric">
-      <div class="metric-top"><span>Total recebido</span><span class="metric-icon">R$</span></div>
-      <div id="revTotal" class="metric-value green-text">—</div>
-      <div class="metric-foot">Pagamentos identificados como confirmados</div>
-    </article>
-    <article class="metric">
-      <div class="metric-top"><span>Esta semana</span><span class="metric-icon">▦</span></div>
-      <div id="revWeek" class="metric-value">—</div>
-      <div class="metric-foot">Desde segunda-feira desta semana</div>
-    </article>
-    <article class="metric">
-      <div class="metric-top"><span>Este mês</span><span class="metric-icon">◷</span></div>
-      <div id="revMonth" class="metric-value gold-text">—</div>
-      <div class="metric-foot">Do primeiro dia até hoje</div>
-    </article>
-    <article class="metric">
-      <div class="metric-top"><span>Este ano</span><span class="metric-icon">↗</span></div>
-      <div id="revYear" class="metric-value blue-text">—</div>
-      <div class="metric-foot">Desde janeiro deste ano</div>
-    </article>
-  </section>
-
-  <section class="metrics" style="margin-top:13px">
-    <article class="metric">
-      <div class="metric-top"><span>Pagamentos pendentes</span><span class="metric-icon">◷</span></div>
-      <div id="pendingValue" class="metric-value">—</div>
-      <div id="pendingCount" class="metric-foot">Pedidos aguardando confirmação</div>
-    </article>
-    <article class="metric">
-      <div class="metric-top"><span>Clientes / briefings</span><span class="metric-icon">♙</span></div>
-      <div id="clientCount" class="metric-value">—</div>
-      <div class="metric-foot">Registros de personalização recebidos</div>
-    </article>
-    <article class="metric">
-      <div class="metric-top"><span>Projetos em andamento</span><span class="metric-icon">⚙</span></div>
-      <div id="workingCount" class="metric-value blue-text">—</div>
-      <div class="metric-foot">Em desenvolvimento</div>
-    </article>
-    <article class="metric">
-      <div class="metric-top"><span>Concluídos</span><span class="metric-icon">✓</span></div>
-      <div id="doneCount" class="metric-value green-text">—</div>
-      <div class="metric-foot">Projetos marcados como finalizados</div>
-    </article>
-  </section>
-
-  <div class="grid-main">
-    <section class="panel">
-      <div class="panel-head">
-        <div><div class="eyebrow">DESEMPENHO</div><h2>Faturamento por mês</h2><p class="muted">Valores confirmados no ano atual</p></div>
-        <span id="chartYear" class="badge">—</span>
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">CENTRAL DE COMANDO</div>
+        <h2>Visão geral do negócio</h2>
+        <p id="welcome">Clientes, projetos e resultados em um só lugar.</p>
       </div>
-      <div id="monthlyChart" class="chart"></div>
-      <div class="finance-note">O gráfico usa a data disponível do pedido ou da atualização. Para precisão contábil, é necessário registrar a data real de aprovação do pagamento no webhook.</div>
+      <span id="syncLabel" class="badge">Conectando...</span>
     </section>
 
-    <section class="panel">
-      <div class="panel-head">
-        <div><div class="eyebrow">OPERAÇÃO</div><h2>Etapas dos projetos</h2><p class="muted">Distribuição atual da carteira</p></div>
-      </div>
-      <div id="stageProgress" class="donut-list"></div>
+    <div id="globalMsg" class="notice hidden" role="status"></div>
+
+    <div class="section-head">
+      <div><div class="eyebrow">FINANCEIRO</div><h2>Resumo do faturamento</h2></div>
+    </div>
+
+    <section class="metrics">
+      <article class="metric">
+        <div class="metric-label">Total recebido</div>
+        <div id="revTotal" class="metric-value green-text">—</div>
+        <div class="metric-foot">Pedidos reconhecidos como pagos</div>
+      </article>
+      <article class="metric">
+        <div class="metric-label">Esta semana</div>
+        <div id="revWeek" class="metric-value">—</div>
+        <div class="metric-foot">Desde segunda-feira</div>
+      </article>
+      <article class="metric">
+        <div class="metric-label">Este mês</div>
+        <div id="revMonth" class="metric-value gold">—</div>
+        <div class="metric-foot">Mês atual</div>
+      </article>
+      <article class="metric">
+        <div class="metric-label">Este ano</div>
+        <div id="revYear" class="metric-value blue-text">—</div>
+        <div class="metric-foot">Ano atual</div>
+      </article>
     </section>
-  </div>
 
-  <div class="section-head">
-    <div><div class="eyebrow">ACOMPANHAMENTO</div><h2>Fluxo de trabalho</h2></div>
-  </div>
-  <section id="workflow" class="workflow"></section>
+    <section class="metrics">
+      <article class="metric">
+        <div class="metric-label">Pagamentos pendentes</div>
+        <div id="pendingValue" class="metric-value">—</div>
+        <div id="pendingCount" class="metric-foot">Aguardando confirmação</div>
+      </article>
+      <article class="metric">
+        <div class="metric-label">Clientes / briefings</div>
+        <div id="clientCount" class="metric-value">—</div>
+        <div class="metric-foot">Registros recebidos</div>
+      </article>
+      <article class="metric">
+        <div class="metric-label">Em desenvolvimento</div>
+        <div id="workingCount" class="metric-value blue-text">—</div>
+        <div class="metric-foot">Projetos em andamento</div>
+      </article>
+      <article class="metric">
+        <div class="metric-label">Projetos concluídos</div>
+        <div id="doneCount" class="metric-value green-text">—</div>
+        <div class="metric-foot">Finalizados pela equipe</div>
+      </article>
+    </section>
 
-  <div class="section-head">
-    <div><div class="eyebrow">CARTEIRA DE CLIENTES</div><h2>Clientes e projetos</h2><p class="muted" style="margin:5px 0 0">Altere o prazo e o status diretamente na linha do cliente.</p></div>
-  </div>
-
-  <section class="panel">
-    <div class="filters">
-      <label class="field">Buscar cliente ou empresa
-        <input id="search" placeholder="Nome, empresa, e-mail ou WhatsApp">
-      </label>
-      <label class="field">Status
-        <select id="filter">
-          <option value="">Todos os status</option>
-          <option value="novo">Lista de espera</option>
-          <option value="em_analise">Em análise</option>
-          <option value="aguardando_cliente">Aguardando cliente</option>
-          <option value="em_desenvolvimento">Em desenvolvimento</option>
-          <option value="concluido">Concluído</option>
-          <option value="cancelado">Cancelado</option>
-        </select>
-      </label>
-      <label class="field">Ordenar por
-        <select id="sort">
-          <option value="recentes">Mais recentes</option>
-          <option value="antigos">Mais antigos</option>
-          <option value="prazo">Prazo mais próximo</option>
-        </select>
-      </label>
+    <div class="grid-main">
+      <section class="panel">
+        <div class="eyebrow">DESEMPENHO</div>
+        <div class="panel-head"><div><h2>Faturamento mensal</h2><p class="muted">Pagamentos confirmados no ano</p></div><span id="chartYear" class="badge">—</span></div>
+        <div id="monthlyChart" class="chart"></div>
+        <p class="muted" style="margin:12px 0 0">Os resultados dependem das datas registradas nos pedidos.</p>
+      </section>
+      <section class="panel">
+        <div class="eyebrow">OPERAÇÃO</div>
+        <h2>Etapas dos projetos</h2>
+        <div id="stageProgress" class="progress-list"></div>
+      </section>
     </div>
 
-    <div class="table-wrap">
-      <table>
-        <thead><tr>
-          <th>Cliente</th><th>Recebido em</th><th>Projeto</th><th>Pagamento</th><th>Prazo de entrega</th><th>Etapa e ações</th>
-        </tr></thead>
-        <tbody id="clientRows"></tbody>
-      </table>
-    </div>
-    <div id="clientEmpty" class="empty hidden">Nenhum cliente encontrado.</div>
-  </section>
+    <div class="section-head"><div><div class="eyebrow">PRODUÇÃO</div><h2>Fluxo de trabalho</h2></div></div>
+    <section id="workflow" class="workflow"></section>
 
-  <div class="section-head">
-    <div><div class="eyebrow">FINANCEIRO</div><h2>Pedidos e pagamentos</h2><p class="muted" style="margin:5px 0 0">Pedidos sem confirmação não entram no total recebido.</p></div>
-  </div>
+    <div class="section-head"><div><div class="eyebrow">CARTEIRA DE CLIENTES</div><h2>Clientes e projetos</h2><p class="muted" style="margin:5px 0 0">Edite o prazo e o status diretamente na lista.</p></div></div>
 
-  <section class="panel">
-    <div id="paymentMsg" class="notice hidden"></div>
-    <div class="table-wrap">
-      <table style="min-width:900px">
-        <thead><tr><th>Pedido / serviço</th><th>Cliente / e-mail</th><th>Valor</th><th>Status</th><th>Data disponível</th></tr></thead>
-        <tbody id="paymentRows"></tbody>
-      </table>
-    </div>
-    <div id="paymentEmpty" class="empty hidden">Nenhum pedido disponível para exibição.</div>
-  </section>
+    <section class="panel">
+      <div class="filters">
+        <label class="field">Buscar cliente
+          <input id="search" placeholder="Nome, empresa, e-mail ou WhatsApp">
+        </label>
+        <label class="field">Filtrar por status
+          <select id="filter">
+            <option value="">Todos os status</option>
+            <option value="novo">Lista de espera</option>
+            <option value="em_analise">Em análise</option>
+            <option value="aguardando_cliente">Aguardando cliente</option>
+            <option value="em_desenvolvimento">Em desenvolvimento</option>
+            <option value="concluido">Concluído</option>
+            <option value="cancelado">Cancelado</option>
+          </select>
+        </label>
+        <label class="field">Ordenar
+          <select id="sort">
+            <option value="recentes">Mais recentes</option>
+            <option value="antigos">Mais antigos</option>
+            <option value="prazo">Prazo mais próximo</option>
+          </select>
+        </label>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Cliente</th><th>Recebido em</th><th>Projeto</th><th>Pagamento</th><th>Prazo</th><th>Etapa e ações</th></tr></thead>
+          <tbody id="clientRows"></tbody>
+        </table>
+      </div>
+      <div id="clientEmpty" class="empty hidden">Nenhum cliente encontrado.</div>
+    </section>
 
-  <footer class="footer">VORTEX TECH · PAINEL EXECUTIVO<br><span id="lastUpdate">Dados ainda não atualizados</span></footer>
-</main>
+    <div class="section-head"><div><div class="eyebrow">FINANCEIRO</div><h2>Pedidos e pagamentos</h2></div></div>
+    <section class="panel">
+      <div id="paymentMsg" class="notice hidden"></div>
+      <div class="table-wrap">
+        <table style="min-width:850px">
+          <thead><tr><th>Pedido / serviço</th><th>Cliente / e-mail</th><th>Valor</th><th>Status</th><th>Data</th></tr></thead>
+          <tbody id="paymentRows"></tbody>
+        </table>
+      </div>
+      <div id="paymentEmpty" class="empty hidden">Nenhum pedido disponível.</div>
+    </section>
+
+    <footer>VORTEX TECH · PAINEL EXECUTIVO<br><span id="lastUpdate">Aguardando dados</span></footer>
+  </main>
 </section>
 
 <script>
 "use strict";
 (() => {
-  const SUPABASE_URL="https://bngxigbyxrksctylyanw.supabase.co";
-  const SUPABASE_KEY="sb_publishable_WYRvOzBLQuUDMPf_ZK9qmg_lvIXaHyo";
-  const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+  const URL_BANCO="https://bngxigbyxrksctylyanw.supabase.co";
+  const CHAVE_PUBLICA="sb_publishable_WYRvOzBLQuUDMPf_ZK9qmg_lvIXaHyo";
+  const SITE="https://brayanmarinho04-sudo.github.io/vortex-tech/";
+  const db=window.supabase.createClient(URL_BANCO,CHAVE_PUBLICA);
   const $=id=>document.getElementById(id);
+
   let briefs=[],orders=[],busy=false;
 
   const statusNames={
@@ -304,83 +287,105 @@ td strong{display:block;font-size:13px;overflow-wrap:anywhere}
   };
 
   const paymentNames={
-    pago:"Pago",approved:"Aprovado",ativo:"Ativo",active:"Ativa",
+    pago:"Pago",approved:"Aprovado",ativo:"Ativo",active:"Ativo",
     pendente:"Pendente",pending:"Pendente",in_process:"Em processamento",
     authorized:"Autorizado",rejeitado:"Rejeitado",rejected:"Rejeitado",
     cancelado:"Cancelado",cancelled:"Cancelado",reembolsado:"Reembolsado",
-    refunded:"Reembolsado",contestado:"Contestado",charged_back:"Contestado",
-    erro_criacao:"Erro na criação",pausado:"Pausado",paused:"Pausada"
+    refunded:"Reembolsado",erro_criacao:"Erro na criação",paused:"Pausado"
   };
 
   const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
   })[c]);
 
-  function show(id,text,type=""){
+  function message(id,text,type=""){
     $(id).textContent=text;
     $(id).className="notice"+(type?" "+type:"");
   }
   function hide(id){$(id).classList.add("hidden")}
-
-  function dateValue(value){
+  function dateObj(value){
     if(!value)return null;
     const d=new Date(value);
     return Number.isNaN(d.getTime())?null:d;
   }
   function dateTime(value){
-    const d=dateValue(value);
-    return d?new Intl.DateTimeFormat("pt-BR",{dateStyle:"short",timeStyle:"short"}).format(d):"Não registrada";
-  }
-  function dateOnly(value){
-    if(!value)return "Não definida";
-    const d=dateValue(value.length===10?value+"T12:00:00":value);
-    return d?d.toLocaleDateString("pt-BR"):"Não definida";
+    const d=dateObj(value);
+    return d?d.toLocaleString("pt-BR",{dateStyle:"short",timeStyle:"short"}):"Não registrada";
   }
   function brl(value){
     const n=Number(value);
     return Number.isFinite(n)?n.toLocaleString("pt-BR",{style:"currency",currency:"BRL"}):"—";
   }
-  function isPaid(order){
-    return ["pago","approved","ativo","active"].includes(String(order.status||"").toLowerCase());
+  function paid(o){
+    return ["pago","approved","ativo","active"].includes(String(o.status||"").toLowerCase());
   }
-  function paymentStatus(status){return paymentNames[String(status||"").toLowerCase()]||status||"Sem status"}
-  function pill(status){
-    const s=String(status||"").toLowerCase();
+  function paymentStatus(s){
+    s=String(s||"").toLowerCase();
+    return paymentNames[s]||s||"Sem status";
+  }
+  function badge(s){
+    s=String(s||"").toLowerCase();
     const cls=["pago","approved","ativo","active","concluido"].includes(s)?"ok":
       ["rejeitado","rejected","cancelado","cancelled","reembolsado","refunded","erro_criacao"].includes(s)?"bad":"warn";
     return `<span class="badge ${cls}">${esc(statusNames[s]||paymentStatus(s))}</span>`;
   }
-  function orderDate(o){
-    return o.pago_em||o.paid_at||o.atualizado_em||o.created_at||null;
-  }
-  function orderValue(o){return Number(o.valor||0)}
-  function orderMatchesBrief(order,brief){
-    const emailA=String(order.email||"").trim().toLowerCase();
-    const emailB=String(brief.email||"").trim().toLowerCase();
-    if(emailA&&emailB&&emailA===emailB)return true;
-    const ref=String(order.referencia||"");
-    return !!ref&&String(brief.referencia||"")===ref;
+  function orderDate(o){return o.pago_em||o.paid_at||o.atualizado_em||o.created_at||null}
+  function amount(o){return Number(o.valor||0)}
+  function linked(o,b){
+    const a=String(o.email||"").trim().toLowerCase();
+    const c=String(b.email||"").trim().toLowerCase();
+    return (!!a&&!!c&&a===c)|| (!!o.referencia&&!!b.referencia&&o.referencia===b.referencia);
   }
 
-  async function verifyAdmin(user){
-    const {data,error}=await db.from("profiles").select("nome,cargo").eq("id",user.id).maybeSingle();
-    if(error){console.error("Verificação de administrador:",error);return null}
+  async function checkAdmin(user){
+    const {data,error}=await db.from("profiles")
+      .select("nome,cargo").eq("id",user.id).maybeSingle();
+    if(error){console.error(error);return null}
     return data&&data.cargo==="admin"?data:null;
   }
 
   async function enter(user){
-    const profile=await verifyAdmin(user);
+    const profile=await checkAdmin(user);
     if(!profile){
       await db.auth.signOut();
       $("login").classList.remove("hidden");
-      show("loginMsg","Esta conta não possui perfil administrativo. Verifique profiles.cargo = admin.","error");
+      message("loginMsg","Esta conta não possui acesso administrativo. Confira seu perfil no Supabase.","error");
       return;
     }
     $("login").classList.add("hidden");
     $("app").classList.remove("hidden");
-    $("welcome").textContent="Bem-vindo, "+(profile.nome||user.email)+". Aqui está o resumo atualizado da sua operação.";
+    $("welcome").textContent="Bem-vindo, "+(profile.nome||user.email)+". Aqui está o resumo da sua operação.";
     await loadAll();
   }
+
+  // RECUPERAÇÃO DE SENHA: FICA SOMENTE NA TELA DE LOGIN.
+  $("esqueciSenha").addEventListener("click",async()=>{
+    const email=$("email").value.trim();
+    const msg=$("mensagemRecuperacao");
+
+    if(!email){
+      msg.textContent="Digite seu e-mail no campo acima primeiro.";
+      $("email").focus();
+      return;
+    }
+
+    const btn=$("esqueciSenha");
+    btn.disabled=true;
+    msg.textContent="Enviando solicitação...";
+
+    try{
+      const {error}=await db.auth.resetPasswordForEmail(email,{
+        redirectTo:SITE+"redefinir-senha.html"
+      });
+      if(error)throw error;
+      msg.textContent="Solicitação enviada. Se a conta puder receber recuperação, confira seu e-mail.";
+    }catch(error){
+      console.error("Recuperação de senha:",error);
+      msg.textContent="Não foi possível solicitar a recuperação. Confira a configuração de e-mail e o redirecionamento no Supabase.";
+    }finally{
+      btn.disabled=false;
+    }
+  });
 
   async function loadAll(){
     if(busy)return;
@@ -399,30 +404,30 @@ td strong{display:block;font-size:13px;overflow-wrap:anywhere}
       if(b.error){
         console.error("Briefings:",b.error);
         briefs=[];
-        show("globalMsg","Não foi possível carregar os clientes. Confira a tabela vortex_briefings e suas políticas RLS.","error");
+        message("globalMsg","Não foi possível carregar os clientes. Confira vortex_briefings e as permissões RLS.","error");
       }else{
         briefs=b.data||[];
-        briefs.sort((x,y)=>(dateValue(y.created_at)?.getTime()||0)-(dateValue(x.created_at)?.getTime()||0));
+        briefs.sort((a,b)=>(dateObj(b.created_at)?.getTime()||0)-(dateObj(a.created_at)?.getTime()||0));
       }
 
       if(p.error){
         console.error("Pedidos:",p.error);
         orders=[];
-        show("paymentMsg","Não foi possível consultar os pedidos. Confira a tabela vortex_pedidos e as permissões SELECT de administrador.","error");
+        message("paymentMsg","Não foi possível consultar pedidos. Confira as permissões SELECT de vortex_pedidos.","error");
       }else{
         orders=p.data||[];
-        orders.sort((x,y)=>(dateValue(orderDate(y))?.getTime()||0)-(dateValue(orderDate(x))?.getTime()||0));
+        orders.sort((a,b)=>(dateObj(orderDate(b))?.getTime()||0)-(dateObj(orderDate(a))?.getTime()||0));
       }
 
       updateFinance();
-      updateWorkflow();
+      renderWorkflow();
       renderClients();
       renderPayments();
       $("syncLabel").textContent="Atualizado às "+new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
       $("lastUpdate").textContent="Última atualização: "+new Date().toLocaleString("pt-BR");
     }catch(error){
       console.error(error);
-      show("globalMsg","Ocorreu um erro ao atualizar o painel.","error");
+      message("globalMsg","Ocorreu um erro ao atualizar os dados.","error");
     }finally{
       busy=false;
       $("refresh").disabled=false;
@@ -432,24 +437,23 @@ td strong{display:block;font-size:13px;overflow-wrap:anywhere}
 
   function updateFinance(){
     const now=new Date();
-    const todayStart=new Date(now.getFullYear(),now.getMonth(),now.getDate());
-    const weekday=(todayStart.getDay()+6)%7;
-    const weekStart=new Date(todayStart);
-    weekStart.setDate(todayStart.getDate()-weekday);
+    const dayStart=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    const weekStart=new Date(dayStart);
+    weekStart.setDate(dayStart.getDate()-((dayStart.getDay()+6)%7));
     const monthStart=new Date(now.getFullYear(),now.getMonth(),1);
     const yearStart=new Date(now.getFullYear(),0,1);
 
-    const paid=orders.filter(isPaid);
-    const amountIn=(list)=>list.reduce((sum,o)=>sum+orderValue(o),0);
-    const byDate=paid.map(o=>({o,d:dateValue(orderDate(o))})).filter(x=>x.d);
+    const paidOrders=orders.filter(paid);
+    const sum=list=>list.reduce((s,o)=>s+amount(o),0);
+    const dated=paidOrders.map(o=>({o,d:dateObj(orderDate(o))})).filter(x=>x.d);
 
-    $("revTotal").textContent=brl(amountIn(paid));
-    $("revWeek").textContent=brl(amountIn(byDate.filter(x=>x.d>=weekStart&&x.d<=now).map(x=>x.o)));
-    $("revMonth").textContent=brl(amountIn(byDate.filter(x=>x.d>=monthStart&&x.d<=now).map(x=>x.o)));
-    $("revYear").textContent=brl(amountIn(byDate.filter(x=>x.d>=yearStart&&x.d<=now).map(x=>x.o)));
+    $("revTotal").textContent=brl(sum(paidOrders));
+    $("revWeek").textContent=brl(sum(dated.filter(x=>x.d>=weekStart&&x.d<=now).map(x=>x.o)));
+    $("revMonth").textContent=brl(sum(dated.filter(x=>x.d>=monthStart&&x.d<=now).map(x=>x.o)));
+    $("revYear").textContent=brl(sum(dated.filter(x=>x.d>=yearStart&&x.d<=now).map(x=>x.o)));
 
     const pending=orders.filter(o=>["pendente","pending","in_process","authorized"].includes(String(o.status||"").toLowerCase()));
-    $("pendingValue").textContent=brl(amountIn(pending));
+    $("pendingValue").textContent=brl(sum(pending));
     $("pendingCount").textContent=pending.length+" pedido(s) aguardando confirmação";
     $("clientCount").textContent=briefs.length;
     $("workingCount").textContent=briefs.filter(b=>b.status==="em_desenvolvimento").length;
@@ -457,43 +461,21 @@ td strong{display:block;font-size:13px;overflow-wrap:anywhere}
 
     const year=now.getFullYear();
     $("chartYear").textContent=String(year);
-    const names=["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
-    const monthly=Array.from({length:12},(_,i)=>({
-      name:names[i],
-      total:amountIn(byDate.filter(x=>x.d.getFullYear()===year&&x.d.getMonth()===i).map(x=>x.o))
+    const months=["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
+    const totals=months.map((name,i)=>({
+      name,total:sum(dated.filter(x=>x.d.getFullYear()===year&&x.d.getMonth()===i).map(x=>x.o))
     }));
-    const max=Math.max(1,...monthly.map(x=>x.total));
-    $("monthlyChart").innerHTML=monthly.map(m=>{
-      const height=m.total?Math.max(5,(m.total/max)*100):2;
-      const label=m.total?brl(m.total):"R$ 0";
-      return `<div class="bar-column" title="${esc(m.name+": "+label)}">
-        <div class="bar-value">${m.total?esc(compactMoney(m.total)):""}</div>
-        <div class="bar" style="height:${height}%"></div>
+    const max=Math.max(1,...totals.map(x=>x.total));
+    $("monthlyChart").innerHTML=totals.map(m=>{
+      const h=m.total?Math.max(5,m.total/max*100):2;
+      const label=m.total>=1000?"R$"+(m.total/1000).toLocaleString("pt-BR",{maximumFractionDigits:1})+" mil":brl(m.total);
+      return `<div class="bar-col" title="${esc(m.name+": "+label)}">
+        <div class="bar-value">${m.total?esc(label):""}</div>
+        <div class="bar" style="height:${h}%"></div>
         <div class="bar-label">${m.name}</div>
       </div>`;
     }).join("");
-    renderStageProgress();
-  }
 
-  function compactMoney(n){
-    if(n>=1000000)return "R$"+(n/1000000).toLocaleString("pt-BR",{maximumFractionDigits:1})+" mi";
-    if(n>=1000)return "R$"+(n/1000).toLocaleString("pt-BR",{maximumFractionDigits:1})+" mil";
-    return "R$"+Math.round(n);
-  }
-
-  function updateWorkflow(){
-    const stages=[
-      ["novo","Na lista de espera","Aguardando início"],
-      ["em_desenvolvimento","Em desenvolvimento","Trabalho em andamento"],
-      ["concluido","Concluídos","Finalizados pela equipe"]
-    ];
-    $("workflow").innerHTML=stages.map(([key,title,desc])=>{
-      const count=briefs.filter(b=>(b.status||"novo")===key).length;
-      return `<article class="stage"><div class="stage-top"><h3>${title}</h3><span class="badge">${key==="concluido"?"✓":"●"}</span></div><div class="stage-count">${count}</div><p>${desc}</p></article>`;
-    }).join("");
-  }
-
-  function renderStageProgress(){
     const stages=[
       ["novo","Lista de espera","#e6bd65"],
       ["em_analise","Em análise","#60a5fa"],
@@ -502,63 +484,73 @@ td strong{display:block;font-size:13px;overflow-wrap:anywhere}
       ["concluido","Concluído","#4ade80"],
       ["cancelado","Cancelado","#f87171"]
     ];
-    const total=Math.max(1,briefs.length);
     $("stageProgress").innerHTML=stages.map(([key,label,color])=>{
       const n=briefs.filter(b=>(b.status||"novo")===key).length;
-      return `<div class="progress-item"><div class="progress-label"><span>${label}</span><strong>${n}</strong></div><div class="track"><span style="width:${Math.min(100,n/total*100)}%;background:${color}"></span></div></div>`;
+      const pct=briefs.length?Math.min(100,n/briefs.length*100):0;
+      return `<div><div class="progress-label"><span>${label}</span><strong>${n}</strong></div><div class="track"><span style="width:${pct}%;background:${color}"></span></div></div>`;
+    }).join("");
+  }
+
+  function renderWorkflow(){
+    const stages=[
+      ["novo","Lista de espera","Aguardando início"],
+      ["em_desenvolvimento","Em desenvolvimento","Trabalho em andamento"],
+      ["concluido","Concluídos","Finalizados pela equipe"]
+    ];
+    $("workflow").innerHTML=stages.map(([key,title,desc])=>{
+      const n=briefs.filter(b=>(b.status||"novo")===key).length;
+      return `<article class="stage"><h3>${title}</h3><strong>${n}</strong><p>${desc}</p></article>`;
     }).join("");
   }
 
   function renderClients(){
-    const query=$("search").value.trim().toLowerCase();
+    const q=$("search").value.trim().toLowerCase();
     const filter=$("filter").value;
     const sort=$("sort").value;
+
     let list=briefs.filter(r=>{
       const matchesStatus=!filter||(r.status||"novo")===filter;
-      const haystack=[r.nome,r.empresa,r.email,r.whatsapp].join(" ").toLowerCase();
-      return matchesStatus&&haystack.includes(query);
+      const hay=[r.nome,r.empresa,r.email,r.whatsapp].join(" ").toLowerCase();
+      return matchesStatus&&hay.includes(q);
     });
 
-    if(sort==="recentes")list.sort((a,b)=>(dateValue(b.created_at)?.getTime()||0)-(dateValue(a.created_at)?.getTime()||0));
-    if(sort==="antigos")list.sort((a,b)=>(dateValue(a.created_at)?.getTime()||0)-(dateValue(b.created_at)?.getTime()||0));
+    if(sort==="recentes")list.sort((a,b)=>(dateObj(b.created_at)?.getTime()||0)-(dateObj(a.created_at)?.getTime()||0));
+    if(sort==="antigos")list.sort((a,b)=>(dateObj(a.created_at)?.getTime()||0)-(dateObj(b.created_at)?.getTime()||0));
     if(sort==="prazo")list.sort((a,b)=>String(a.data_prevista||"9999-12-31").localeCompare(String(b.data_prevista||"9999-12-31")));
 
     $("clientRows").innerHTML=list.map(r=>{
-      const linked=orders.filter(o=>orderMatchesBrief(o,r));
-      const paidOrders=linked.filter(isPaid);
-      const paidValue=paidOrders.reduce((s,o)=>s+orderValue(o),0);
-      const paymentText=linked.length
-        ?brl(paidValue)+(paidOrders.length?" recebido":" confirmado: nenhum")
-        :"Pagamento não vinculado";
-      const project=[r.segmento,r.estilo].filter(Boolean).join(" · ");
+      const linkedOrders=orders.filter(o=>linked(o,r));
+      const confirmed=linkedOrders.filter(paid);
+      const total=confirmed.reduce((s,o)=>s+amount(o),0);
+      const paymentText=linkedOrders.length?brl(total)+" recebido":"Sem pagamento vinculado";
       const status=r.status||"novo";
       const due=r.data_prevista||"";
-      const dueDate=dateValue(due?due+"T12:00:00":null);
+      const dueDate=dateObj(due?due+"T12:00:00":null);
       const overdue=dueDate&&dueDate<new Date()&&!["concluido","cancelado"].includes(status);
-      const statusOptions=Object.entries(statusNames).map(([v,t])=>`<option value="${v}" ${status===v?"selected":""}>${t}</option>`).join("");
+      const opts=Object.entries(statusNames).map(([v,t])=>`<option value="${v}" ${status===v?"selected":""}>${t}</option>`).join("");
 
       return `<tr>
         <td><strong>${esc(r.empresa||"Empresa não informada")}</strong>
-          <div>${esc(r.nome||"Nome não informado")}</div>
-          <div class="client-sub">${esc(r.email||"Sem e-mail")}</div>
-          <div class="client-sub">${esc(r.whatsapp||"Sem WhatsApp")}</div>
+          ${esc(r.nome||"Nome não informado")}
+          <div class="sub">${esc(r.email||"Sem e-mail")}</div>
+          <div class="sub">${esc(r.whatsapp||"Sem WhatsApp")}</div>
         </td>
         <td>${esc(dateTime(r.created_at))}</td>
-        <td><strong>${esc(project||"Projeto não informado")}</strong>
-          <div class="client-sub">${esc(r.descricao||"Sem descrição")}</div>
-          <div class="client-sub">${esc(Array.isArray(r.funcionalidades)?r.funcionalidades.join(", "):"Funcionalidades não informadas")}</div>
+        <td><strong>${esc([r.segmento,r.estilo].filter(Boolean).join(" · ")||"Projeto não informado")}</strong>
+          <div class="sub">${esc(r.descricao||"Sem descrição")}</div>
+          <div class="sub">${esc(Array.isArray(r.funcionalidades)?r.funcionalidades.join(", "):"Funcionalidades não informadas")}</div>
         </td>
         <td><strong>${esc(paymentText)}</strong>
-          ${linked.length?`<div class="client-sub">${linked.length} pedido(s) relacionado(s)</div>`:""}
+          <div class="sub">${linkedOrders.length} pedido(s) relacionado(s)</div>
         </td>
         <td>
-          <div class="client-sub">Prazo solicitado: ${esc(r.prazo||"—")}</div>
           ${overdue?'<span class="badge bad">Prazo vencido</span>':""}
-          <input type="date" data-date="${esc(r.id)}" aria-label="Data prevista" value="${esc(due)}" style="width:145px;max-width:100%;margin-top:7px;background:#09111f;color:white;border:1px solid #344761;border-radius:8px;padding:8px">
+          <div class="sub">Solicitado: ${esc(r.prazo||"—")}</div>
+          <input data-date="${esc(r.id)}" type="date" value="${esc(due)}" aria-label="Data prevista" style="margin-top:6px;width:145px;max-width:100%;background:#080d18;color:white;border:1px solid #344761;border-radius:8px;padding:8px">
         </td>
-        <td><div class="row-buttons">
-          ${pill(status)}
-          <select data-status="${esc(r.id)}" aria-label="Etapa do projeto">${statusOptions}</select>
+        <td><div class="row-actions">
+          ${badge(status)}
+          <select data-status="${esc(r.id)}" aria-label="Status do projeto">${opts}</select>
           <button type="button" class="btn blue" data-save="${esc(r.id)}">Salvar alterações</button>
           ${status!=="em_desenvolvimento"&&status!=="concluido"?`<button type="button" class="btn" data-start="${esc(r.id)}">▶ Iniciar projeto</button>`:""}
           ${status!=="concluido"?`<button type="button" class="btn green" data-done="${esc(r.id)}">✓ Concluir projeto</button>`:""}
@@ -572,13 +564,13 @@ td strong{display:block;font-size:13px;overflow-wrap:anywhere}
 
   function renderPayments(){
     $("paymentRows").innerHTML=orders.map(o=>{
-      const linked=briefs.find(b=>orderMatchesBrief(o,b));
+      const client=briefs.find(b=>linked(o,b));
       const title=o.tipo==="plano"?"Plano "+(o.item_id||""):o.tipo==="servico"?"Serviço "+(o.item_id||""):(o.item_id||o.tipo||"Pedido");
       return `<tr>
-        <td><strong>${esc(title)}</strong><div class="client-sub">${esc(o.referencia||"Sem referência")}</div></td>
-        <td>${esc(linked?(linked.nome+" · "+linked.empresa):(o.email||"Cliente não vinculado"))}<div class="client-sub">${esc(o.email||"Sem e-mail")}</div></td>
+        <td><strong>${esc(title)}</strong><div class="sub">${esc(o.referencia||"Sem referência")}</div></td>
+        <td>${esc(client?(client.nome+" · "+client.empresa):(o.email||"Cliente não vinculado"))}<div class="sub">${esc(o.email||"Sem e-mail")}</div></td>
         <td><strong>${esc(brl(o.valor))}</strong></td>
-        <td>${pill(o.status)}</td>
+        <td>${badge(o.status)}</td>
         <td>${esc(dateTime(orderDate(o)))}</td>
       </tr>`;
     }).join("");
@@ -592,52 +584,55 @@ td strong{display:block;font-size:13px;overflow-wrap:anywhere}
     const date=document.querySelector(`[data-date="${CSS.escape(String(id))}"]`)?.value||null;
     if(!status)return;
 
-    const buttons=document.querySelectorAll(`[data-save="${CSS.escape(String(id))}"],[data-start="${CSS.escape(String(id))}"],[data-done="${CSS.escape(String(id))}"]`);
-    buttons.forEach(b=>b.disabled=true);
     try{
       const {data,error}=await db.from("vortex_briefings").update({
         status,
         data_prevista:date,
         atualizado_em:new Date().toISOString()
       }).eq("id",r.id).select("id");
+
       if(error)throw error;
       if(!data||!data.length){
-        show("globalMsg","Nenhuma alteração foi confirmada. Confira as políticas RLS de UPDATE para administradores.","error");
+        message("globalMsg","Nenhuma alteração foi confirmada. Verifique a política RLS de UPDATE.","error");
         return;
       }
-      show("globalMsg",status==="em_desenvolvimento"?"Projeto iniciado com sucesso.":status==="concluido"?"Projeto marcado como concluído.":"Projeto atualizado com sucesso.","success");
+      message("globalMsg","Projeto atualizado com sucesso.","success");
       await loadAll();
     }catch(error){
-      console.error("Falha ao salvar projeto:",error);
-      show("globalMsg","Não foi possível salvar. Verifique as colunas data_prevista, status e atualizado_em, além das políticas RLS.","error");
-    }finally{buttons.forEach(b=>b.disabled=false)}
-  }
-
-  function openWhatsApp(id){
-    const r=briefs.find(x=>String(x.id)===String(id));
-    if(!r)return;
-    const phone=String(r.whatsapp||"").replace(/\D/g,"");
-    if(phone.length<10||phone.length>15){
-      show("globalMsg","Este cliente não possui um WhatsApp válido cadastrado.","error");
-      return;
+      console.error(error);
+      message("globalMsg","Não foi possível salvar. Confira as colunas status, data_prevista e atualizado_em e as políticas RLS.","error");
     }
-    const message=`Olá, ${r.nome||"tudo bem"}! Aqui é da Vortex Tech. Estou entrando em contato sobre o projeto da ${r.empresa||"sua empresa"}.`;
-    window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(message),"_blank","noopener");
   }
 
   $("clientRows").addEventListener("click",e=>{
     const b=e.target.closest("button");
     if(!b)return;
+
     if(b.dataset.save)saveProject(b.dataset.save);
+
     if(b.dataset.start){
       const r=briefs.find(x=>String(x.id)===b.dataset.start);
-      if(r&&confirm("Iniciar o projeto de "+(r.empresa||r.nome)+"?"))saveProject(b.dataset.start,"em_desenvolvimento");
+      if(r&&confirm("Iniciar o projeto de "+(r.empresa||r.nome)+"?"))
+        saveProject(b.dataset.start,"em_desenvolvimento");
     }
+
     if(b.dataset.done){
       const r=briefs.find(x=>String(x.id)===b.dataset.done);
-      if(r&&confirm("Marcar o projeto de "+(r.empresa||r.nome)+" como concluído?"))saveProject(b.dataset.done,"concluido");
+      if(r&&confirm("Marcar o projeto de "+(r.empresa||r.nome)+" como concluído?"))
+        saveProject(b.dataset.done,"concluido");
     }
-    if(b.dataset.wa)openWhatsApp(b.dataset.wa);
+
+    if(b.dataset.wa){
+      const r=briefs.find(x=>String(x.id)===b.dataset.wa);
+      if(!r)return;
+      const phone=String(r.whatsapp||"").replace(/\D/g,"");
+      if(phone.length<10||phone.length>15){
+        message("globalMsg","O WhatsApp cadastrado não parece válido.","error");
+        return;
+      }
+      const msg=`Olá, ${r.nome||"tudo bem"}! Aqui é da Vortex Tech. Estou entrando em contato sobre o projeto da ${r.empresa||"sua empresa"}.`;
+      window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(msg),"_blank","noopener");
+    }
   });
 
   $("loginForm").addEventListener("submit",async e=>{
@@ -646,13 +641,14 @@ td strong{display:block;font-size:13px;overflow-wrap:anywhere}
     hide("loginMsg");
     try{
       const {data,error}=await db.auth.signInWithPassword({
-        email:$("email").value.trim(),password:$("senha").value
+        email:$("email").value.trim(),
+        password:$("senha").value
       });
       if(error)throw error;
       await enter(data.user);
     }catch(error){
       console.error(error);
-      show("loginMsg","Não foi possível entrar. Confira o e-mail, a senha e o perfil de administrador.","error");
+      message("loginMsg","Não foi possível entrar. Confira o e-mail, a senha e o perfil administrativo.","error");
     }finally{$("loginBtn").disabled=false}
   });
 
