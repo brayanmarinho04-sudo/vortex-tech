@@ -1,0 +1,804 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090e19">
+<title>Personalize seu projeto | Vortex Tech</title>
+
+<style>
+:root {
+  --bg: #090e19;
+  --card: #131c2c;
+  --gold: #e6bd65;
+  --white: #f7f9ff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--white);
+  line-height: 1.6;
+}
+
+a { color: inherit; text-decoration: none; }
+
+button, input, select, textarea { font: inherit; }
+
+.wrap {
+  max-width: 1120px;
+  margin: auto;
+  padding: 24px 22px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #26354a;
+}
+
+.logo {
+  font-weight: 900;
+  font-size: 22px;
+}
+
+.logo span { color: var(--gold); }
+
+.btn {
+  display: inline-block;
+  padding: 12px 18px;
+  border-radius: 9px;
+  font-weight: bold;
+  background: var(--gold);
+  color: #10131a;
+  border: 1px solid var(--gold);
+  cursor: pointer;
+}
+
+.btn.alt {
+  background: transparent;
+  color: var(--white);
+  border-color: #496787;
+}
+
+.btn:disabled {
+  opacity: .6;
+  cursor: wait;
+}
+
+.notice {
+  border: 1px solid #806b31;
+  background: #2b2412;
+  color: #ffe7a0;
+  border-radius: 12px;
+  padding: 14px;
+  margin: 20px 0;
+}
+
+.muted { color: #aebed0; }
+
+h1 {
+  font-size: clamp(32px, 5vw, 52px);
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+
+.form {
+  background: #101a2a;
+  border: 1px solid #2a3c55;
+  border-radius: 18px;
+  padding: clamp(18px, 3vw, 30px);
+  display: grid;
+  gap: 18px;
+  margin-top: 25px;
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  color: #d5deea;
+}
+
+input:not([type=color]):not([type=checkbox]),
+select, textarea {
+  width: 100%;
+  padding: 12px;
+  margin-top: 6px;
+  border: 1px solid #40516a;
+  border-radius: 8px;
+  background: #090e19;
+  color: #fff;
+}
+
+.custom {
+  display: grid;
+  grid-template-columns: .9fr 1.1fr;
+  gap: 20px;
+}
+
+.colors {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.colors input[type=color] {
+  width: 100%;
+  height: 45px;
+  padding: 3px;
+  background: #090e19;
+  border: 1px solid #40516a;
+  border-radius: 8px;
+}
+
+.checks {
+  border: 1px solid #40516a;
+  border-radius: 10px;
+  padding: 12px;
+  display: grid;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.checks label {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.checks input { accent-color: var(--gold); }
+
+.preview {
+  --vp: #2563eb;
+  --vf: #ffffff;
+  background: var(--vf);
+  color: #172033;
+  border-radius: 14px;
+  padding: 18px;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.previewnav {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12px;
+}
+
+.previewnav strong { color: var(--vp); }
+
+.previewhero {
+  background: var(--vp);
+  color: white;
+  padding: 25px;
+  border-radius: 12px;
+  flex: 1;
+}
+
+.previewhero h2 {
+  font-size: clamp(20px, 3vw, 32px);
+  line-height: 1.15;
+}
+
+.previewcta {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 7px;
+  background: white;
+  color: #172033;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.status { color: #f1d28b; }
+.small { font-size: 12px; color: #aebed0; }
+
+.brand-intro { margin: 30px 0 24px; }
+
+.brand-hero {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  overflow: hidden;
+  border: 1px solid #2a3c55;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #101a2a, #0b1220);
+  min-height: 320px;
+}
+
+.brand-hero > img {
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  object-fit: cover;
+}
+
+.brand-hero-copy {
+  padding: clamp(22px, 4vw, 40px);
+  align-self: center;
+}
+
+.brand-hero-copy h2,
+.section-heading h2,
+.growth-banner h2 {
+  font-size: clamp(24px, 3vw, 36px);
+  line-height: 1.2;
+  margin: 8px 0 12px;
+}
+
+.brand-hero-copy p:not(.eyebrow),
+.growth-banner p:not(.eyebrow) {
+  color: #c3cedd;
+}
+
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  color: var(--gold);
+  font-weight: bold;
+  margin: 0;
+}
+
+.section-heading {
+  text-align: center;
+  max-width: 760px;
+  margin: 46px auto 22px;
+}
+
+.mind-map {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.map-step {
+  background: #101a2a;
+  border: 1px solid #2a3c55;
+  border-radius: 14px;
+  padding: 22px;
+}
+
+.step-number {
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #2b2412;
+  color: #ffe7a0;
+  font-weight: 800;
+}
+
+.map-step h3 { margin: 12px 0 6px; font-size: 18px; }
+
+.map-step p,
+.style-copy p {
+  font-size: 14px;
+  color: #aebed0;
+  margin: 0;
+}
+
+.map-arrow {
+  font-size: 26px;
+  color: var(--gold);
+  align-self: center;
+}
+
+.style-heading { margin-top: 52px; }
+
+.style-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.style-card {
+  overflow: hidden;
+  border: 1px solid #2a3c55;
+  border-radius: 14px;
+  background: #101a2a;
+}
+
+.style-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.style-copy { padding: 17px; }
+
+.style-copy h3 { margin: 0 0 7px; font-size: 18px; }
+
+.growth-banner {
+  display: grid;
+  grid-template-columns: .85fr 1.15fr;
+  gap: 24px;
+  align-items: center;
+  margin-top: 38px;
+  padding: 22px;
+  border: 1px solid #2a3c55;
+  border-radius: 16px;
+  background: linear-gradient(130deg, #14243a, #101827);
+}
+
+.growth-banner img {
+  width: 100%;
+  height: 100%;
+  max-height: 290px;
+  min-height: 200px;
+  object-fit: cover;
+  border-radius: 11px;
+}
+
+.image-note {
+  font-size: 12px;
+  color: #8799ad;
+  margin: 16px 2px 0;
+}
+
+@media (max-width: 850px) {
+  .mind-map { grid-template-columns: 1fr; }
+  .map-arrow {
+    transform: rotate(90deg);
+    justify-self: center;
+    line-height: 1;
+  }
+  .style-gallery { grid-template-columns: 1fr 1fr; }
+  .brand-hero, .growth-banner { grid-template-columns: 1fr; }
+  .brand-hero > img {
+    min-height: 220px;
+    max-height: 300px;
+  }
+}
+
+@media (max-width: 560px) {
+  .fields, .custom, .style-gallery { grid-template-columns: 1fr; }
+  .wrap { padding: 18px; }
+  .brand-hero-copy { padding: 22px; }
+  .growth-banner { padding: 15px; }
+  .preview { min-height: 250px; }
+}
+</style>
+</head>
+
+<body>
+<header class="wrap top">
+  <a class="logo" href="index.html">VORTEX <span>TECH</span></a>
+  <a class="btn alt" href="index.html">Voltar ao site</a>
+</header>
+
+<main class="wrap">
+
+<div class="notice">
+  <strong>🧪 MODO DE TESTE</strong><br>
+  Experimente as opções sem pagar. Este acesso não confirma pagamento
+  nem reserva prazo de entrega. O projeto final será desenvolvido
+  pela equipe Vortex Tech.
+</div>
+
+<p class="muted">PERSONALIZAÇÃO DO PROJETO</p>
+<h1>Monte a ideia do seu site do seu jeito.</h1>
+<p class="muted">
+  Informe os dados da empresa, escolha cores e funcionalidades.
+  A prévia muda na hora e serve apenas como referência visual.
+</p>
+
+<section class="brand-intro">
+
+  <div class="brand-hero">
+    <img
+      src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=85"
+      alt="Computador em uma estação de desenvolvimento web"
+      loading="lazy"
+    >
+
+    <div class="brand-hero-copy">
+      <p class="eyebrow">TECNOLOGIA COM PROPÓSITO</p>
+      <h2>Conheça a Vortex Tech</h2>
+      <p>
+        Ajudamos empresas a transformar ideias em uma presença digital
+        profissional. Você conta o que precisa; nossa equipe planeja e
+        desenvolve um site pensado para a identidade do seu negócio.
+      </p>
+      <a class="btn" href="#briefingForm">Começar meu projeto</a>
+    </div>
+  </div>
+
+  <div class="section-heading">
+    <p class="eyebrow">DO PRIMEIRO PAPO À ENTREGA</p>
+    <h2>Como funciona a criação do site</h2>
+    <p class="muted">
+      Um caminho simples, com você participando das decisões importantes.
+    </p>
+  </div>
+
+  <div class="mind-map">
+    <article class="map-step">
+      <span class="step-number">01</span>
+      <h3>Você conta sua ideia</h3>
+      <p>
+        Preenche o briefing com os dados da empresa,
+        preferências e objetivos.
+      </p>
+    </article>
+
+    <span class="map-arrow" aria-hidden="true">→</span>
+
+    <article class="map-step">
+      <span class="step-number">02</span>
+      <h3>A gente planeja</h3>
+      <p>
+        Analisamos as informações e alinhamos conteúdo,
+        visual, funcionalidades e prazo.
+      </p>
+    </article>
+
+    <span class="map-arrow" aria-hidden="true">→</span>
+
+    <article class="map-step">
+      <span class="step-number">03</span>
+      <h3>Desenvolvemos</h3>
+      <p>
+        Nossa equipe cria o site e combina com você
+        os próximos passos e a entrega.
+      </p>
+    </article>
+  </div>
+
+  <div class="section-heading style-heading">
+    <p class="eyebrow">UMA DIREÇÃO VISUAL PARA COMEÇAR</p>
+    <h2>Escolha o estilo da sua marca</h2>
+    <p class="muted">
+      Estas referências ajudam você a explicar a aparência que imagina.
+      O site final será criado pela equipe Vortex Tech.
+    </p>
+  </div>
+
+  <div class="style-gallery">
+
+    <article class="style-card">
+      <img
+        src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=900&q=85"
+        alt="Referência visual de design de site moderno"
+        loading="lazy"
+      >
+      <div class="style-copy">
+        <h3>Moderno e profissional</h3>
+        <p>
+          Visual claro, organização e destaque para os serviços
+          da empresa.
+        </p>
+      </div>
+    </article>
+
+    <article class="style-card">
+      <img
+        src="https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=900&q=85"
+        alt="Referência de ambiente criativo de design"
+        loading="lazy"
+      >
+      <div class="style-copy">
+        <h3>Elegante e minimalista</h3>
+        <p>
+          Espaço, simplicidade e uma apresentação refinada da marca.
+        </p>
+      </div>
+    </article>
+
+    <article class="style-card">
+      <img
+        src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=900&q=85"
+        alt="Paleta de cores e materiais de identidade visual"
+        loading="lazy"
+      >
+      <div class="style-copy">
+        <h3>Criativo e marcante</h3>
+        <p>
+          Cores e elementos visuais que dão personalidade ao projeto.
+        </p>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="growth-banner">
+    <img
+      src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=85"
+      alt="Painel ilustrativo de análise e indicadores digitais"
+      loading="lazy"
+    >
+
+    <div>
+      <p class="eyebrow">PRESENÇA DIGITAL COM OBJETIVO</p>
+      <h2>Um site preparado para abrir novas oportunidades</h2>
+      <p>
+        Um site bem organizado pode ajudar clientes a conhecer seus
+        serviços, encontrar informações e entrar em contato com mais
+        facilidade. Os resultados dependem também da oferta, divulgação,
+        atendimento e mercado — não existe garantia de faturamento.
+      </p>
+    </div>
+  </div>
+
+  <p class="image-note">
+    Imagens ilustrativas de referência visual. Não representam clientes,
+    projetos entregues ou resultados reais da Vortex Tech.
+  </p>
+
+</section>
+
+<form id="briefingForm" class="form">
+
+  <div class="fields">
+
+    <label>Seu nome *
+      <input name="nome" required maxlength="120" placeholder="Seu nome">
+    </label>
+
+    <label>Nome da empresa *
+      <input name="empresa" required maxlength="120" placeholder="Nome da empresa">
+    </label>
+
+    <label>E-mail *
+      <input name="email" type="email" required maxlength="200" placeholder="voce@empresa.com">
+    </label>
+
+    <label>WhatsApp com DDD *
+      <input name="whatsapp" required inputmode="tel" maxlength="20" placeholder="Ex.: 5531999999999">
+    </label>
+
+    <label>Ramo da empresa *
+      <select name="segmento" required>
+        <option value="">Selecione</option>
+        <option>Loja / comércio</option>
+        <option>Prestação de serviços</option>
+        <option>Restaurante / alimentação</option>
+        <option>Beleza / estética</option>
+        <option>Saúde / bem-estar</option>
+        <option>Educação / cursos</option>
+        <option>Tecnologia</option>
+        <option>Outro</option>
+      </select>
+    </label>
+
+    <label>Instagram (URL)
+      <input name="instagram" type="url" placeholder="https://www.instagram.com/suaempresa/">
+    </label>
+
+    <label>Prazo desejado *
+      <select name="prazo" required>
+        <option value="">Selecione</option>
+        <option>2 semanas</option>
+        <option>3 semanas</option>
+        <option>4 semanas</option>
+        <option>5 semanas</option>
+        <option>6 semanas</option>
+        <option>7 semanas</option>
+        <option>8 semanas (até 2 meses)</option>
+      </select>
+    </label>
+
+    <label>Estilo visual
+      <select name="estilo">
+        <option>Moderno e profissional</option>
+        <option>Minimalista e elegante</option>
+        <option>Luxuoso e sofisticado</option>
+        <option>Criativo e colorido</option>
+        <option>Tecnológico</option>
+        <option>Clássico</option>
+      </select>
+    </label>
+
+  </div>
+
+  <div class="custom">
+
+    <div>
+      <h3>Escolha as cores</h3>
+      <p class="muted">
+        Mude as cores para ver a prévia. Não é possível publicar
+        o site por esta tela.
+      </p>
+
+      <div class="colors">
+        <label>Cor principal
+          <input type="color" name="cor_principal" id="corPrincipal" value="#2563eb">
+        </label>
+
+        <label>Cor de fundo
+          <input type="color" name="cor_fundo" id="corFundo" value="#ffffff">
+        </label>
+      </div>
+
+      <fieldset class="checks">
+        <legend>Funcionalidades desejadas</legend>
+
+        <label><input type="checkbox" name="funcionalidades" value="WhatsApp"> WhatsApp</label>
+        <label><input type="checkbox" name="funcionalidades" value="Agendamento online"> Agendamento online</label>
+        <label><input type="checkbox" name="funcionalidades" value="Formulário de contato"> Formulário de contato</label>
+        <label><input type="checkbox" name="funcionalidades" value="Catálogo"> Catálogo de produtos/serviços</label>
+        <label><input type="checkbox" name="funcionalidades" value="Integração com redes sociais"> Integração com redes sociais</label>
+      </fieldset>
+    </div>
+
+    <div class="preview" id="preview">
+      <div class="previewnav">
+        <strong id="previewNome">Sua Empresa</strong>
+        <span>Início · Sobre · Contato</span>
+      </div>
+
+      <div class="previewhero">
+        <small>SEU NEGÓCIO ONLINE</small>
+        <h2>Uma presença digital com a sua identidade.</h2>
+        <p>Prévia visual para inspirar o projeto da sua empresa.</p>
+        <span class="previewcta">Conheça nosso trabalho</span>
+      </div>
+
+      <small style="color:#64748b">
+        Prévia ilustrativa — não é o site final.
+      </small>
+    </div>
+
+  </div>
+
+  <label>Como você imagina o site? *
+    <textarea name="descricao" required rows="5" maxlength="5000"
+      placeholder="Conte o que sua empresa faz e o que quer destacar."></textarea>
+  </label>
+
+  <label>Links de referência
+    <input name="referencias" placeholder="Links de sites de que gosta">
+  </label>
+
+  <label>Outras observações
+    <textarea name="observacoes" rows="3" maxlength="3000"
+      placeholder="Detalhes adicionais"></textarea>
+  </label>
+
+  <button class="btn" id="submitBtn" type="submit">
+    Enviar briefing de teste
+  </button>
+
+  <div id="status" class="status" role="status" aria-live="polite"></div>
+
+  <p class="small">
+    O envio registra as preferências para a equipe analisar.
+    Não realiza pagamento e não cria automaticamente o site final.
+  </p>
+
+</form>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL =
+  "https://bngxigbyxrksctylyanw.supabase.co";
+
+const SUPABASE_ANON_KEY =
+  "sb_publishable_WYRvOzBLQuUDMPf_ZK9qmg_lvIXaHyo";
+
+const db = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+
+const form = document.getElementById("briefingForm");
+const cp = document.getElementById("corPrincipal");
+const cf = document.getElementById("corFundo");
+const company = form.elements.empresa;
+const preview = document.getElementById("preview");
+
+function updatePreview() {
+  preview.style.setProperty("--vp", cp.value);
+  preview.style.setProperty("--vf", cf.value);
+
+  document.getElementById("previewNome").textContent =
+    company.value.trim() || "Sua Empresa";
+}
+
+[cp, cf, company].forEach(element => {
+  element.addEventListener("input", updatePreview);
+});
+
+updatePreview();
+
+form.addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const btn = document.getElementById("submitBtn");
+  const status = document.getElementById("status");
+
+  btn.disabled = true;
+  btn.textContent = "Enviando...";
+  status.textContent = "";
+
+  const fd = new FormData(form);
+
+  const phone = String(fd.get("whatsapp") || "")
+    .replace(/\D/g, "");
+
+  if (phone.length < 10 || phone.length > 15) {
+    status.textContent =
+      "Confira o WhatsApp com código do país e DDD.";
+
+    btn.disabled = false;
+    btn.textContent = "Enviar briefing de teste";
+    return;
+  }
+
+  const instagram = String(fd.get("instagram") || "").trim();
+
+  if (
+    instagram &&
+    !/^https:\/\/(www\.)?instagram\.com\//i.test(instagram)
+  ) {
+    status.textContent =
+      "Cole uma URL válida do Instagram começando por https://www.instagram.com/";
+
+    btn.disabled = false;
+    btn.textContent = "Enviar briefing de teste";
+    return;
+  }
+
+  const payload = {
+    nome: String(fd.get("nome")).trim(),
+    empresa: String(fd.get("empresa")).trim(),
+    email: String(fd.get("email")).trim(),
+    whatsapp: phone,
+    segmento: fd.get("segmento"),
+    instagram: instagram || null,
+    prazo: fd.get("prazo"),
+    estilo: fd.get("estilo"),
+    cor_principal: fd.get("cor_principal"),
+    cor_fundo: fd.get("cor_fundo"),
+    funcionalidades: fd.getAll("funcionalidades"),
+    descricao: String(fd.get("descricao")).trim(),
+    referencias: String(fd.get("referencias") || "").trim() || null,
+    observacoes: String(fd.get("observacoes") || "").trim() || null,
+    status: "novo"
+  };
+
+  try {
+    const { error } = await db
+      .from("vortex_briefings")
+      .insert(payload);
+
+    if (error) throw error;
+
+    status.textContent =
+      "Briefing registrado! A equipe Vortex Tech poderá analisar suas preferências.";
+
+    btn.textContent = "Enviado com sucesso";
+
+  } catch (error) {
+    console.error(error);
+
+    status.textContent =
+      "Não foi possível gravar o briefing. Confira se a tabela vortex_briefings e as políticas RLS estão configuradas no Supabase.";
+
+    btn.disabled = false;
+    btn.textContent = "Enviar briefing de teste";
+  }
+});
+</script>
+
+</body>
+</html>
