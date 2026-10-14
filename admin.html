@@ -3,32 +3,33 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Vortex Tech | Administração e Desenvolvedor</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vortex Tech | Administração</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#090e19;color:#f7f9ff;line-height:1.5}
-a{color:#e6bd65}button,input,select,textarea{font:inherit}
+body{margin:0;font-family:Arial,sans-serif;background:#090e19;color:#f7f9ff;line-height:1.5}
 .hidden{display:none!important}
+a{color:#e6bd65}
+button,input,select,textarea{font:inherit}
 .login{min-height:100vh;display:grid;place-items:center;padding:20px}
 .card{background:#131c2c;border:1px solid #293950;border-radius:16px;padding:22px}
 .login .card{width:min(100%,430px)}
-h1,h2,h3{margin-top:0}h1{color:#e6bd65}
-.muted{color:#aebed0;font-size:13px}
+h1{color:#e6bd65}
 .field{display:grid;gap:6px;margin:12px 0}
-.field input,.field select,.field textarea{width:100%;padding:12px;border-radius:8px;border:1px solid #40516a;background:#090e19;color:#fff}
+.field input,.field select,.field textarea{width:100%;padding:12px;border:1px solid #40516a;border-radius:8px;background:#090e19;color:white}
 .btn{border:1px solid #e6bd65;border-radius:9px;padding:11px 15px;background:#e6bd65;color:#10131a;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
-.btn.alt{background:transparent;color:#f7f9ff;border-color:#40516a}
-.btn.green{background:#16834a;border-color:#16834a;color:#fff}
+.btn.alt{background:transparent;color:white;border-color:#40516a}
+.btn.green{background:#16834a;border-color:#16834a;color:white}
 .btn:disabled{opacity:.6}
+.muted{color:#aebed0;font-size:13px}
 .top{padding:18px clamp(16px,4vw,38px);display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;background:#131c2c;border-bottom:1px solid #293950}
 .top h1{margin:0}
 .wrap{max-width:1280px;margin:auto;padding:24px 16px 55px}
 .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0}
 .metric strong{display:block;font-size:28px;color:#e6bd65}
 .metric span{font-size:13px;color:#aebed0}
-.toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:end}
+.toolbar,.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:end}
 .toolbar .field{flex:1;min-width:190px}
 .tablewrap{overflow:auto;margin-top:16px}
 table{width:100%;border-collapse:collapse;min-width:1000px}
@@ -36,269 +37,376 @@ th,td{text-align:left;padding:12px;border-bottom:1px solid #293950;vertical-alig
 th{font-size:11px;color:#aebed0;text-transform:uppercase}
 td strong{display:block;font-size:14px}
 .pill{display:inline-block;border-radius:30px;padding:4px 8px;background:#1e3450;font-size:12px}
-.actions{display:flex;gap:7px;flex-wrap:wrap}
 .actions .btn{font-size:12px;padding:8px 10px}
-.notice{padding:12px;border-radius:8px;background:#142d48;color:#dbeafe;margin:12px 0;font-size:13px}
+.notice{padding:12px;border-radius:8px;background:#142d48;color:#dbeafe;margin:12px 0;font-size:13px;overflow-wrap:anywhere}
 .notice.error{background:#4a1e25;color:#fecaca}
 .editor{margin-top:18px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .summary{white-space:pre-wrap;overflow-wrap:anywhere;color:#d6deeb;font-size:13px}
 .empty{padding:30px;text-align:center;color:#aebed0}
-@media(max-width:760px){.metrics{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.top{align-items:flex-start}.wrap{padding-top:15px}}
+@media(max-width:760px){.metrics,.grid2{grid-template-columns:repeat(2,minmax(0,1fr))}.top{align-items:flex-start}}
+@media(max-width:520px){.metrics,.grid2{grid-template-columns:1fr}.wrap{padding-top:15px}}
 </style>
 </head>
 <body>
 
 <section id="login" class="login">
-<div class="card">
-<h1>VORTEX TECH</h1>
-<h2>Área do Administrador / Desenvolvedor</h2>
-<p class="muted">Entre com sua conta administrativa cadastrada no Supabase.</p>
-<form id="loginForm">
-<label class="field">E-mail<input id="email" type="email" required autocomplete="username"></label>
-<label class="field">Senha<input id="senha" type="password" required autocomplete="current-password"></label>
-<button id="loginBtn" class="btn" type="submit" style="width:100%">Entrar</button>
-<div id="loginMsg" class="notice hidden" role="status"></div>
-</form>
-<p class="muted"><a href="index.html">Voltar para o site</a></p>
-</div>
+  <div class="card">
+    <h1>VORTEX TECH</h1>
+    <h2>Área do Administrador</h2>
+    <p class="muted">Entre com sua conta administrativa do Supabase.</p>
+    <form id="loginForm">
+      <label class="field">E-mail
+        <input id="email" type="email" required autocomplete="username">
+      </label>
+      <label class="field">Senha
+        <input id="senha" type="password" required autocomplete="current-password">
+      </label>
+      <button id="loginBtn" class="btn" type="submit" style="width:100%">Entrar no painel</button>
+      <div id="loginMsg" class="notice hidden" role="status"></div>
+    </form>
+    <p><a href="index.html">Voltar para o site</a></p>
+  </div>
 </section>
 
 <section id="app" class="hidden">
 <header class="top">
-<div><h1>VORTEX TECH</h1><div class="muted">Lista de espera · Projetos · Prazos · WhatsApp</div></div>
-<div class="actions">
-<a class="btn alt" href="index.html">Ver site</a>
-<button id="refresh" class="btn alt" type="button">Atualizar lista</button>
-<button id="logout" class="btn" type="button">Sair</button>
-</div>
+  <div>
+    <h1>VORTEX TECH</h1>
+    <div class="muted">Clientes · Briefings · Prazos · Projetos</div>
+  </div>
+  <div class="actions">
+    <a class="btn alt" href="index.html">Ver site</a>
+    <button id="refresh" class="btn alt" type="button">Atualizar lista</button>
+    <button id="logout" class="btn" type="button">Sair</button>
+  </div>
 </header>
+
 <main class="wrap">
-<h2>Gestão de projetos</h2>
-<p id="welcome" class="muted"></p>
-<div class="metrics">
-<div class="card metric"><span>Total de briefings</span><strong id="mTotal">0</strong></div>
-<div class="card metric"><span>Lista de espera</span><strong id="mNovo">0</strong></div>
-<div class="card metric"><span>Aguardando cliente</span><strong id="mWait">0</strong></div>
-<div class="card metric"><span>Em desenvolvimento</span><strong id="mDev">0</strong></div>
-</div>
+  <h2>Gestão de projetos</h2>
+  <p id="welcome" class="muted"></p>
 
-<div class="card">
-<div class="toolbar">
-<label class="field">Buscar cliente / empresa / e-mail<input id="search" placeholder="Digite para filtrar"></label>
-<label class="field">Filtrar status<select id="filter">
-<option value="">Todos</option><option value="novo">Novo / lista de espera</option>
-<option value="em_analise">Em análise</option><option value="aguardando_cliente">Aguardando cliente</option>
-<option value="em_desenvolvimento">Em desenvolvimento</option><option value="concluido">Concluído</option><option value="cancelado">Cancelado</option>
-</select></label>
-</div>
-<div id="listMsg" class="notice hidden"></div>
-<div class="tablewrap"><table><thead><tr><th>Cliente</th><th>Projeto</th><th>Prazo pedido</th><th>Data combinada</th><th>Status</th><th>Ações</th></tr></thead><tbody id="rows"></tbody></table></div>
-<div id="empty" class="empty hidden">Nenhum briefing encontrado.</div>
-</div>
+  <div class="metrics">
+    <div class="card metric"><span>Total de briefings</span><strong id="mTotal">—</strong></div>
+    <div class="card metric"><span>Lista de espera</span><strong id="mNovo">—</strong></div>
+    <div class="card metric"><span>Aguardando cliente</span><strong id="mWait">—</strong></div>
+    <div class="card metric"><span>Em desenvolvimento</span><strong id="mDev">—</strong></div>
+  </div>
 
-<section id="editor" class="card editor hidden">
-<div class="toolbar" style="justify-content:space-between;align-items:center">
-<div><h2 id="edTitle">Projeto</h2><p id="edSubtitle" class="muted"></p></div>
-<button id="closeEditor" class="btn alt" type="button">Fechar</button>
-</div>
-<form id="editForm">
-<input id="edId" type="hidden">
-<div class="grid2">
-<label class="field">WhatsApp (com código do país e DDD)<input id="edPhone" inputmode="tel" placeholder="5531999999999"></label>
-<label class="field">Data prevista de entrega<input id="edDate" type="date"></label>
-<label class="field">Status<select id="edStatus">
-<option value="novo">Novo / lista de espera</option><option value="em_analise">Em análise</option><option value="aguardando_cliente">Aguardando cliente</option><option value="em_desenvolvimento">Em desenvolvimento</option><option value="concluido">Concluído</option><option value="cancelado">Cancelado</option>
-</select></label>
-<label class="field">Modelo de mensagem<select id="msgType">
-<option value="prazo">Propor novo prazo</option><option value="recebido">Confirmar recebimento</option><option value="info">Solicitar informações</option><option value="custom">Mensagem personalizada</option>
-</select></label>
-</div>
-<label id="customWrap" class="field hidden">Mensagem personalizada<textarea id="customMsg" rows="4"></textarea></label>
-<p class="muted">Salvar alterações atualiza o briefing. O WhatsApp abre com o texto preenchido; revise e clique em Enviar no WhatsApp.</p>
-<div class="actions"><button class="btn" type="submit">Salvar alterações</button><button id="openWa" class="btn green" type="button">Abrir WhatsApp com mensagem</button></div>
-<div id="editMsg" class="notice hidden"></div>
-</form>
-<hr style="border-color:#293950;margin:22px 0">
-<h3>Informações do briefing</h3>
-<div id="summary" class="summary"></div>
-</section>
+  <div class="card">
+    <div class="toolbar">
+      <label class="field">Buscar cliente, empresa ou e-mail
+        <input id="search" placeholder="Digite para buscar">
+      </label>
+      <label class="field">Filtrar por status
+        <select id="filter">
+          <option value="">Todos</option>
+          <option value="novo">Novo / lista de espera</option>
+          <option value="em_analise">Em análise</option>
+          <option value="aguardando_cliente">Aguardando cliente</option>
+          <option value="em_desenvolvimento">Em desenvolvimento</option>
+          <option value="concluido">Concluído</option>
+          <option value="cancelado">Cancelado</option>
+        </select>
+      </label>
+    </div>
+
+    <div id="listMsg" class="notice hidden"></div>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr><th>Cliente</th><th>Projeto</th><th>Prazo pedido</th><th>Data prevista</th><th>Status</th><th>Ações</th></tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <div id="empty" class="empty hidden">Nenhum briefing encontrado.</div>
+  </div>
+
+  <section id="editor" class="card editor hidden">
+    <div class="toolbar" style="justify-content:space-between;align-items:center">
+      <div><h2 id="edTitle">Projeto</h2><p id="edSubtitle" class="muted"></p></div>
+      <button id="closeEditor" class="btn alt" type="button">Fechar</button>
+    </div>
+
+    <form id="editForm">
+      <input id="edId" type="hidden">
+      <div class="grid2">
+        <label class="field">WhatsApp com DDD e código do país
+          <input id="edPhone" inputmode="tel" placeholder="5531999999999">
+        </label>
+        <label class="field">Data prevista de entrega
+          <input id="edDate" type="date">
+        </label>
+        <label class="field">Status
+          <select id="edStatus">
+            <option value="novo">Novo / lista de espera</option>
+            <option value="em_analise">Em análise</option>
+            <option value="aguardando_cliente">Aguardando cliente</option>
+            <option value="em_desenvolvimento">Em desenvolvimento</option>
+            <option value="concluido">Concluído</option>
+            <option value="cancelado">Cancelado</option>
+          </select>
+        </label>
+        <label class="field">Modelo de mensagem
+          <select id="msgType">
+            <option value="prazo">Propor novo prazo</option>
+            <option value="recebido">Confirmar recebimento</option>
+            <option value="info">Solicitar informações</option>
+            <option value="custom">Mensagem personalizada</option>
+          </select>
+        </label>
+      </div>
+
+      <label id="customWrap" class="field hidden">Mensagem personalizada
+        <textarea id="customMsg" rows="4"></textarea>
+      </label>
+      <p class="muted">A mensagem será aberta no WhatsApp para você revisar e enviar. Ela não será enviada automaticamente.</p>
+      <div class="actions">
+        <button class="btn" id="saveBtn" type="submit">Salvar alterações</button>
+        <button id="openWa" class="btn green" type="button">Abrir WhatsApp</button>
+      </div>
+      <div id="editMsg" class="notice hidden" role="status"></div>
+    </form>
+
+    <hr style="border-color:#293950;margin:22px 0">
+    <h3>Detalhes do briefing</h3>
+    <div id="summary" class="summary"></div>
+  </section>
 </main>
 </section>
 
 <script>
+"use strict";
 (() => {
-const URL="https://bngxigbyxrksctylyanw.supabase.co";
-const KEY="sb_publishable_WYRvOzBLQuUDMPf_ZK9qmg_lvIXaHyo";
-const db=window.supabase.createClient(URL,KEY,{auth:{persistSession:true,autoRefreshToken:true}});
-const $=id=>document.getElementById(id);
-let rows=[],selected=null;
+  const URL="https://bngxigbyxrksctylyanw.supabase.co";
+  const KEY="sb_publishable_WYRvOzBLQuUDMPf_ZK9qmg_lvIXaHyo";
+  const db=window.supabase.createClient(URL,KEY);
+  const $=id=>document.getElementById(id);
+  let records=[];
+  let selected=null;
 
-const labels={novo:"Novo / lista de espera",em_analise:"Em análise",aguardando_cliente:"Aguardando cliente",em_desenvolvimento:"Em desenvolvimento",concluido:"Concluído",cancelado:"Cancelado"};
-const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const dateText=s=>s?new Date(s+"T12:00:00").toLocaleDateString("pt-BR"):"Não definida";
-
-function msg(id,text,error=false){
-  $(id).textContent=text;
-  $(id).classList.remove("hidden");
-  $(id).classList.toggle("error",error);
-}
-
-async function adminProfile(user){
-  const {data,error}=await db.from("profiles").select("nome,cargo").eq("id",user.id).single();
-  if(error)console.error("Erro ao consultar perfil:",error);
-  return !error&&data&&data.cargo==="admin"?data:null;
-}
-
-async function enter(user){
-  const profile=await adminProfile(user);
-  if(!profile){
-    await db.auth.signOut();
-    msg("loginMsg","Esta conta não tem permissão de administrador.",true);
-    return;
-  }
-  $("login").classList.add("hidden");
-  $("app").classList.remove("hidden");
-  $("welcome").textContent="Bem-vindo, "+(profile.nome||user.email);
-  await load();
-}
-
-async function load(){
-  $("listMsg").classList.add("hidden");
-  const {data,error}=await db.from("vortex_briefings").select("*").order("created_at",{ascending:false}).limit(500);
-  if(error){
-    console.error(error);
-    msg("listMsg","Não foi possível carregar os briefings. Confira a tabela, as colunas e as políticas RLS para administradores.",true);
-    return;
-  }
-  rows=data||[];
-  $("mTotal").textContent=rows.length;
-  $("mNovo").textContent=rows.filter(x=>x.status==="novo").length;
-  $("mWait").textContent=rows.filter(x=>x.status==="aguardando_cliente").length;
-  $("mDev").textContent=rows.filter(x=>x.status==="em_desenvolvimento").length;
-  render();
-}
-
-function render(){
-  const q=$("search").value.trim().toLowerCase(),f=$("filter").value;
-  const data=rows.filter(r=>(!f||r.status===f)&&[r.nome,r.empresa,r.email,r.whatsapp].some(v=>String(v||"").toLowerCase().includes(q)));
-  $("rows").innerHTML=data.map(r=>`<tr>
-<td><strong>${esc(r.empresa)}</strong>${esc(r.nome)}<br><span class="muted">${esc(r.email)}</span><br><span class="muted">${esc(r.whatsapp||"WhatsApp não cadastrado")}</span></td>
-<td>${esc(r.segmento)}<br><span class="muted">${esc(r.estilo||"")}</span><br><span class="muted">${esc((Array.isArray(r.funcionalidades)?r.funcionalidades:[]).join(", "))}</span></td>
-<td>${esc(r.prazo||"—")}</td><td>${esc(dateText(r.data_prevista))}</td>
-<td><span class="pill">${esc(labels[r.status]||r.status||"—")}</span></td>
-<td><div class="actions"><button class="btn" data-open="${esc(r.id)}" type="button">Abrir / editar</button>${r.whatsapp?`<button class="btn green" data-wa="${esc(r.id)}" type="button">WhatsApp</button>`:""}</div></td>
-</tr>`).join("");
-
-  $("empty").classList.toggle("hidden",data.length>0);
-  document.querySelectorAll("[data-open]").forEach(b=>b.onclick=()=>openEditor(rows.find(r=>String(r.id)===b.dataset.open)));
-  document.querySelectorAll("[data-wa]").forEach(b=>b.onclick=()=>{
-    const r=rows.find(x=>String(x.id)===b.dataset.wa);
-    if(r){openEditor(r);setTimeout(openWA,0);}
-  });
-}
-
-function openEditor(r){
-  if(!r)return;
-  selected=r;
-  $("edId").value=r.id;
-  $("edTitle").textContent=r.empresa||"Projeto";
-  $("edSubtitle").textContent=`${r.nome||"Cliente"} · ${r.email||""} · prazo solicitado: ${r.prazo||"—"}`;
-  $("edPhone").value=r.whatsapp||"";
-  $("edDate").value=r.data_prevista||"";
-  $("edStatus").value=r.status||"novo";
-  $("msgType").value="prazo";
-  $("customMsg").value=`Olá, ${r.nome||""}! Aqui é da Vortex Tech. Analisamos o prazo do projeto da ${r.empresa||"sua empresa"} e precisamos combinar uma nova previsão de entrega. Nossa sugestão é ${$("edDate").value?dateText($("edDate").value):"uma nova data a combinar"}. Esse prazo funciona para você?`;
-  $("summary").textContent=`Descrição: ${r.descricao||"—"}
-Instagram: ${r.instagram||"—"}
-Estilo: ${r.estilo||"—"}
-Cor principal: ${r.cor_principal||"—"}
-Cor de fundo: ${r.cor_fundo||"—"}
-Funcionalidades: ${(Array.isArray(r.funcionalidades)?r.funcionalidades:[]).join(", ")||"—"}
-Referências: ${r.referencias||"—"}
-Observações: ${r.observacoes||"—"}`;
-  $("editMsg").classList.add("hidden");
-  $("customWrap").classList.add("hidden");
-  $("editor").classList.remove("hidden");
-  $("editor").scrollIntoView({behavior:"smooth",block:"start"});
-}
-
-function phone(){return $("edPhone").value.replace(/\D/g,"");}
-
-function buildMessage(){
-  if(!selected)return "";
-  const kind=$("msgType").value,name=selected.nome||"tudo bem",company=selected.empresa||"sua empresa";
-  if(kind==="custom")return $("customMsg").value.trim();
-  if(kind==="recebido")return `Olá, ${name}! Recebemos o briefing do projeto da ${company} na Vortex Tech. Nossa equipe vai analisar os detalhes e entraremos em contato.`;
-  if(kind==="info")return `Olá, ${name}! Aqui é da Vortex Tech. Precisamos de algumas informações adicionais para avançar com o projeto da ${company}. Pode falar com a gente por aqui?`;
-  return `Olá, ${name}! Aqui é da equipe Vortex Tech. Analisamos o prazo solicitado para o site da ${company} e precisamos combinar uma nova previsão. Nossa sugestão é ${$("edDate").value?dateText($("edDate").value):"uma data a combinar"}. Esse prazo funciona para você?`;
-}
-
-function openWA(){
-  if(!selected)return;
-  const p=phone();
-  if(p.length<10||p.length>15){
-    msg("editMsg","Informe o WhatsApp com código do país e DDD, por exemplo 5531999999999.",true);
-    return;
-  }
-  window.open("https://wa.me/"+p+"?text="+encodeURIComponent(buildMessage()),"_blank","noopener");
-}
-
-$("loginForm").addEventListener("submit",async e=>{
-  e.preventDefault();
-  $("loginBtn").disabled=true;
-  const {data,error}=await db.auth.signInWithPassword({email:$("email").value.trim(),password:$("senha").value});
-  $("loginBtn").disabled=false;
-  if(error){msg("loginMsg","Não foi possível entrar. Confira o e-mail e a senha.",true);return;}
-  await enter(data.user);
-});
-
-$("logout").onclick=async()=>{await db.auth.signOut();location.reload();};
-$("refresh").onclick=load;
-$("search").oninput=render;
-$("filter").onchange=render;
-$("closeEditor").onclick=()=>$("editor").classList.add("hidden");
-$("msgType").onchange=()=>$("customWrap").classList.toggle("hidden",$("msgType").value!=="custom");
-$("openWa").onclick=openWA;
-
-$("editForm").addEventListener("submit",async e=>{
-  e.preventDefault();
-  if(!selected)return;
-  const p=phone();
-  if(p&&(p.length<10||p.length>15)){
-    msg("editMsg","Confira o número com código do país e DDD.",true);
-    return;
-  }
-
-  const payload={
-    whatsapp:p||null,
-    data_prevista:$("edDate").value||null,
-    status:$("edStatus").value,
-    atualizado_em:new Date().toISOString()
+  const labels={
+    novo:"Novo / lista de espera",
+    em_analise:"Em análise",
+    aguardando_cliente:"Aguardando cliente",
+    em_desenvolvimento:"Em desenvolvimento",
+    concluido:"Concluído",
+    cancelado:"Cancelado"
   };
 
-  const {data,error}=await db.from("vortex_briefings")
-    .update(payload).eq("id",selected.id).select("id");
+  const esc=value=>String(value??"").replace(/[&<>"']/g,c=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  })[c]);
 
-  if(error){
-    console.error(error);
-    msg("editMsg","Falha ao salvar. Confira a coluna data_prevista e as permissões RLS.",true);
-    return;
-  }
-  if(!data||!data.length){
-    msg("editMsg","Nenhum registro foi atualizado. Confira as permissões do administrador.",true);
-    return;
+  function notice(id,text,error=false){
+    $(id).textContent=text;
+    $(id).classList.remove("hidden");
+    $(id).classList.toggle("error",error);
   }
 
-  msg("editMsg","Alterações salvas com sucesso.");
-  await load();
-  selected=rows.find(r=>String(r.id)===String($("edId").value))||selected;
-});
+  async function checkAdmin(user){
+    const {data,error}=await db.from("profiles")
+      .select("nome,cargo").eq("id",user.id).maybeSingle();
 
-db.auth.getSession().then(({data,error})=>{
-  if(error){console.error(error);return;}
-  if(data.session)enter(data.session.user);
-});
+    if(error){console.error("Erro ao verificar perfil:",error);return null}
+    return data&&data.cargo==="admin"?data:null;
+  }
+
+  async function enter(user){
+    const profile=await checkAdmin(user);
+    if(!profile){
+      await db.auth.signOut();
+      $("login").classList.remove("hidden");
+      notice("loginMsg","A conta não tem perfil administrativo. Verifique profiles.cargo = admin.",true);
+      return;
+    }
+    $("login").classList.add("hidden");
+    $("app").classList.remove("hidden");
+    $("welcome").textContent="Bem-vindo, "+(profile.nome||user.email);
+    await load();
+  }
+
+  async function load(){
+    $("listMsg").classList.add("hidden");
+    const {data,error}=await db.from("vortex_briefings")
+      .select("*").order("created_at",{ascending:false}).limit(500);
+
+    if(error){
+      console.error("Erro ao carregar briefings:",error);
+      notice("listMsg","Não foi possível carregar os briefings. Verifique a tabela, as colunas e as políticas RLS.",true);
+      return;
+    }
+
+    records=data||[];
+    $("mTotal").textContent=records.length;
+    $("mNovo").textContent=records.filter(r=>(r.status||"novo")==="novo").length;
+    $("mWait").textContent=records.filter(r=>r.status==="aguardando_cliente").length;
+    $("mDev").textContent=records.filter(r=>r.status==="em_desenvolvimento").length;
+    render();
+  }
+
+  function render(){
+    const q=$("search").value.trim().toLowerCase();
+    const status=$("filter").value;
+    const filtered=records.filter(r=>
+      (!status||r.status===status)&&
+      [r.nome,r.empresa,r.email,r.whatsapp].some(v=>String(v||"").toLowerCase().includes(q))
+    );
+
+    $("rows").innerHTML=filtered.map(r=>`
+      <tr>
+        <td><strong>${esc(r.empresa)}</strong>${esc(r.nome)}<br>
+          <span class="muted">${esc(r.email)}</span><br>
+          <span class="muted">${esc(r.whatsapp||"Sem WhatsApp")}</span>
+        </td>
+        <td>${esc(r.segmento)}<br><span class="muted">${esc(r.estilo)}</span><br>
+          <span class="muted">${esc(Array.isArray(r.funcionalidades)?r.funcionalidades.join(", "):"")}</span>
+        </td>
+        <td>${esc(r.prazo||"—")}</td>
+        <td>${esc(r.data_prevista?new Date(r.data_prevista+"T12:00:00").toLocaleDateString("pt-BR"):"Não definida")}</td>
+        <td><span class="pill">${esc(labels[r.status]||r.status||"novo")}</span></td>
+        <td><div class="actions">
+          <button class="btn" type="button" data-edit="${esc(r.id)}">Abrir / editar</button>
+          ${r.whatsapp?`<button class="btn green" type="button" data-wa="${esc(r.id)}">WhatsApp</button>`:""}
+        </div></td>
+      </tr>`).join("");
+
+    $("empty").classList.toggle("hidden",filtered.length>0);
+
+    document.querySelectorAll("[data-edit]").forEach(b=>{
+      b.onclick=()=>openEditor(records.find(r=>String(r.id)===b.dataset.edit));
+    });
+    document.querySelectorAll("[data-wa]").forEach(b=>{
+      b.onclick=()=>{
+        openEditor(records.find(r=>String(r.id)===b.dataset.wa));
+        openWA();
+      };
+    });
+  }
+
+  function openEditor(r){
+    if(!r)return;
+    selected=r;
+    $("edId").value=r.id;
+    $("edTitle").textContent=r.empresa||"Projeto";
+    $("edSubtitle").textContent=(r.nome||"Cliente")+" · "+(r.email||"");
+    $("edPhone").value=r.whatsapp||"";
+    $("edDate").value=r.data_prevista||"";
+    $("edStatus").value=r.status||"novo";
+    $("msgType").value="prazo";
+    $("customMsg").value="";
+    $("customWrap").classList.add("hidden");
+    $("editMsg").classList.add("hidden");
+    $("summary").textContent=
+      "Descrição: "+(r.descricao||"—")+
+      "\nInstagram: "+(r.instagram||"—")+
+      "\nEstilo: "+(r.estilo||"—")+
+      "\nCor principal: "+(r.cor_principal||"—")+
+      "\nCor de fundo: "+(r.cor_fundo||"—")+
+      "\nFuncionalidades: "+(Array.isArray(r.funcionalidades)?r.funcionalidades.join(", "):"—")+
+      "\nReferências: "+(r.referencias||"—")+
+      "\nObservações: "+(r.observacoes||"—");
+    $("editor").classList.remove("hidden");
+    $("editor").scrollIntoView({behavior:"smooth",block:"start"});
+  }
+
+  function phone(){return $("edPhone").value.replace(/\D/g,"")}
+
+  function buildMessage(){
+    if(!selected)return "";
+    const name=selected.nome||"tudo bem";
+    const company=selected.empresa||"sua empresa";
+    const kind=$("msgType").value;
+
+    if(kind==="custom")return $("customMsg").value.trim();
+    if(kind==="recebido")return `Olá, ${name}! Recebemos o briefing do projeto da ${company} na Vortex Tech. Nossa equipe vai analisar os detalhes e entraremos em contato.`;
+    if(kind==="info")return `Olá, ${name}! Aqui é da Vortex Tech. Precisamos de algumas informações adicionais sobre o projeto da ${company}. Podemos conversar por aqui?`;
+
+    const date=$("edDate").value;
+    const dateText=date?new Date(date+"T12:00:00").toLocaleDateString("pt-BR"):"uma nova data a combinar";
+    return `Olá, ${name}! Aqui é da Vortex Tech. Precisamos combinar a previsão de entrega do projeto da ${company}. Nossa sugestão é ${dateText}. Esse prazo funciona para você?`;
+  }
+
+  function openWA(){
+    if(!selected)return;
+    const p=phone();
+    if(p.length<10||p.length>15){
+      notice("editMsg","Informe o WhatsApp com código do país e DDD, por exemplo 5531999999999.",true);
+      return;
+    }
+    window.open("https://wa.me/"+p+"?text="+encodeURIComponent(buildMessage()),"_blank","noopener");
+  }
+
+  $("loginForm").addEventListener("submit",async e=>{
+    e.preventDefault();
+    $("loginBtn").disabled=true;
+    $("loginMsg").classList.add("hidden");
+    try{
+      const {data,error}=await db.auth.signInWithPassword({
+        email:$("email").value.trim(),password:$("senha").value
+      });
+      if(error)throw error;
+      await enter(data.user);
+    }catch(error){
+      console.error(error);
+      notice("loginMsg","Não foi possível entrar. Confira as credenciais e o perfil administrativo.",true);
+    }finally{
+      $("loginBtn").disabled=false;
+    }
+  });
+
+  $("editForm").addEventListener("submit",async e=>{
+    e.preventDefault();
+    if(!selected)return;
+    const p=phone();
+    if(p&&(p.length<10||p.length>15)){
+      notice("editMsg","Confira o telefone com código do país e DDD.",true);
+      return;
+    }
+
+    $("saveBtn").disabled=true;
+    const changes={
+      whatsapp:p||null,
+      data_prevista:$("edDate").value||null,
+      status:$("edStatus").value,
+      atualizado_em:new Date().toISOString()
+    };
+
+    try{
+      const {data,error}=await db.from("vortex_briefings")
+        .update(changes).eq("id",selected.id).select("id");
+
+      if(error)throw error;
+      if(!data||!data.length){
+        notice("editMsg","Nenhuma linha foi atualizada. Verifique as permissões RLS.",true);
+        return;
+      }
+      notice("editMsg","Alterações salvas com sucesso.");
+      await load();
+      selected=records.find(r=>String(r.id)===String($("edId").value))||selected;
+    }catch(error){
+      console.error(error);
+      notice("editMsg","Erro ao salvar. Confira as colunas data_prevista e atualizado_em e as políticas RLS.",true);
+    }finally{
+      $("saveBtn").disabled=false;
+    }
+  });
+
+  $("msgType").addEventListener("change",()=>{
+    $("customWrap").classList.toggle("hidden",$("msgType").value!=="custom");
+  });
+  $("openWa").addEventListener("click",openWA);
+  $("closeEditor").addEventListener("click",()=>$("editor").classList.add("hidden"));
+  $("refresh").addEventListener("click",load);
+  $("search").addEventListener("input",render);
+  $("filter").addEventListener("change",render);
+  $("logout").addEventListener("click",async()=>{await db.auth.signOut();location.reload()});
+
+  db.auth.getSession().then(({data,error})=>{
+    if(error){console.error(error);return}
+    if(data.session)enter(data.session.user);
+  });
 })();
 </script>
 </body>
