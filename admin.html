@@ -201,7 +201,7 @@ const CONFIG={
 };
 
 const $=id=>document.getElementById(id);
-let db=null,briefs=[],orders=[],busy=false,authBusy=false;
+let db=null,briefs=[],orders=[],busy=false,authBusy=false,entering=false;
 let adminUser=null;
 
 const statuses={
@@ -321,7 +321,44 @@ async function verifyAdmin(user){
  return data&&String(data.cargo||"").toLowerCase()==="admin"?data:null;
 }
 
+
 async function enter(user){
+  if(entering)return;
+  entering=true;
+
+  try{
+    const profile=await verifyAdmin(user);
+
+    if(!profile){
+      await db.auth.signOut();
+      $("login").classList.remove("hidden");
+      $("app").classList.add("hidden");
+      showMsg(
+        "loginMsg",
+        "A conta entrou, mas não possui permissão de administrador. Verifique o perfil no Supabase.",
+        "error"
+      );
+      return;
+    }
+
+    adminUser=user;
+    $("login").classList.add("hidden");
+    $("app").classList.remove("hidden");
+    $("welcome").textContent="Bem-vindo, "+(profile.nome||user.email)+".";
+
+    await loadAll();
+
+  }catch(e){
+    console.error("[Vortex] Erro ao abrir o painel:",e);
+    $("login").classList.remove("hidden");
+    $("app").classList.add("hidden");
+    showMsg("loginMsg",friendlyError(e),"error");
+
+  }finally{
+    entering=false;
+  }
+}
+
  if(authBusy)return;
  authBusy=true;
  $("loginBtn").disabled=true;
