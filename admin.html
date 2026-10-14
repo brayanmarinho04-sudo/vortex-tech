@@ -159,7 +159,9 @@ const db=window.supabase.createClient(URL_BANCO,CHAVE_PUBLICA);
 const $=id=>document.getElementById(id);
 let briefs=[],orders=[],busy=false;
 const statuses={novo:"Lista de espera",em_analise:"Em análise",aguardando_cliente:"Aguardando cliente",em_desenvolvimento:"Em desenvolvimento",concluido:"Concluído",cancelado:"Cancelado"};
-const paymentNames={pago:"Pago",approved:"Aprovado",ativo:"Ativo",active:"Ativo",pendente:"Pendente",pending:"Pendente",in_process:"Em processamento",authorized:"Autorizado,rejected:"Rejeitado",rejeitado:"Rejeitado",cancelado:"Cancelado",cancelled:"Cancelado",refunded:"Reembolsado",reembolsado:"Reembolsado",erro_criacao:"Erro na criação"};
+ 
+const paymentNames={pago:"Pago",approved:"Aprovado",ativo:"Ativo",active:"Ativo",pendente:"Pendente",pending:"Pendente",in_process:"Em processamento",authorized:"Autorizado",rejected:"Rejeitado",rejeitado:"Rejeitado",cancelado:"Cancelado",cancelled:"Cancelado",refunded:"Reembolsado",reembolsado:"Reembolsado",erro_criacao:"Erro na criação"};
+
 const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function msg(id,text,type=""){const el=$(id);el.textContent=text;el.className="notice"+(type?" "+type)}
 function hide(id){$(id).classList.add("hidden")}
